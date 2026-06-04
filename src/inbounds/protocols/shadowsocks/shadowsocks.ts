@@ -13,11 +13,9 @@ import userPasswordDescription from "./userPassword.md?raw";
 import userLevelDescription from "./userLevel.md?raw";
 import userEmailDescription from "./userEmail.md?raw";
 
-export const ss22Methods = z.enum([
-  "2022-blake3-aes-128-gcm",
-  "2022-blake3-aes-256-gcm",
-  "2022-blake3-chacha20-poly1305",
-]);
+export const ss22Methods = z
+  .literal("2022-blake3-aes-128-gcm")
+  .or(z.literal("2022-blake3-aes-256-gcm").or(z.literal("2022-blake3-chacha20-poly1305")));
 
 const ss22UserSchema = z.object({
   password: z.string().optional().meta({
@@ -31,16 +29,25 @@ const ss22UserSchema = z.object({
   }),
 });
 
-export const ssMethods = z.enum([
-  "aes-256-gcm",
-  "aes-128-gcm",
-  "chacha20-poly1305",
-  "chacha20-ietf-poly1305",
-  "xchacha20-poly1305",
-  "xchacha20-ietf-poly1305",
-  "none",
-  "",
-]);
+export const ssMethods = z
+  .literal("aes-256-gcm")
+  .or(
+    z
+      .literal("aes-128-gcm")
+      .or(
+        z
+          .literal("chacha20-poly1305")
+          .or(
+            z
+              .literal("chacha20-ietf-poly1305")
+              .or(
+                z
+                  .literal("xchacha20-poly1305")
+                  .or(z.literal("xchacha20-ietf-poly1305").or(z.literal("none").or(z.literal("")))),
+              ),
+          ),
+      ),
+  );
 
 const ssUserSchema = z.object({
   password: z.string().optional().meta({
@@ -78,32 +85,33 @@ const ssSettingsBaseSchema = z.object({
     })
     .optional(),
 });
-
-const shadowsocksSettingsSchema = z
-  .discriminatedUnion("method", [
-    ssSettingsBaseSchema.extend({
-      method: ss22Methods.meta({
-        markdownDescription: methodDescription,
-      }),
-      password: z.string().min(1).meta({
-        markdownDescription: passwordDescription,
-      }),
-      users: z.array(ss22UserSchema).optional().meta({
-        markdownDescription: usersDescription,
-      }),
-    }),
-    ssSettingsBaseSchema.extend({
-      method: ssMethods.meta({
-        markdownDescription: methodDescription,
-      }),
-      users: z.array(ssUserSchema).optional().meta({
-        markdownDescription: usersDescription,
-      }),
-    }),
-  ])
-  .meta({
-    markdownDescription: shadowsocksSettingsDescription,
-  });
+const ssUsers = z.array(ssUserSchema).optional().meta({
+  markdownDescription: usersDescription,
+});
+const ssSettings = ssSettingsBaseSchema.extend({
+  method: ssMethods.meta({
+    markdownDescription: methodDescription,
+  }),
+  users: ssUsers,
+  clients: ssUsers,
+});
+const ss22Users = z.array(ss22UserSchema).optional().meta({
+  markdownDescription: usersDescription,
+});
+const ss22Settings = ssSettingsBaseSchema.extend({
+  method: ss22Methods.meta({
+    markdownDescription: methodDescription,
+  }),
+  password: z.string().min(1).meta({
+    markdownDescription: passwordDescription,
+  }),
+  users: ss22Users,
+  clients: ss22Users,
+});
+const shadowsocksSettingsSchema = z.discriminatedUnion("method", [ss22Settings, ssSettings]).meta({
+  ifThenLogic: true,
+  markdownDescription: shadowsocksSettingsDescription,
+});
 
 export const shadowsocksInboundSchema = generalInboundSchema
   .extend({
