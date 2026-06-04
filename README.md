@@ -16,8 +16,6 @@ Ideas:
   - `@gozargah/with-docs` - the documentation bundle, which includes markdown description for each field in the schema, extracted from the official docs
   - `@gozargah/full` - the full bundle, which includes both the schema and the docs, and also includes default snippets for some protocols/transports. Its JSON schema is compatible with Monaco editor, which allows for autocompletion and validation in the editor.
 
-- Using a scheduled GitHub action, the schema and docs are automatically updated whenever there is a change in the official docs. The action uses a custom Gemini prompt to extract the relevant information from the official docs and update the schema accordingly. (currently experimental)
-
 ## Usage
 
 Install the package:
