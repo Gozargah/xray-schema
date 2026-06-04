@@ -1,0 +1,51 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "reverse": {
+    "bridges": [
+      {
+        "tag": "bridge",
+        "domain": "reverse.proxy"
+      }
+    ]
+  },
+  "outbounds": [
+    {
+      "tag": "interconn",
+      "protocol": "vmess",
+      "settings": {
+        "address": "{{ protal.address }}",
+        "port": 65510,
+        "id": "{{ uuid }}"
+      },
+      "streamSettings": {
+        "network": "tcp"
+      }
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "out"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "inboundTag": [
+          "bridge"
+        ],
+        "domain": [
+          "full:reverse.proxy"
+        ],
+        "outboundTag": "interconn"
+      },
+      {
+        "inboundTag": [
+          "bridge"
+        ],
+        "outboundTag": "out"
+      }
+    ]
+  }
+}

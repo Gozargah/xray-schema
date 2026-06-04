@@ -1,0 +1,29 @@
+{
+  "label": "VLESS + gRPC + TLS",
+  "description": "VLESS inbound over gRPC with TLS",
+  "body": {
+    "protocol": "vless",
+    "listen": "0.0.0.0",
+    "port": 443,
+    "tag": "VLESS-GRPC-TLS",
+    "settings": {
+      "clients": [],
+      "decryption": "none"
+    },
+    "streamSettings": {
+      "network": "grpc",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${2:example.com}"
+      },
+      "grpcSettings": {
+        "serviceName": "${3:grpc}"
+      }
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

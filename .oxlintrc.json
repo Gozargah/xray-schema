@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/oxlint/configuration_schema.json",
+  "plugins": ["unicorn", "typescript", "oxc"],
+  "ignorePatterns": [],
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "fix": {
+          "imports": "safe-fix",
+          "variables": "off"
+        }
+      }
+    ]
+  }
+}

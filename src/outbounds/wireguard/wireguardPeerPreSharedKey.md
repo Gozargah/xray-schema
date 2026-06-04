@@ -1,0 +1,1 @@
+Additional symmetric encryption key.

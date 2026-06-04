@@ -1,0 +1,1 @@
+A map mapping local ports to required remote addresses/ports (if the inbound listens on multiple ports). If the local port is not included in this map, it is handled according to the `rewriteAddress`/`rewritePort` settings.

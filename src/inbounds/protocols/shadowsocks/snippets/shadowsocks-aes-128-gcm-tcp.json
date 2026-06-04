@@ -1,0 +1,19 @@
+{
+  "label": "Shadowsocks (aes-128-gcm)",
+  "description": "Shadowsocks AEAD inbound over TCP",
+  "body": {
+    "protocol": "shadowsocks",
+    "listen": "0.0.0.0",
+    "port": 8388,
+    "tag": "SS-AES128-TCP",
+    "settings": {
+      "network": "tcp,udp",
+      "method": "aes-128-gcm"
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

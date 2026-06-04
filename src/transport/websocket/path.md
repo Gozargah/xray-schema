@@ -1,0 +1,3 @@
+The HTTP protocol path used by WebSocket. The default value is `"/"`.
+
+If the client path contains the `ed` parameter (e.g., `/mypath?ed=2560`), `Early Data` will be enabled to reduce latency. It uses the `Sec-WebSocket-Protocol` header to carry the first packet data during the upgrade, where the value represents the first packet length threshold. If the length of the first packet exceeds this value, `Early Data` will not be enabled. The recommended value is 2560, and the maximum value is 8192. Excessively large values may cause some compatibility issues. If you encounter compatibility issues, try lowering the threshold.

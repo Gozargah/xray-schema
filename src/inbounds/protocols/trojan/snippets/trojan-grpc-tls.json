@@ -1,0 +1,28 @@
+{
+  "label": "Trojan + gRPC + TLS",
+  "description": "Trojan inbound over gRPC with TLS",
+  "body": {
+    "protocol": "trojan",
+    "listen": "0.0.0.0",
+    "port": 443,
+    "tag": "TROJAN-GRPC-TLS",
+    "settings": {
+      "users": []
+    },
+    "streamSettings": {
+      "network": "grpc",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${3:example.com}"
+      },
+      "grpcSettings": {
+        "serviceName": "${4:grpc}"
+      }
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

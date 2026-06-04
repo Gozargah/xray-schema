@@ -1,0 +1,32 @@
+{
+  "label": "Hysteria2 + TLS (server)",
+  "description": "Hysteria2 minimal server inbound (Xray-examples)",
+  "body": {
+    "protocol": "hysteria",
+    "listen": "0.0.0.0",
+    "port": 11451,
+    "tag": "IN-Hysteria2",
+    "settings": {
+      "version": 2
+    },
+    "streamSettings": {
+      "network": "hysteria",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${1:example.com}",
+        "alpn": ["h3"],
+        "certificates": [
+          {
+            "usage": "encipherment",
+            "certificateFile": "${2:/path/to/cert.pem}",
+            "keyFile": "${3:/path/to/key.pem}"
+          }
+        ]
+      },
+      "hysteriaSettings": {
+        "version": 2,
+        "auth": "${4:password}"
+      }
+    }
+  }
+}

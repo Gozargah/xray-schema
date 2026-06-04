@@ -1,0 +1,1 @@
+Password, string type. Required.

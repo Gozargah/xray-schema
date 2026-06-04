@@ -1,0 +1,1 @@
+An array containing a series of powerful fallback distribution configurations (optional). For specific fallback configurations, see [FallbackObject](https://xtls.github.io/en/config/features/fallback.html#fallbacks-configuration).

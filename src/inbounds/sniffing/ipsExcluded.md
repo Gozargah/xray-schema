@@ -1,0 +1,1 @@
+A list of IPs. If the destination address is in this list, the destination address will **not** be reset. The format is the same as in [Routing Configuration](https://xtls.github.io/en/config/routing.html#ruleobject).

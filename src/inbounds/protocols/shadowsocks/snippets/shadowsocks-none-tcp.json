@@ -1,0 +1,19 @@
+{
+  "label": "Shadowsocks (none)",
+  "description": "Shadowsocks inbound with no encryption (not for public networks)",
+  "body": {
+    "protocol": "shadowsocks",
+    "listen": "0.0.0.0",
+    "port": 8388,
+    "tag": "SS-NONE-TCP",
+    "settings": {
+      "network": "tcp,udp",
+      "method": "none"
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

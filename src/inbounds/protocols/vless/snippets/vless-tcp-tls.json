@@ -1,0 +1,27 @@
+{
+  "label": "VLESS + TCP + TLS",
+  "description": "Minimal VLESS inbound over TCP with TLS",
+  "body": {
+    "protocol": "vless",
+    "listen": "0.0.0.0",
+    "port": 443,
+    "tag": "VLESS-TCP-TLS",
+    "settings": {
+      "clients": [],
+      "decryption": "none"
+    },
+    "streamSettings": {
+      "network": "tcp",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${2:example.com}",
+        "alpn": ["http/1.1", "h2"]
+      }
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

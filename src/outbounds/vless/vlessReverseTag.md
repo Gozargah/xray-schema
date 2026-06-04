@@ -1,0 +1,1 @@
+The inbound proxy tag for this reverse proxy. When the server dispatches a reverse proxy request, it enters the routing system from the inbound using this tag, and the routing system routes it to the outbound you need.

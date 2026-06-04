@@ -1,0 +1,62 @@
+{
+  "log": {},
+  "inbounds": [
+    {
+      "port": "1080",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      }
+    },
+    {
+      "port": "1081",
+      "protocol": "http",
+      "settings": {}
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vless",
+      "settings": {
+        "address": "xx.com",
+        "port": 443,
+        "id": "", //填写你的 UUID
+        "encryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "wsSettings": {
+          "path": "/Path2WS?ed=2560" //?ed=2560 前面填写你的 path
+        },
+        "tlsSettings": {
+          "allowInsecure": false,
+          "serverName": "xx.com", //Equal to "SNI"
+          "fingerprint": "chrome" //"chrome" or "firefox"
+        }
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [
+      {
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}

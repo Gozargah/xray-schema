@@ -1,0 +1,3 @@
+User level. The connection will use the [local policy](https://xtls.github.io/en/config/policy.html#levelpolicyobject) corresponding to this user level.
+
+The value of `level` corresponds to the `level` value in [policy](https://xtls.github.io/en/config/policy.html#policyobject). If not specified, the default is 0.

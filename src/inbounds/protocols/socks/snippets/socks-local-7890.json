@@ -1,0 +1,19 @@
+{
+  "label": "Socks (127.0.0.1:7890)",
+  "description": "Local SOCKS inbound",
+  "body": {
+    "protocol": "socks",
+    "listen": "127.0.0.1",
+    "port": 7890,
+    "tag": "SOCKS-LOCAL",
+    "settings": {
+      "auth": "noauth",
+      "udp": true
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

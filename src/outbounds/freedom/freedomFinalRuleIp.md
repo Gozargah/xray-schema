@@ -1,0 +1,1 @@
+An array where each item represents an IP range. The rule takes effect when an item matches the target IP. The syntax is the same as [`ip` in routing rules](https://xtls.github.io/en/config/routing.html#ruleobject). If omitted, all IPs are matched.

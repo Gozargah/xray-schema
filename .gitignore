@@ -1,0 +1,9 @@
+node_modules
+coverage
+dist
+.DS_Store
+.eslintcache
+tsconfig.tsbuildinfo
+*.log*
+*.env*
+.secrets

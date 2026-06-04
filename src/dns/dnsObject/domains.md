@@ -1,0 +1,1 @@
+A list of domains. Domains included in this list will prioritize using this server for queries. The domain format is the same as in [Routing Configuration](https://xtls.github.io/en/config/routing.html#ruleobject).

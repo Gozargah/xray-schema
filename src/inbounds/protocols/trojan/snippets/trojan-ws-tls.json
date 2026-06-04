@@ -1,0 +1,30 @@
+{
+  "label": "Trojan + WS + TLS",
+  "description": "Trojan inbound over WebSocket with TLS",
+  "body": {
+    "protocol": "trojan",
+    "listen": "0.0.0.0",
+    "port": 443,
+    "tag": "TROJAN-WS-TLS",
+    "settings": {
+      "users": []
+    },
+    "streamSettings": {
+      "network": "websocket",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${3:example.com}",
+        "alpn": ["h2"]
+      },
+      "wsSettings": {
+        "path": "${4:/ws}",
+        "host": "${5:example.com}"
+      }
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

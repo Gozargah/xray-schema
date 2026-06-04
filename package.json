@@ -1,0 +1,72 @@
+{
+  "name": "@gozargah/xray-schema",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "repository": "gozargah/xray-schema",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schema.json": {
+      "default": "./dist/schema.json"
+    },
+    "./full": {
+      "types": "./dist/full/index.d.ts",
+      "default": "./dist/full/index.js"
+    },
+    "./full/schema.json": {
+      "default": "./dist/full/schema.json"
+    },
+    "./with-docs": {
+      "types": "./dist/with-docs/index.d.ts",
+      "default": "./dist/with-docs/index.js"
+    },
+    "./with-docs/schema.json": {
+      "default": "./dist/with-docs/schema.json"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "dev:test": "vitest dev",
+    "fmt": "automd && oxlint . --fix && oxfmt .",
+    "lint": "oxlint . && oxfmt --check .",
+    "prepack": "pnpm build",
+    "release": "pnpm test && pnpm build && changelogen --release && npm publish && git push --follow-tags",
+    "test": "pnpm lint && pnpm typecheck && vitest run --coverage",
+    "typecheck": "tsgo --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.29.3",
+    "@babel/traverse": "^7.29.0",
+    "@types/babel__traverse": "^7.28.0",
+    "@types/node": "latest",
+    "@typescript/native-preview": "latest",
+    "@vitest/coverage-v8": "latest",
+    "acorn": "^8.16.0",
+    "automd": "latest",
+    "changelogen": "latest",
+    "confbox": "^0.2.4",
+    "magic-string": "^0.30.21",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "publint": "^0.3.21",
+    "rolldown": "^1.0.1",
+    "tsdown": "^0.22.1",
+    "typescript": "latest",
+    "unplugin-raw": "^0.7.0",
+    "vitest": "latest"
+  },
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
+}

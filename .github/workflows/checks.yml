@@ -1,0 +1,36 @@
+name: checks
+on: { push: {}, pull_request: {} }
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+      - run: npm i -fg corepack && corepack enable
+      - uses: actions/setup-node@v6
+        with: { node-version: lts/*, cache: "pnpm" }
+      - run: pnpm install
+      - run: pnpm typecheck
+      - run: pnpm build
+      - run: pnpm vitest --coverage
+      - run: pnpm run lint
+      # - uses: codecov/codecov-action@v5
+      #   with: { token: "${{ secrets.CODECOV_TOKEN }}" }
+
+  bundle-size:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm i -g corepack && corepack enable
+      - uses: actions/setup-node@v6
+        with: { node-version: lts/*, cache: "pnpm" }
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: "./dist/**/*.{js,mjs,cjs,json}"
+          build-script: "build"
+          install-script: "pnpm install"

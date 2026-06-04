@@ -1,0 +1,3 @@
+The Mux function distributes data from multiple TCP connections over a single TCP connection. For implementation details, see [Mux.Cool](https://xtls.github.io/en/development/protocols/muxcool.html). Mux is designed to reduce TCP handshake latency, not to increase connection throughput. Using Mux for watching videos, downloading, or speed testing usually has a negative effect. Mux only needs to be enabled on the client side; the server side adapts automatically. The second use of Mux is to distribute multiple UDP connections, i.e., XUDP.
+
+`MuxObject` corresponds to the `mux` item in `OutboundObject`.

@@ -1,0 +1,1 @@
+Note that SS2022 does not ignore the upper-level `password` like the old SS did. The correct password format for the client should be `ServerPassword:UserPassword`. For example: `"password": "114514:1919810"`.

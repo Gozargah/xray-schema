@@ -1,0 +1,164 @@
+name: Sync Xray Docs
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    environment: "gh action"
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Clone xray docs
+        run: |
+          git clone --filter=blob:none --sparse \
+            https://github.com/XTLS/Xray-docs-next.git /tmp/xray-docs
+          cd /tmp/xray-docs && git sparse-checkout set docs/en
+
+      - name: Detect doc changes
+        id: detect
+        run: |
+          TRACKING=".github/xray-last-commit"
+          XRAY="/tmp/xray-docs"
+
+          HEAD=$(git -C $XRAY rev-parse HEAD)
+          LAST=$(cat $TRACKING 2>/dev/null || echo "")
+
+          if [ "$LAST" = "$HEAD" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if [ -n "$LAST" ]; then
+            CHANGED=$(git -C $XRAY diff --name-only $LAST $HEAD -- docs/en/)
+            DIFF=$(git -C $XRAY diff $LAST $HEAD -- docs/en/ | head -c 28000 || true)
+          else
+            CHANGED=$(git -C $XRAY show --name-only --format="" $HEAD -- docs/en/)
+            DIFF=$(git -C $XRAY show $HEAD -- docs/en/ | head -c 28000 || true)
+          fi
+
+          DOC_FILES=$(echo "$CHANGED" | grep "\.md$" || true)
+
+          if [ -z "$DOC_FILES" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "$HEAD" > $TRACKING
+          echo "skip=false" >> $GITHUB_OUTPUT
+          echo "head=$HEAD" >> $GITHUB_OUTPUT
+
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$DOC_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          # Random delimiter — guaranteed not to appear in diff content
+          DELIM=$(openssl rand -hex 16)
+          echo "diff<<$DELIM" >> $GITHUB_OUTPUT
+          echo "$DIFF" >> $GITHUB_OUTPUT
+          echo "$DELIM" >> $GITHUB_OUTPUT
+          echo "last=$LAST" >> $GITHUB_OUTPUT
+
+      - name: Run OpenCode agent
+        if: steps.detect.outputs.skip == 'false'
+        uses: anomalyco/opencode/github@latest
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENCODE_LOG: debug
+        with:
+          model: google/gemini-2.5-flash
+          token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            You are maintaining `@gozargah/xray-schema`, a Zod v4 schema + Monaco documentation
+            library for the Xray proxy config format. Read `AGENTS.md` first — it is the
+            authoritative guide for this project.
+
+            ## Your task
+
+            The upstream Xray English documentation has changed.
+            Xray docs commit: `${{ steps.detect.outputs.head }}`
+
+            Changed files:
+            ${{ steps.detect.outputs.changed_files }}
+
+            ## Diff
+            ```diff
+            ${{ steps.detect.outputs.diff }}
+            ```
+
+            ## Steps to follow
+
+            1. Read `AGENTS.md` in full.
+            2. Read the diff above carefully.
+            3. Find the corresponding schema and markdown fragments under `src/` for each
+               changed doc file. The file structure mirrors the Xray config layout:
+               `src/transport/`, `src/inbound/`, `src/outbound/`, etc.
+            4. Apply changes. Every relevant change has two parts:
+
+               **Schema changes (Zod)**
+               - New field → add to the Zod object with `.optional()` if not required
+               - Removed/deprecated field → keep, add `deprecated: true` in the zod schema .meta fn, add `.optional()`
+               - New enum value → add to `z.enum()`
+               - New protocol/transport → create new schema file following existing patterns
+
+               **Markdown fragment changes**
+               - Changed field description → update the corresponding `.md` file in `src/`
+               - New field → create a new `.md` file next to the schema, import with `?raw`,
+                 attach to `markdownDescription` on the Zod node
+               - Content must match the official doc 1:1 in meaning and ordering
+               - All links must be absolute: `https://xtls.github.io/...`
+               - No JSON examples in markdown fragments
+               - Preserve `### DANGER`, `### WARNING`, `### TIP`, `### NOTE` headings as-is
+               - Strip VuePress-only UI/navigation elements
+               - Append documentation footer only on object-level docs with a dedicated page
+
+            ## Only modify files under `src/` and `.github/xray-last-commit`
+
+            Do not create or modify any other files. Do not create patch files, log files,
+            or any temporary files. The only files you should touch are:
+            - Zod schema `.ts` files under `src/`
+            - Markdown fragment `.md` files under `src/`
+            - `.github/xray-last-commit` (already updated — just make sure it is committed)
+
+            ## Skip condition
+
+            If the diff contains only typos, rephrasing, formatting, broken link fixes, or
+            navigation changes with no effect on field names, types, defaults, or descriptions
+            → commit only `.github/xray-last-commit` with message
+            `chore: track xray docs (no schema changes needed)` and do NOT open a PR.
+
+            ## PR format
+
+            Title: `feat(sync): update schemas for xray docs (${{ steps.detect.outputs.head }})`
+
+            Body must include:
+
+            **Overview**
+            Link to the full diff on the upstream repo:
+            https://github.com/XTLS/Xray-docs-next/compare/${{ steps.detect.outputs.last }}...${{ steps.detect.outputs.head }}
+
+            **Changed docs**
+            For each changed upstream file, list it as a link to that file at the new commit:
+            - [`docs/en/config/routing.md`](https://github.com/XTLS/Xray-docs-next/blob/${{ steps.detect.outputs.head }}/docs/en/config/routing.md)
+
+            **Schema changes**
+            For each `src/` file you modified or created, explain what changed and why,
+            referencing which upstream doc change triggered it.
+
+            **Skip condition**
+            If skipping, still link to the upstream compare URL in the commit message body
+            so the change is traceable.

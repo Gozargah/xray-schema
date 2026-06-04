@@ -1,0 +1,15 @@
+{
+  "label": "WireGuard",
+  "description": "Minimal WireGuard inbound setup",
+  "body": {
+    "protocol": "wireguard",
+    "listen": "0.0.0.0",
+    "port": 51820,
+    "tag": "WG-INBOUND",
+    "settings": {
+      "secretKey": "${1:private_key}",
+      "mtu": 1420,
+      "peers": []
+    }
+  }
+}

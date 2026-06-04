@@ -1,0 +1,29 @@
+{
+  "label": "VLESS + XHTTP + TLS",
+  "description": "VLESS inbound over XHTTP with TLS",
+  "body": {
+    "protocol": "vless",
+    "listen": "0.0.0.0",
+    "port": 443,
+    "tag": "VLESS-XHTTP-TLS",
+    "settings": {
+      "clients": [],
+      "decryption": "none"
+    },
+    "streamSettings": {
+      "network": "xhttp",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${2:example.com}"
+      },
+      "xhttpSettings": {
+        "path": "${3:/xhttp}"
+      }
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

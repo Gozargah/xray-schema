@@ -1,0 +1,8 @@
+packages:
+  - "./"
+  - "example"
+  - "playground"
+
+catalog:
+  vite: ^8.0.13
+  vite-plus: ^0.1.21

@@ -1,0 +1,1 @@
+OCSP stapling refresh interval in seconds. The default value is `0`. Any non-zero value enables OCSP stapling and also replaces the default 3600-second certificate hot-reload interval; reloading and OCSP stapling happen together.

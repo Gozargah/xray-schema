@@ -1,0 +1,31 @@
+{
+  "label": "VLESS + WS + TLS",
+  "description": "VLESS inbound over WebSocket with TLS",
+  "body": {
+    "protocol": "vless",
+    "listen": "0.0.0.0",
+    "port": 443,
+    "tag": "VLESS-WS-TLS",
+    "settings": {
+      "clients": [],
+      "decryption": "none"
+    },
+    "streamSettings": {
+      "network": "websocket",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${2:example.com}",
+        "alpn": ["http/1.1", "h2"]
+      },
+      "wsSettings": {
+        "path": "${3:/ws}",
+        "host": "${4:example.com}"
+      }
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

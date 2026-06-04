@@ -1,0 +1,17 @@
+{
+  "label": "Tunnel (dokodemo-door)",
+  "description": "Simple port mapping inbound",
+  "body": {
+    "protocol": "tunnel",
+    "listen": "127.0.0.1",
+    "port": 8080,
+    "tag": "TUNNEL-IN",
+    "settings": {
+      "allowedNetwork": "tcp",
+      "rewriteAddress": "${1:example.com}",
+      "rewritePort": "${2:80}",
+      "followRedirect": false,
+      "userLevel": 0
+    }
+  }
+}

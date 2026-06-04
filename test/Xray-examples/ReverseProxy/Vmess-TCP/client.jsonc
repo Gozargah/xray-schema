@@ -1,0 +1,49 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "rules": [
+            {
+                "port": "0-65535",
+                "outboundTag": "proxy"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": "2080",
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "ip": "127.0.0.1"
+            }
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": "2081",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vmess",
+            "settings": {
+                "address": "{{ protal.address }}",
+                "port": 65511,
+                "id": "{{ uuid }}"
+            },
+            "streamSettings": {
+                "network": "tcp"
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
+}

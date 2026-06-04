@@ -1,0 +1,30 @@
+{
+  "label": "VMess + WS + TLS",
+  "description": "VMess inbound over WebSocket with TLS",
+  "body": {
+    "protocol": "vmess",
+    "listen": "0.0.0.0",
+    "port": 443,
+    "tag": "VMESS-WS-TLS",
+    "settings": {
+      "clients": []
+    },
+    "streamSettings": {
+      "network": "websocket",
+      "security": "tls",
+      "tlsSettings": {
+        "serverName": "${3:example.com}",
+        "alpn": ["http/1.1", "h2"]
+      },
+      "wsSettings": {
+        "path": "${4:/ws}",
+        "host": "${5:example.com}"
+      }
+    },
+    "sniffing": {
+      "enabled": true,
+      "routeOnly": true,
+      "destOverride": ["http", "tls", "quic", "fakedns"]
+    }
+  }
+}

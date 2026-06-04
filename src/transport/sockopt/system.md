@@ -1,0 +1,1 @@
+Optional. Restricts the option to a specific operating system. If the current system does not match, the option is skipped. Supported values are `linux`, `windows`, and `darwin`, all in lowercase. If left empty, the option is applied directly.
