@@ -17,13 +17,12 @@ jobs:
       - run: npm i -g corepack && corepack enable
       - uses: actions/setup-node@v6
         with:
-          node-version: lts/*
           cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
+          node-version: "24"
+          package-manager-cache: false
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm build
       - run: pnpm vitest
-      - run: pnpm publish --no-git-checks --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: pnpm publish --no-git-checks --access public
