@@ -49,8 +49,12 @@ export const routingRule = z.object({
       .number()
       .optional()
       .meta({ markdownDescription: webhookDeduplicationDescription }),
-    headers: z.object().loose().meta({
-      markdownDescription: `HTTP request headers.`,
-    }),
+    headers: z
+      .object()
+      .loose()
+      .meta({
+        markdownDescription: `HTTP request headers.`,
+      })
+      .optional(),
   }),
 });
