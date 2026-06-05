@@ -60,13 +60,13 @@ export const vlessInboundSchema = generalInboundSchema
     protocol: z.literal("vless"),
     settings: baseVlessSettings
       .extend({
-        users: z.array(vlessClient.loose()).default([]).optional().meta({
+        users: z.array(vlessClient).default([]).optional().meta({
           markdownDescription: vlessUsersDescription,
         }),
       })
       .or(
         baseVlessSettings.extend({
-          clients: z.array(vlessClient.loose()).default([]).optional().meta({
+          clients: z.array(vlessClient).default([]).optional().meta({
             markdownDescription: vlessUsersDescription,
           }),
         }),

@@ -33,26 +33,22 @@ const socksAccount = z.object({
 
 const socksSettingsSchema = z
   .discriminatedUnion("auth", [
-    socksSettingsBaseSchema
-      .extend({
-        auth: z
-          .literal("noauth")
-          .meta({
-            markdownDescription: authDescription,
-          })
-          .optional(),
-      })
-      .loose(),
-    socksSettingsBaseSchema
-      .extend({
-        auth: z.literal("password").meta({
+    socksSettingsBaseSchema.extend({
+      auth: z
+        .literal("noauth")
+        .meta({
           markdownDescription: authDescription,
-        }),
-        users: z.array(socksAccount).default([]).optional().meta({
-          markdownDescription: usersDescription,
-        }),
-      })
-      .loose(),
+        })
+        .optional(),
+    }),
+    socksSettingsBaseSchema.extend({
+      auth: z.literal("password").meta({
+        markdownDescription: authDescription,
+      }),
+      users: z.array(socksAccount).default([]).optional().meta({
+        markdownDescription: usersDescription,
+      }),
+    }),
   ])
   .meta({
     markdownDescription: socksSettingsDescription,

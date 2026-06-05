@@ -17,47 +17,40 @@ import ruleTagDescription from "./ruleTag.md?raw";
 import webhookUrlDescription from "./webhookUrl.md?raw";
 import webhookDeduplicationDescription from "./webhookDeduplication.md?raw";
 
-export const routingRule = z
-  .object({
-    domain: z.array(z.string()).optional().meta({ markdownDescription: domainDescription }),
-    ip: z.array(z.string()).optional().meta({ markdownDescription: ipDescription }),
-    port: z
-      .union([z.string(), z.number()])
+export const routingRule = z.object({
+  domain: z.array(z.string()).optional().meta({ markdownDescription: domainDescription }),
+  ip: z.array(z.string()).optional().meta({ markdownDescription: ipDescription }),
+  port: z.union([z.string(), z.number()]).optional().meta({ markdownDescription: portDescription }),
+  sourcePort: z
+    .union([z.string(), z.number()])
+    .optional()
+    .meta({ markdownDescription: sourcePortDescription }),
+  network: z
+    .enum(["tcp", "udp", "tcp,udp"])
+    .optional()
+    .meta({ markdownDescription: networkDescription }),
+  source: z.array(z.string()).optional().meta({ markdownDescription: sourceIPDescription }),
+  sourceIP: z.array(z.string()).optional().meta({ markdownDescription: sourceIPDescription }),
+  user: z.array(z.string()).optional().meta({ markdownDescription: userDescription }),
+  vlessRoute: z.string().optional().meta({ markdownDescription: vlessRouteDescription }),
+  inboundTag: z.array(z.string()).optional().meta({ markdownDescription: inboundTagDescription }),
+  protocol: z.array(z.string()).optional().meta({ markdownDescription: protocolDescription }),
+  attrs: z
+    .record(z.string(), z.unknown())
+    .optional()
+    .meta({ markdownDescription: attrsDescription }),
+  process: z.array(z.string()).optional().meta({ markdownDescription: processDescription }),
+  outboundTag: z.string().optional().meta({ markdownDescription: outboundTagDescription }),
+  balancerTag: z.string().optional().meta({ markdownDescription: balancerTagDescription }),
+  ruleTag: z.string().optional().meta({ markdownDescription: ruleTagDescription }),
+  webhook: z.object({
+    url: z.string().meta({ markdownDescription: webhookUrlDescription }),
+    deduplication: z
+      .number()
       .optional()
-      .meta({ markdownDescription: portDescription }),
-    sourcePort: z
-      .union([z.string(), z.number()])
-      .optional()
-      .meta({ markdownDescription: sourcePortDescription }),
-    network: z
-      .enum(["tcp", "udp", "tcp,udp"])
-      .optional()
-      .meta({ markdownDescription: networkDescription }),
-    source: z.array(z.string()).optional().meta({ markdownDescription: sourceIPDescription }),
-    sourceIP: z.array(z.string()).optional().meta({ markdownDescription: sourceIPDescription }),
-    user: z.array(z.string()).optional().meta({ markdownDescription: userDescription }),
-    vlessRoute: z.string().optional().meta({ markdownDescription: vlessRouteDescription }),
-    inboundTag: z.array(z.string()).optional().meta({ markdownDescription: inboundTagDescription }),
-    protocol: z.array(z.string()).optional().meta({ markdownDescription: protocolDescription }),
-    attrs: z
-      .record(z.string(), z.unknown())
-      .optional()
-      .meta({ markdownDescription: attrsDescription }),
-    process: z.array(z.string()).optional().meta({ markdownDescription: processDescription }),
-    outboundTag: z.string().optional().meta({ markdownDescription: outboundTagDescription }),
-    balancerTag: z.string().optional().meta({ markdownDescription: balancerTagDescription }),
-    ruleTag: z.string().optional().meta({ markdownDescription: ruleTagDescription }),
-    webhook: z
-      .object({
-        url: z.string().meta({ markdownDescription: webhookUrlDescription }),
-        deduplication: z
-          .number()
-          .optional()
-          .meta({ markdownDescription: webhookDeduplicationDescription }),
-        headers: z.object().loose().meta({
-          markdownDescription: `HTTP request headers.`,
-        }),
-      })
-      .optional(),
-  })
-  .loose();
+      .meta({ markdownDescription: webhookDeduplicationDescription }),
+    headers: z.object().loose().meta({
+      markdownDescription: `HTTP request headers.`,
+    }),
+  }),
+});

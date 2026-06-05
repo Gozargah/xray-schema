@@ -77,7 +77,6 @@ export const dnsSchema = z
       .optional()
       .meta({ markdownDescription: serveExpiredTTLDescription }),
   })
-  .loose()
   .meta({
     markdownDescription: dnsDescription,
   });
