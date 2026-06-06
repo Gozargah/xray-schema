@@ -43,18 +43,16 @@ export const routingRule = z.object({
   outboundTag: z.string().optional().meta({ markdownDescription: outboundTagDescription }),
   balancerTag: z.string().optional().meta({ markdownDescription: balancerTagDescription }),
   ruleTag: z.string().optional().meta({ markdownDescription: ruleTagDescription }),
-  webhook: z.object({
-    url: z.string().meta({ markdownDescription: webhookUrlDescription }),
-    deduplication: z
-      .number()
-      .optional()
-      .meta({ markdownDescription: webhookDeduplicationDescription }),
-    headers: z
-      .object()
-      .loose()
-      .meta({
+  webhook: z
+    .object({
+      url: z.string().meta({ markdownDescription: webhookUrlDescription }),
+      deduplication: z
+        .number()
+        .optional()
+        .meta({ markdownDescription: webhookDeduplicationDescription }),
+      headers: z.object().loose().optional().meta({
         markdownDescription: `HTTP request headers.`,
-      })
-      .optional(),
-  }),
+      }),
+    })
+    .optional(),
 });
