@@ -12,6 +12,7 @@ export default defineConfig({
     },
   },
   plugins: [tailwindcss(), react(), babel({ presets: [reactCompilerPreset()] })],
+  base: "/xray-schema",
   build: {
     target: "esnext",
     cssMinify: "lightningcss",
