@@ -54,9 +54,13 @@ const customSockoptObject = z
     system: z.enum(["linux", "windows", "darwin", ""]).or(z.string()).optional().meta({
       markdownDescription: systemDescription,
     }),
-    network: z.enum(["tcp", "tcp4", "tcp6", "udp", "udp4", "udp6", ""]).or(z.string()).optional().meta({
-      markdownDescription: networkDescription,
-    }),
+    network: z
+      .enum(["tcp", "tcp4", "tcp6", "udp", "udp4", "udp6", ""])
+      .or(z.string())
+      .optional()
+      .meta({
+        markdownDescription: networkDescription,
+      }),
     type: z.enum(["int", "str"]).meta({
       markdownDescription: typeDescription,
     }),
