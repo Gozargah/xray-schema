@@ -18,10 +18,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
           node-version: "24"
           package-manager-cache: false
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm build
       - run: pnpm vitest
-      - run: npm publish --provenance --no-git-checks --access public
+      - run: pnpm publish --provenance --no-git-checks --access public
