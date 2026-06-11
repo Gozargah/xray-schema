@@ -79,13 +79,11 @@ jobs:
         if: steps.detect.outputs.skip == 'false'
         uses: anomalyco/opencode/github@latest
         env:
-          GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENCODE_PERMISSION: '{"external_directory":{"*":"allow"}}'
         with:
-          model: google/gemini-2.5-flash
+          model: opencode/deepseek-v4-flash-free
           use_github_token: true
           prompt: |
             You are maintaining '@gozargah/xray-schema', a Zod v4 schema + Monaco documentation
