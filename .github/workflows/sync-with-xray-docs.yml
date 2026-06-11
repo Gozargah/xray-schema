@@ -86,66 +86,66 @@ jobs:
           model: google/gemini-2.5-flash
           token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
-            You are maintaining `@gozargah/xray-schema`, a Zod v4 schema + Monaco documentation
-            library for the Xray proxy config format. Read `AGENTS.md` first — it is the
+            You are maintaining '@gozargah/xray-schema', a Zod v4 schema + Monaco documentation
+            library for the Xray proxy config format. Read 'AGENTS.md' first — it is the
             authoritative guide for this project.
 
             ## Your task
 
             The upstream Xray English documentation has changed.
-            Xray docs commit: `${{ steps.detect.outputs.head }}`
+            Xray docs commit: '${{ steps.detect.outputs.head }}'
 
             Changed files:
             ${{ steps.detect.outputs.changed_files }}
 
             ## Diff
-              The diff is saved at `/tmp/xray-diff.patch`. Read it with your file tool before proceeding.
+              The diff is saved at '/tmp/xray-diff.patch'. Read it with your file tool before proceeding.
 
 
             ## Steps to follow
 
-            1. Read `AGENTS.md` in full.
+            1. Read 'AGENTS.md' in full.
             2. Read the diff above carefully.
-            3. Find the corresponding schema and markdown fragments under `src/` for each
+            3. Find the corresponding schema and markdown fragments under 'src/' for each
                changed doc file. The file structure mirrors the Xray config layout:
-               `src/transport/`, `src/inbound/`, `src/outbound/`, etc.
+               'src/transport/', 'src/inbound/', 'src/outbound/', etc.
             4. Apply changes. Every relevant change has two parts:
 
                **Schema changes (Zod)**
-               - New field → add to the Zod object with `.optional()` if not required
-               - Removed/deprecated field → keep, add `deprecated: true` in the zod schema .meta fn, add `.optional()`
-               - New enum value → add to `z.enum()`
+               - New field → add to the Zod object with '.optional()' if not required
+               - Removed/deprecated field → keep, add 'deprecated: true' in the zod schema .meta fn, add '.optional()'
+               - New enum value → add to 'z.enum()'
                - New protocol/transport → create new schema file following existing patterns
 
                **Markdown fragment changes**
-               - Changed field description → update the corresponding `.md` file in `src/`
-               - New field → create a new `.md` file next to the schema, import with `?raw`,
-                 attach to `markdownDescription` on the Zod node
+               - Changed field description → update the corresponding '.md' file in 'src/'
+               - New field → create a new '.md' file next to the schema, import with '?raw',
+                 attach to 'markdownDescription' on the Zod node
                - Content must match the official doc 1:1 in meaning and ordering
-               - All links must be absolute: `https://xtls.github.io/...`
+               - All links must be absolute: 'https://xtls.github.io/...'
                - No JSON examples in markdown fragments
-               - Preserve `### DANGER`, `### WARNING`, `### TIP`, `### NOTE` headings as-is
+               - Preserve '### DANGER', '### WARNING', '### TIP', '### NOTE' headings as-is
                - Strip VuePress-only UI/navigation elements
                - Append documentation footer only on object-level docs with a dedicated page
 
-            ## Only modify files under `src/` and `.github/xray-last-commit`
+            ## Only modify files under 'src/' and '.github/xray-last-commit'
 
             Do not create or modify any other files. Do not create patch files, log files,
             or any temporary files. The only files you should touch are:
-            - Zod schema `.ts` files under `src/`
-            - Markdown fragment `.md` files under `src/`
-            - `.github/xray-last-commit` (already updated — just make sure it is committed)
+            - Zod schema '.ts' files under 'src/'
+            - Markdown fragment '.md' files under 'src/'
+            - '.github/xray-last-commit' (already updated — just make sure it is committed)
 
             ## Skip condition
 
             If the diff contains only typos, rephrasing, formatting, broken link fixes, or
             navigation changes with no effect on field names, types, defaults, or descriptions
-            → commit only `.github/xray-last-commit` with message
-            `chore: track xray docs (no schema changes needed)` and do NOT open a PR.
+            → commit only '.github/xray-last-commit' with message
+            'chore: track xray docs (no schema changes needed)' and do NOT open a PR.
 
             ## PR format
 
-            Title: `feat(sync): update schemas for xray docs (${{ steps.detect.outputs.head }})`
+            Title: 'feat(sync): update schemas for xray docs (${{ steps.detect.outputs.head }})'
 
             Body must include:
 
@@ -155,10 +155,10 @@ jobs:
 
             **Changed docs**
             For each changed upstream file, list it as a link to that file at the new commit:
-            - [`docs/en/config/routing.md`](https://github.com/XTLS/Xray-docs-next/blob/${{ steps.detect.outputs.head }}/docs/en/config/routing.md)
+            - ['docs/en/config/routing.md'](https://github.com/XTLS/Xray-docs-next/blob/${{ steps.detect.outputs.head }}/docs/en/config/routing.md)
 
             **Schema changes**
-            For each `src/` file you modified or created, explain what changed and why,
+            For each 'src/' file you modified or created, explain what changed and why,
             referencing which upstream doc change triggered it.
 
             **Skip condition**
