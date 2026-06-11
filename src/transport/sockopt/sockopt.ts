@@ -24,6 +24,7 @@ import tcpMptcpDescription from "./tcpMptcp.md?raw";
 import addressPortStrategyDescription from "./addressPortStrategy.md?raw";
 import customSockoptDescription from "./customSockopt.md?raw";
 import systemDescription from "./system.md?raw";
+import networkDescription from "./network.md?raw";
 import typeDescription from "./type.md?raw";
 import levelDescription from "./level.md?raw";
 import optDescription from "./opt.md?raw";
@@ -53,6 +54,13 @@ const customSockoptObject = z
     system: z.enum(["linux", "windows", "darwin", ""]).or(z.string()).optional().meta({
       markdownDescription: systemDescription,
     }),
+    network: z
+      .enum(["tcp", "tcp4", "tcp6", "udp", "udp4", "udp6", ""])
+      .or(z.string())
+      .optional()
+      .meta({
+        markdownDescription: networkDescription,
+      }),
     type: z.enum(["int", "str"]).meta({
       markdownDescription: typeDescription,
     }),

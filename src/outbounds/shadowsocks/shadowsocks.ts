@@ -30,9 +30,11 @@ const shadowsocksServerSettings = z.object({
   }),
   uot: z.boolean().default(true).optional().meta({
     markdownDescription: shadowsocksUotDescription,
+    deprecated: true,
   }),
   UoTVersion: z.literal(1).or(z.literal(2)).default(2).optional().meta({
     markdownDescription: shadowsocksUoTVersionDescription,
+    deprecated: true,
   }),
   level: z.int().default(0).optional().meta({
     markdownDescription: shadowsocksLevelDescription,
