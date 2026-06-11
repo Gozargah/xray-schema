@@ -63,16 +63,13 @@ jobs:
           echo "$DOC_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-          # Random delimiter — guaranteed not to appear in diff content
-          DELIM=$(openssl rand -hex 16)
-          echo "diff<<$DELIM" >> $GITHUB_OUTPUT
-          echo "$DIFF" >> $GITHUB_OUTPUT
-          echo "$DELIM" >> $GITHUB_OUTPUT
+          DIFF_B64=$(echo "$DIFF" | base64 -w0)
+          echo "diff=$DIFF_B64" >> $GITHUB_OUTPUT
           echo "last=$LAST" >> $GITHUB_OUTPUT
 
       - name: Run OpenCode agent
         if: steps.detect.outputs.skip == 'false'
-        uses: anomalyco/opencode/github@v1.16.2
+        uses: anomalyco/opencode/github@latest
         env:
           GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -95,7 +92,7 @@ jobs:
 
             ## Diff
             ```diff
-            ${{ steps.detect.outputs.diff }}
+            ${{ steps.detect.outputs.diff | base64 --decode }}
             ```
 
             ## Steps to follow
