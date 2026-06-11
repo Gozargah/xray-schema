@@ -42,10 +42,10 @@ jobs:
 
           if [ -n "$LAST" ]; then
             CHANGED=$(git -C $XRAY diff --name-only $LAST $HEAD -- docs/en/)
-            DIFF=$(git -C $XRAY diff $LAST $HEAD -- docs/en/ | head -c 28000 || true)
+            git -C $XRAY diff $LAST $HEAD -- docs/en/ | head -c 28000 > /tmp/xray-diff.patch || true
           else
             CHANGED=$(git -C $XRAY show --name-only --format="" $HEAD -- docs/en/)
-            DIFF=$(git -C $XRAY show $HEAD -- docs/en/ | head -c 28000 || true)
+            git -C $XRAY show $HEAD -- docs/en/ | head -c 28000 > /tmp/xray-diff.patch || true
           fi
 
           DOC_FILES=$(echo "$CHANGED" | grep "\.md$" || true)
@@ -58,14 +58,11 @@ jobs:
           echo "$HEAD" > $TRACKING
           echo "skip=false" >> $GITHUB_OUTPUT
           echo "head=$HEAD" >> $GITHUB_OUTPUT
+          echo "last=$LAST" >> $GITHUB_OUTPUT
 
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$DOC_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-
-          DIFF_B64=$(echo "$DIFF" | base64 -w0)
-          echo "diff=$DIFF_B64" >> $GITHUB_OUTPUT
-          echo "last=$LAST" >> $GITHUB_OUTPUT
 
       - name: Run OpenCode agent
         if: steps.detect.outputs.skip == 'false'
@@ -91,9 +88,8 @@ jobs:
             ${{ steps.detect.outputs.changed_files }}
 
             ## Diff
-            ```diff
-            ${{ steps.detect.outputs.diff | base64 --decode }}
-            ```
+              The diff is saved at `/tmp/xray-diff.patch`. Read it with your file tool before proceeding.
+
 
             ## Steps to follow
 
