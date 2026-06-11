@@ -20,6 +20,13 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - run: npm i -g corepack && corepack enable
+      - uses: actions/setup-node@v6
+        with:
+          cache: "pnpm"
+          node-version: "24"
+          package-manager-cache: false
+
       - name: Clone xray docs
         run: |
           git clone --filter=blob:none --sparse \
@@ -141,6 +148,10 @@ jobs:
             navigation changes with no effect on field names, types, defaults, or descriptions
             → commit only '.github/xray-last-commit' with message
             'chore: track xray docs (no schema changes needed)' and do NOT open a PR.
+
+            ## Tooling
+            use pnpm
+            run `pnpm fmt` before committing to format the code
 
             ## PR format
 
