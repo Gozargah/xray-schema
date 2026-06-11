@@ -84,7 +84,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           model: google/gemini-2.5-flash
-          token: ${{ secrets.GITHUB_TOKEN }}
+          use_github_token: true
           prompt: |
             You are maintaining '@gozargah/xray-schema', a Zod v4 schema + Monaco documentation
             library for the Xray proxy config format. Read 'AGENTS.md' first — it is the
