@@ -72,12 +72,11 @@ jobs:
 
       - name: Run OpenCode agent
         if: steps.detect.outputs.skip == 'false'
-        uses: anomalyco/opencode/github@latest
+        uses: anomalyco/opencode/github@v1.16.2
         env:
           GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          OPENCODE_LOG: debug
         with:
           model: google/gemini-2.5-flash
           token: ${{ secrets.GITHUB_TOKEN }}
