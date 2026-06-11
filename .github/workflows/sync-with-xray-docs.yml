@@ -62,8 +62,6 @@ jobs:
 
           DOC_FILES_INLINE=$(echo "$DOC_FILES" | tr '\n' ' ')
           echo "changed_files=$DOC_FILES_INLINE" >> $GITHUB_OUTPUT
-          echo "$DOC_FILES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Debug prompt inputs
         if: steps.detect.outputs.skip == 'false'
