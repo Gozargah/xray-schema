@@ -60,9 +60,22 @@ jobs:
           echo "head=$HEAD" >> $GITHUB_OUTPUT
           echo "last=$LAST" >> $GITHUB_OUTPUT
 
-          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          DOC_FILES_INLINE=$(echo "$DOC_FILES" | tr '\n' ' ')
+          echo "changed_files=$DOC_FILES_INLINE" >> $GITHUB_OUTPUT
           echo "$DOC_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Debug prompt inputs
+        if: steps.detect.outputs.skip == 'false'
+        run: |
+          echo "=== head ==="
+          echo "${{ steps.detect.outputs.head }}"
+          echo "=== last ==="
+          echo "${{ steps.detect.outputs.last }}"
+          echo "=== changed_files ==="
+          printf '%s' "${{ steps.detect.outputs.changed_files }}"
+          echo "=== diff file ==="
+          head -c 500 /tmp/xray-diff.patch
 
       - name: Run OpenCode agent
         if: steps.detect.outputs.skip == 'false'
