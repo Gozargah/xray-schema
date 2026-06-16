@@ -51,7 +51,7 @@ const happyEyeballs = z
 
 const customSockoptObject = z
   .object({
-    system: z.enum(["linux", "windows", "darwin", ""]).or(z.string()).optional().meta({
+    system: z.enum(["linux", "windows", "darwin", "android", ""]).or(z.string()).optional().meta({
       markdownDescription: systemDescription,
     }),
     network: z

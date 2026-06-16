@@ -20,7 +20,7 @@ export const leastLoadSettingsObject = z
       .optional()
       .meta({ markdownDescription: `The maximum acceptable RTT duration for speed tests.` }),
     tolerance: z.float32().optional().meta({
-      markdownDescription: `The maximum acceptable failure rate for speed tests. For example, 0.01 means accepting a 1% failure rate. (Seemingly unimplemented).`,
+      markdownDescription: `The maximum acceptable failure rate for speed tests. For example, 0.01 means accepting a 1% failure rate.`,
     }),
     baselines: z.array(z.string()).optional().meta({
       markdownDescription: `The maximum acceptable standard deviation duration for RTT speed tests.`,
