@@ -5,10 +5,13 @@ import udpFinalmaskDescription from "./udpFinalmask.md?raw";
 import udpTypeDescription from "./udpType.md?raw";
 import headerCustomUdpDescription from "./headerCustomUdp.md?raw";
 import headerDnsDescription from "./headerDns.md?raw";
-import mkcpAes128gcmDescription from "./mkcpAes128gcm.md?raw";
+import mkcpLegacyDescription from "./mkcpLegacy.md?raw";
+import mkcpLegacyHeaderDescription from "./mkcpLegacyHeader.md?raw";
+import mkcpLegacyValueDescription from "./mkcpLegacyValue.md?raw";
 import noiseDescription from "./noise.md?raw";
 import noiseItemsDescription from "./noiseItems.md?raw";
 import salamanderDescription from "./salamander.md?raw";
+import packetSizeDescription from "./packetSize.md?raw";
 import xdnsDescription from "./xdns.md?raw";
 import xicmpDescription from "./xicmp.md?raw";
 import xicmpDgramDescription from "./xicmpDgram.md?raw";
@@ -65,23 +68,26 @@ const headerDns = z
     markdownDescription: headerDnsDescription,
   });
 
-const mkcpAes128gcm = z
+const mkcpLegacy = z
   .object({
-    type: z.literal("mkcp-aes128gcm").meta({
+    type: z.literal("mkcp-legacy").meta({
       markdownDescription: udpTypeDescription,
     }),
     settings: z
       .object({
-        password: z.string().meta({
-          markdownDescription: passwordDescription,
+        header: z.string().meta({
+          markdownDescription: mkcpLegacyHeaderDescription,
+        }),
+        value: z.string().meta({
+          markdownDescription: mkcpLegacyValueDescription,
         }),
       })
       .meta({
-        markdownDescription: mkcpAes128gcmDescription,
+        markdownDescription: mkcpLegacyDescription,
       }),
   })
   .meta({
-    markdownDescription: mkcpAes128gcmDescription,
+    markdownDescription: mkcpLegacyDescription,
   });
 
 const noise = z
@@ -152,6 +158,9 @@ const salamander = z
       .object({
         password: z.string().meta({
           markdownDescription: passwordDescription,
+        }),
+        packetSize: z.string().optional().meta({
+          markdownDescription: packetSizeDescription,
         }),
       })
       .meta({
@@ -242,7 +251,7 @@ export const udpFinalmask = z
     z.discriminatedUnion("type", [
       tcpHeaderCustom,
       headerDns,
-      mkcpAes128gcm,
+      mkcpLegacy,
       noise,
       salamander,
       sudoku,

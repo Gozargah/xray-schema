@@ -1,3 +1,3 @@
-Salamander obfuscation from Hysteria2.
+Salamander obfuscation. From Hysteria2.
 
-`password` is the obfuscation password.
+`password`: the obfuscation password.
