@@ -102,22 +102,34 @@ const mkcpLegacy = z
         }),
         z.object({
           header: z.literal("srtp").meta({
-            markdownDescription: "Forged as SRTP, `value` has no effect.",
+            markdownDescription: "Forged as SRTP.",
+          }),
+          value: z.string().optional().meta({
+            markdownDescription: "`value` has no effect.",
           }),
         }),
         z.object({
           header: z.literal("utp").meta({
-            markdownDescription: "forged as uTP (BitTorrent), `value` has no effect.",
+            markdownDescription: "Forged as uTP (BitTorrent).",
+          }),
+          value: z.string().optional().meta({
+            markdownDescription: "`value` has no effect.",
           }),
         }),
         z.object({
           header: z.literal("wechat").meta({
-            markdownDescription: "forged as a WeChat video call., `value` has no effect.",
+            markdownDescription: "Forged as a WeChat video call.",
+          }),
+          value: z.string().optional().meta({
+            markdownDescription: "`value` has no effect.",
           }),
         }),
         z.object({
           header: z.literal("wireguard").meta({
-            markdownDescription: "forged as WireGuard, `value` has no effect.",
+            markdownDescription: "Forged as WireGuard.",
+          }),
+          value: z.string().optional().meta({
+            markdownDescription: "`value` has no effect.",
           }),
         }),
       ])
