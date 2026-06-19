@@ -1,3 +1,3 @@
-Settings object for a TCP FinalMask layer.
+The concrete settings for this camouflage type.
 
-The exact fields depend on the selected `type`.
+See the fields for each type below.

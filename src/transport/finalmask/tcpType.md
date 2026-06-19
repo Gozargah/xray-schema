@@ -1,3 +1,1 @@
-TCP FinalMask layer type.
-
-Supported values are `header-custom`, `fragment`, and `sudoku`.
+The type of this camouflage layer.
