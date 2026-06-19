@@ -7,6 +7,7 @@ import unexpectedIPsDescription from "./unexpectedIPs.md?raw";
 import skipFallbackDescription from "./skipFallback.md?raw";
 import finalQueryDescription from "./finalQuery.md?raw";
 import queryStrategyDescription from "./queryStrategy.md?raw";
+import timeoutMsDescription from "./timeoutMs.md?raw";
 
 export const dnsObject = z.object({
   address: z.string().meta({ markdownDescription: addressDescription }),
@@ -22,6 +23,11 @@ export const dnsObject = z.object({
     .default(false)
     .optional()
     .meta({ markdownDescription: skipFallbackDescription }),
+  timeoutMs: z
+    .number()
+    .optional()
+    .default(4000)
+    .meta({ markdownDescription: timeoutMsDescription }),
   finalQuery: z
     .boolean()
     .default(false)
