@@ -149,7 +149,7 @@ const noise = z
     }),
     settings: z
       .object({
-        reset: z.int().meta({
+        reset: z.number().or(z.string()).meta({
           markdownDescription: resetDescription,
         }),
         noise: z
@@ -159,13 +159,13 @@ const noise = z
                 rand: z.string().meta({
                   markdownDescription: randDescription,
                 }),
-                randRange: z.string().meta({
+                randRange: z.string().optional().meta({
                   markdownDescription: randRangeDescription,
                 }),
-                type: z.string().meta({
+                type: z.string().optional().meta({
                   markdownDescription: typeDescription,
                 }),
-                packet: z.array(z.any()).meta({
+                packet: z.array(z.any()).optional().meta({
                   markdownDescription: packetDescription,
                 }),
                 delay: z.string().meta({
