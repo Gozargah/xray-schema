@@ -6,8 +6,6 @@ import udpTypeDescription from "./udpType.md?raw";
 import headerCustomUdpDescription from "./headerCustomUdp.md?raw";
 import headerDnsDescription from "./headerDns.md?raw";
 import mkcpLegacyDescription from "./mkcpLegacy.md?raw";
-import mkcpLegacyHeaderDescription from "./mkcpLegacyHeader.md?raw";
-import mkcpLegacyValueDescription from "./mkcpLegacyValue.md?raw";
 import noiseDescription from "./noise.md?raw";
 import noiseItemsDescription from "./noiseItems.md?raw";
 import salamanderDescription from "./salamander.md?raw";
@@ -74,14 +72,55 @@ const mkcpLegacy = z
       markdownDescription: udpTypeDescription,
     }),
     settings: z
-      .object({
-        header: z.string().meta({
-          markdownDescription: mkcpLegacyHeaderDescription,
+      .discriminatedUnion("header", [
+        z.object({
+          header: z.literal("").meta({
+            markdownDescription:
+              "applies AES-128-GCM encryption with `value` as the password. If `value` is empty, it falls back to the default simple XOR obfuscation.",
+          }),
+          value: z.string().meta({
+            markdownDescription:
+              "If value is empty, it falls back to the default simple XOR obfuscation.",
+          }),
         }),
-        value: z.string().meta({
-          markdownDescription: mkcpLegacyValueDescription,
+        z.object({
+          header: z.literal("dns").meta({
+            markdownDescription: "Forged as a DNS query.",
+          }),
+          value: z.string().meta({
+            markdownDescription:
+              "`value` is the specified domain; defaults to `www.baidu.com` when empty.",
+          }),
         }),
-      })
+        z.object({
+          header: z.literal("dtls").meta({
+            markdownDescription: "Forged as DTLS 1.2 application data.",
+          }),
+          value: z.string().meta({
+            markdownDescription: "`value` has no effect.",
+          }),
+        }),
+        z.object({
+          header: z.literal("srtp").meta({
+            markdownDescription: "Forged as SRTP, `value` has no effect.",
+          }),
+        }),
+        z.object({
+          header: z.literal("utp").meta({
+            markdownDescription: "forged as uTP (BitTorrent), `value` has no effect.",
+          }),
+        }),
+        z.object({
+          header: z.literal("wechat").meta({
+            markdownDescription: "forged as a WeChat video call., `value` has no effect.",
+          }),
+        }),
+        z.object({
+          header: z.literal("wireguard").meta({
+            markdownDescription: "forged as WireGuard, `value` has no effect.",
+          }),
+        }),
+      ])
       .meta({
         markdownDescription: mkcpLegacyDescription,
       }),
