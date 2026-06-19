@@ -111,7 +111,11 @@ class Storage {
     this._viewStates[this._activeFileId] = window.monaco.saveViewState();
     this.save();
   }
-  openFile(fileId: string, monacoInstance: monaco.editor.IStandaloneCodeEditor = window.monaco) {
+  openFile(
+    fileId: string,
+    monacoInstance: monaco.editor.IStandaloneCodeEditor = window.monaco,
+    focus: boolean = false,
+  ) {
     if (fileId !== this._activeFileId) {
       if (this._files[this._activeFileId]) {
         this._files[this._activeFileId].isActive = false;
@@ -152,7 +156,7 @@ class Storage {
         this.storageHooks.callHook("file:changed", this._models[fileId]!);
         this.storageHooks.callHook("files:list", this.getFiles());
         this.storageHooks.callHook("files:list:opens", [...this._opennedFiles]);
-        // window.monaco.focus();
+        if (focus) window.monaco.focus();
       }
     }
     this.save();

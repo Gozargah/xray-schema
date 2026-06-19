@@ -180,7 +180,7 @@ const Tabs = () => {
                 if (e.button === 1) storage.closeFile(file.id);
               }}
               onClick={(e) => {
-                if (e.button === 0) storage.openFile(file.id);
+                if (e.button === 0) storage.openFile(file.id, undefined, true);
               }}
             >
               <div className="flex gap-2 text-[#ccc] text-sm items-center">
@@ -385,9 +385,7 @@ function App() {
             </div> */}
             <div className="flex flex-col grow h-full w-fit overflow-hidden">
               <Tabs />
-              {/* <Suspense fallback="hi there"> */}
               <Editor />
-              {/* </Suspense> */}
             </div>
           </div>
           <div className="px-3 py-1 bg-[#181818] border-t border-[#2B2B2D] flex justify-end w-full">
