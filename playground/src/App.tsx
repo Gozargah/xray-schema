@@ -28,6 +28,7 @@ import { storage } from "@/components/Editor/storage";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { getShareLink } from "@/components/Editor/share";
+import { Sidebar, SidebarProvider, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 
 const Editor = lazy(() => import("./components/Editor/Editor"));
 
@@ -251,151 +252,152 @@ const Tabs = () => {
   );
 };
 
-const Files = () => {
+const FilesSidebar = () => {
   const [files, setFiles] = useState(storage.getFiles());
   const [isCreatingNewFile, setIsCreatingNewFile] = useState(false);
+  const sidebar = useSidebar();
 
   useEffect(() => {
     return storage.on("files:list", setFiles);
   }, []);
 
   return (
-    <div className=" flex flex-col border-b border-[#2B2B2D]">
-      <div className="relative flex items-center justify-between pl-3 pr-2 h-[41px]">
-        <span className="uppercase text-[10px] tracking-widest text-neutral-400">configs</span>
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute rounded-sm right-1 w-fit h-fit p-1 hover:bg-white/8"
-                onClick={() => setIsCreatingNewFile(true)}
+    <Sidebar className="mt-[50px]">
+      <div className="select-none flex h-full gap-1 flex-col bg-[#181818]">
+        <div className=" flex flex-col border-b border-[#2B2B2D]">
+          <div className="relative flex items-center justify-between pl-3 pr-2 h-[41px]">
+            <span className="uppercase text-[10px] tracking-widest text-neutral-400">configs</span>
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="absolute rounded-sm right-7 w-fit h-fit p-1 hover:bg-white/8 text-neutral-400"
+                    onClick={() => setIsCreatingNewFile(true)}
+                  >
+                    <FilePlus2Icon size="14" />
+                  </Button>
+                }
+              />
+              <TooltipContent>New file</TooltipContent>
+            </Tooltip>
+            <SidebarTrigger
+              size="icon"
+              variant="ghost"
+              className="absolute rounded-sm right-1 w-fit h-fit p-1 hover:bg-white/8 text-neutral-400"
+            />
+          </div>
+          {files.map((file) => {
+            return (
+              <FileListItem
+                key={file.id}
+                fileId={file.id}
+                name={file.name}
+                fontSize="md"
+                icon={<TextAlignStartIcon size="14" className="text-[#75767c]" />}
+                isActive={file.isActive}
+                onClick={() => {
+                  if (sidebar.open) sidebar.toggleSidebar();
+                  storage.openFile(file.id);
+                }}
+                onNameChanged={(name) => {
+                  if (name) {
+                    storage.renameFile(file.id, name);
+                  }
+                }}
               >
-                <FilePlus2Icon size="14" className="text-neutral-400" />
-              </Button>
-            }
-          />
-          <TooltipContent>New file</TooltipContent>
-        </Tooltip>
-        {/* <Tooltip>
-          <TooltipTrigger
-            render={
-              <Button
-                size="icon"
-                variant="ghost"
-                className="absolute rounded-sm right-1 w-fit h-fit p-1 hover:bg-white/8"
-              >
-                <PanelRightOpen size="14" className="text-neutral-400" />
-              </Button>
-            }
-          />
-          <TooltipContent>Close sidebar</TooltipContent>
-        </Tooltip> */}
+                {file.name}
+              </FileListItem>
+            );
+          })}
+          {isCreatingNewFile && (
+            <FileListItem
+              fileId="new-file"
+              name=".json"
+              fontSize="md"
+              icon={<TextAlignStartIcon size="14" className="text-[#75767c]" />}
+              initialState="new"
+              onNameChanged={(name) => {
+                if (name && name.length && name !== ".json") {
+                  storage.newFile(name);
+                }
+                setIsCreatingNewFile(false);
+              }}
+            ></FileListItem>
+          )}
+        </div>
       </div>
-      {files.map((file) => {
-        return (
-          <FileListItem
-            key={file.id}
-            fileId={file.id}
-            name={file.name}
-            fontSize="md"
-            icon={<TextAlignStartIcon size="14" className="text-[#75767c]" />}
-            isActive={file.isActive}
-            onClick={() => storage.openFile(file.id)}
-            onNameChanged={(name) => {
-              if (name) {
-                storage.renameFile(file.id, name);
-              }
-            }}
-          >
-            {file.name}
-          </FileListItem>
-        );
-      })}
-      {isCreatingNewFile && (
-        <FileListItem
-          fileId="new-file"
-          name=".json"
-          fontSize="md"
-          icon={<TextAlignStartIcon size="14" className="text-[#75767c]" />}
-          initialState="new"
-          onNameChanged={(name) => {
-            if (name && name.length && name !== ".json") {
-              storage.newFile(name);
-            }
-            setIsCreatingNewFile(false);
-          }}
-        ></FileListItem>
-      )}
-    </div>
+    </Sidebar>
   );
 };
+function SidebarButton() {
+  const sidebar = useSidebar();
+  return (
+    <SidebarTrigger
+      size="icon"
+      variant="ghost"
+      className={cn("rounded-sm right-1 w-fit h-fit p-1 hover:bg-white/8 text-neutral-400", {
+        "-ml-7.5": (sidebar.isMobile && sidebar.openMobile) || (!sidebar.isMobile && sidebar.open),
+      })}
+    />
+  );
+}
 function App() {
   return (
     <TooltipProvider>
-      <div className="flex flex-col h-screen max-w-screen overflow-hidden">
-        <div className="flex items-center gap-2 py-3 px-3 bg-[#181818] justify-between border-b border-[#2B2B2D]">
-          <div className="flex gap-1 items-center">
-            <span className="font-light text-sm text-white">Xray-Schema Playground</span>
+      <SidebarProvider>
+        <div className="flex flex-col h-screen w-full max-w-screen overflow-hidden">
+          <div className="flex items-center gap-2 py-3 px-3 bg-[#181818] justify-between border-b border-[#2B2B2D]">
+            <div className="flex gap-1 items-center">
+              <SidebarButton />
+              <span className="font-light text-sm text-white">Xray-Schema Playground</span>
+            </div>
+            <div className="-mr-1">
+              <Button variant="outline" size="sm">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-github"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+                </svg>
+                Github
+              </Button>
+            </div>
           </div>
-          <div>
-            <Button variant="outline" size="sm">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-github"
-                viewBox="0 0 16 16"
-              >
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
-              </svg>
-              Github
-            </Button>
-          </div>
-        </div>
-        <div className="flex h-full">
-          <div className="select-none flex h-full gap-1 flex-col bg-[#181818] min-w-2xs w-2xs border-r border-[#2B2B2D]">
-            <Files />
-            {/* <div className="flex flex-col gap-0.5 py-1 pt-2 border-b border-[#2B2B2D]  pb-2">
-            <span className="px-3 pb-[3px] uppercase text-[10px] tracking-widest text-neutral-400">
-              snippets
-            </span>
+          <div className="flex h-full">
+            <FilesSidebar />
 
-            <SidebarButton icon={<PlusIcon size="14" className="text-[#75767c]" />}>
-              VLESS+XHTTP
-            </SidebarButton>
-            <SidebarButton icon={<PlusIcon size="14" className="text-[#75767c]" />}>
-              Wireguard
-            </SidebarButton>
+            {/* <div className="flex flex-col gap-0.5 py-1 pt-2 pb-2">
+              <span className="px-3 pb-[3px] uppercase text-[10px] tracking-widest text-neutral-400">
+                tools
+              </span>
+              <SidebarButton icon={<RefreshCcwIcon size="14" className="text-[#75767c]" />}>
+                Gen UUID
+              </SidebarButton>
+              <SidebarButton icon={<QrCodeIcon size="14" className="text-[#75767c]" />}>
+                Share QR
+              </SidebarButton>
+            </div> */}
+            <div className="flex flex-col grow h-full w-fit overflow-hidden">
+              <Tabs />
+              {/* <Suspense fallback="hi there"> */}
+              <Editor />
+              {/* </Suspense> */}
+            </div>
           </div>
-          <div className="flex flex-col gap-0.5 py-1 pt-2 pb-2">
-            <span className="px-3 pb-[3px] uppercase text-[10px] tracking-widest text-neutral-400">
-              tools
+          <div className="px-3 py-1 bg-[#181818] border-t border-[#2B2B2D] flex justify-end w-full">
+            <span className="flex items-center gap-1 text-green-500 text-xs font-light w-fit">
+              <CheckIcon size="12" />
+              valid
             </span>
-            <SidebarButton icon={<RefreshCcwIcon size="14" className="text-[#75767c]" />}>
-              Gen UUID
-            </SidebarButton>
-            <SidebarButton icon={<QrCodeIcon size="14" className="text-[#75767c]" />}>
-              Share QR
-            </SidebarButton>
-          </div> */}
-          </div>
-          <div className="flex flex-col grow h-full w-fit overflow-hidden">
-            <Tabs />
-            {/* <Suspense fallback="hi there"> */}
-            <Editor />
-            {/* </Suspense> */}
           </div>
         </div>
-        <div className="px-3 py-1 bg-[#181818] border-t border-[#2B2B2D] flex justify-end w-full">
-          <span className="flex items-center gap-1 text-green-500 text-xs font-light w-fit">
-            <CheckIcon size="12" />
-            valid
-          </span>
-        </div>
-      </div>
+      </SidebarProvider>
     </TooltipProvider>
   );
 }
