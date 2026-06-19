@@ -36,9 +36,12 @@ const tcpFragment = z
     }),
     settings: z
       .object({
-        packets: z.enum(["1-3", "tlshello"]).meta({
-          markdownDescription: packetsDescription,
-        }),
+        packets: z
+          .string()
+          .or(z.enum(["1-3", "tlshello"]))
+          .meta({
+            markdownDescription: packetsDescription,
+          }),
         length: z.string().meta({
           markdownDescription: lengthDescription,
         }),
