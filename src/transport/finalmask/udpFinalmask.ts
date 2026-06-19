@@ -123,6 +123,7 @@ const mkcpLegacy = z
       ])
       .meta({
         markdownDescription: mkcpLegacyDescription,
+        ifThenLogic: true,
       }),
   })
   .meta({
