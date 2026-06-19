@@ -25,8 +25,8 @@ export const dnsObject = z.object({
     .meta({ markdownDescription: skipFallbackDescription }),
   timeoutMs: z
     .number()
-    .optional()
     .default(4000)
+    .optional()
     .meta({ markdownDescription: timeoutMsDescription }),
   finalQuery: z
     .boolean()
