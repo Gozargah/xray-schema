@@ -1,4 +1,4 @@
-TCP FinalMask layers are applied in order, with the first item being the outermost camouflage layer.
+TCP FinalMask layers are applied in order, with the first item being the innermost camouflage layer.
 
 Used together with `raw`, `httpupgrade`, `websocket`, `grpc`, and `xhttp`.
 

@@ -1,0 +1,1 @@
+Legacy mKCP packet-header camouflage/obfuscation. The meaning of `value` depends on `header`. Note that the forgery is only a simple packet-header forgery and does not mean the full protocol is implemented.

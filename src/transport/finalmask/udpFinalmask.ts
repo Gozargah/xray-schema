@@ -27,6 +27,10 @@ import randRangeDescription from "./randRange.md?raw";
 import typeDescription from "./type.md?raw";
 import packetDescription from "./packet.md?raw";
 import delayDescription from "./delay.md?raw";
+import packetSizeDescription from "./packetSize.md?raw";
+import mkcpLegacyDescription from "./mkcpLegacy.md?raw";
+import mkcpLegacyHeaderDescription from "./mkcpLegacyHeader.md?raw";
+import mkcpLegacyValueDescription from "./mkcpLegacyValue.md?raw";
 
 const tcpHeaderCustom = z
   .object({
@@ -82,6 +86,29 @@ const mkcpAes128gcm = z
   })
   .meta({
     markdownDescription: mkcpAes128gcmDescription,
+    deprecated: true,
+  });
+
+const mkcpLegacy = z
+  .object({
+    type: z.literal("mkcp-legacy").meta({
+      markdownDescription: udpTypeDescription,
+    }),
+    settings: z
+      .object({
+        header: z.string().default("").optional().meta({
+          markdownDescription: mkcpLegacyHeaderDescription,
+        }),
+        value: z.string().default("").optional().meta({
+          markdownDescription: mkcpLegacyValueDescription,
+        }),
+      })
+      .meta({
+        markdownDescription: mkcpLegacyDescription,
+      }),
+  })
+  .meta({
+    markdownDescription: mkcpLegacyDescription,
   });
 
 const noise = z
@@ -152,6 +179,9 @@ const salamander = z
       .object({
         password: z.string().meta({
           markdownDescription: passwordDescription,
+        }),
+        packetSize: z.string().optional().meta({
+          markdownDescription: packetSizeDescription,
         }),
       })
       .meta({
@@ -243,6 +273,7 @@ export const udpFinalmask = z
       tcpHeaderCustom,
       headerDns,
       mkcpAes128gcm,
+      mkcpLegacy,
       noise,
       salamander,
       sudoku,
