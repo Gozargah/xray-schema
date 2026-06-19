@@ -298,7 +298,7 @@ const FilesSidebar = () => {
                 icon={<TextAlignStartIcon size="14" className="text-[#75767c]" />}
                 isActive={file.isActive}
                 onClick={() => {
-                  if (sidebar.open) sidebar.toggleSidebar();
+                  if (sidebar.isMobile && sidebar.openMobile) sidebar.toggleSidebar();
                   storage.openFile(file.id);
                 }}
                 onNameChanged={(name) => {
