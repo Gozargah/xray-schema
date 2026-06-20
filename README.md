@@ -1,13 +1,14 @@
 # xray-schema
 
-The core idea of this project is to make some typescript utilities for xray-core
+The main idea of this project is to make some typescript utilities for xray-core json config
 
 Ideas:
 
 - [x] Runtime config validation (using zod)
 - [x] JSON schema + docs + default snippets
-- [ ] V2ray link generator
-- [ ] V2ray link parser
+- [ ] V2ray link generator -> inbound to link
+- [ ] V2ray link parser -> link to outbound
+- [ ] Wasm of xray-core to validate config in browser
 
 ### Details
 
