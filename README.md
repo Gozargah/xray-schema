@@ -5,9 +5,9 @@ The main idea of this project is to make some typescript utilities for xray-core
 Ideas:
 
 - [x] Runtime config validation (using zod)
-- [-] JSON schema + docs + default snippets
+- [ ] JSON schema + docs + default snippets
   - [ ] More default snippets need to be added for different properties (inbounds, outbounds, dns, routing, etc)
-  - [-] More elegant Monaco editor integration
+  - [ ] More elegant Monaco editor integration
     - [x] Improve JSON schema to provider better auto complete for discriminated unions
     - [ ] Higher priority for required fields
 - [ ] Link generator -> inbound to link
