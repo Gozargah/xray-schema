@@ -6,9 +6,10 @@ import tcpTypeDescription from "./tcpType.md?raw";
 import headerCustomTcpDescription from "./headerCustomTcp.md?raw";
 import fragmentDescription from "./fragment.md?raw";
 import packetsDescription from "./packets.md?raw";
-import lengthDescription from "./length.md?raw";
-import delayDescription from "./delay.md?raw";
+import lengthsDescription from "./lengths.md?raw";
+import delaysDescription from "./delays.md?raw";
 import maxSplitDescription from "./maxSplit.md?raw";
+import delayDescription from "./delay.md?raw";
 
 const tcpHeaderCustom = z
   .object({
@@ -42,13 +43,23 @@ const tcpFragment = z
           .meta({
             markdownDescription: packetsDescription,
           }),
-        length: z.string().meta({
-          markdownDescription: lengthDescription,
+        length: z.string().or(z.number()).meta({
+          deprecated: true,
+          deprecationMessage: "use `lengths` option instead",
+          markdownDescription: `Packet length or range used by the TCP fragment layer.`,
         }),
-        delay: z.string().meta({
+        lengths: z.array(z.string()).meta({
+          markdownDescription: lengthsDescription,
+        }),
+        delay: z.string().or(z.number()).meta({
+          deprecated: true,
+          deprecationMessage: "use `delays` option instead",
           markdownDescription: delayDescription,
         }),
-        maxSplit: z.string().meta({
+        delays: z.array(z.string()).meta({
+          markdownDescription: delaysDescription,
+        }),
+        maxSplit: z.string().or(z.number()).meta({
           markdownDescription: maxSplitDescription,
         }),
       })
@@ -59,8 +70,8 @@ const tcpFragment = z
             description: "a fragmentation example from docs",
             body: {
               packets: "tlshello",
-              length: "100-200",
-              delay: "10-20",
+              lengths: ["3-5", "6-8", "10-20"],
+              delays: ["10-20"],
               maxSplit: "3-6",
             },
           },
