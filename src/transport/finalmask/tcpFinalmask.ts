@@ -9,6 +9,7 @@ import packetsDescription from "./packets.md?raw";
 import lengthsDescription from "./lengths.md?raw";
 import delaysDescription from "./delays.md?raw";
 import maxSplitDescription from "./maxSplit.md?raw";
+import delayDescription from "./delay.md?raw";
 
 const tcpHeaderCustom = z
   .object({
@@ -42,13 +43,23 @@ const tcpFragment = z
           .meta({
             markdownDescription: packetsDescription,
           }),
+        length: z.string().or(z.number()).meta({
+          deprecated: true,
+          deprecationMessage: "use `lengths` option instead",
+          markdownDescription: `Packet length or range used by the TCP fragment layer.`,
+        }),
         lengths: z.array(z.string()).meta({
           markdownDescription: lengthsDescription,
+        }),
+        delay: z.string().or(z.number()).meta({
+          deprecated: true,
+          deprecationMessage: "use `delays` option instead",
+          markdownDescription: delayDescription,
         }),
         delays: z.array(z.string()).meta({
           markdownDescription: delaysDescription,
         }),
-        maxSplit: z.string().meta({
+        maxSplit: z.string().or(z.number()).meta({
           markdownDescription: maxSplitDescription,
         }),
       })

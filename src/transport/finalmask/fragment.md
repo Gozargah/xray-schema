@@ -5,6 +5,8 @@ A TCP fragmentation layer. In some cases it can deceive censorship systems, for 
 Fields:
 
 - `packets`: packet preset. Supported values are `1-3` and `tlshello`.
+- `length`: packet length or range. (deprecated)
+- `delay`: delay range in milliseconds. (deprecated)
 - `lengths`: fragment size in bytes (array).
 - `delays`: interval between fragments in milliseconds (array).
 - `maxSplit`: maximum number of splits. `0` means unlimited.
