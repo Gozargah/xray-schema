@@ -1,19 +1,19 @@
 import z from "zod";
-import { versionSchema } from "./transport/version/version.ts";
-import { logSchema } from "./log/log.ts";
-import { apiSchema } from "./api/api.ts";
-import { dnsSchema } from "./dns/dns.ts";
-import { routingSchema } from "./routing/routing.ts";
-import { policySchema } from "./policy/policy.ts";
-import { inbound } from "./inbounds/inbounds.ts";
-import { stats } from "./stats/stats.ts";
-import { metrics } from "./metrics/metrics.ts";
-import { observatory } from "./observatory/observatory.ts";
-import { burstObservatory } from "./burstObservatory/burstObservatory.ts";
-import { reverse } from "./reverse/reverse.ts";
-import { outbound } from "./outbounds/outbounds.ts";
+import { versionSchema } from "./schema/transport/version/version.ts";
+import { logSchema } from "./schema/log/log.ts";
+import { apiSchema } from "./schema/api/api.ts";
+import { dnsSchema } from "./schema/dns/dns.ts";
+import { routingSchema } from "./schema/routing/routing.ts";
+import { policySchema } from "./schema/policy/policy.ts";
+import { inbound } from "./schema/inbounds/inbounds.ts";
+import { stats } from "./schema/stats/stats.ts";
+import { metrics } from "./schema/metrics/metrics.ts";
+import { observatory } from "./schema/observatory/observatory.ts";
+import { burstObservatory } from "./schema/burstObservatory/burstObservatory.ts";
+import { reverse } from "./schema/reverse/reverse.ts";
+import { outbound } from "./schema/outbounds/outbounds.ts";
 
-import { fakedns } from "./fakedns/fakedns.ts";
+import { fakedns } from "./schema/fakedns/fakedns.ts";
 
 export const xraySchema = z
   .object({

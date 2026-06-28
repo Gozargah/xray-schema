@@ -9,6 +9,7 @@ import trojanPasswordDescription from "./trojanPassword.md?raw";
 import trojanEmailDescription from "./trojanEmail.md?raw";
 import trojanLevelDescription from "./trojanLevel.md?raw";
 import trojanServersDescription from "./trojanServers.md?raw";
+import trojanFlowDescription from "./trojanFlow.md?raw";
 
 const trojanServerSettings = z.object({
   address: z.string().meta({
@@ -25,6 +26,9 @@ const trojanServerSettings = z.object({
   }),
   level: z.int().default(0).optional().meta({
     markdownDescription: trojanLevelDescription,
+  }),
+  flow: z.enum(["", "xtls-rprx-vision", "xtls-rprx-vision-udp443"]).optional().meta({
+    markdownDescription: trojanFlowDescription,
   }),
 });
 

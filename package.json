@@ -18,6 +18,38 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./link": {
+      "types": "./dist/link/index.d.ts",
+      "default": "./dist/link/index.js"
+    },
+    "./link/vless": {
+      "types": "./dist/link/vless.d.ts",
+      "default": "./dist/link/vless.js"
+    },
+    "./link/vmess": {
+      "types": "./dist/link/vmess.d.ts",
+      "default": "./dist/link/vmess.js"
+    },
+    "./link/trojan": {
+      "types": "./dist/link/trojan.d.ts",
+      "default": "./dist/link/trojan.js"
+    },
+    "./link/shadowsocks": {
+      "types": "./dist/link/shadowsocks.d.ts",
+      "default": "./dist/link/shadowsocks.js"
+    },
+    "./link/socks": {
+      "types": "./dist/link/socks.d.ts",
+      "default": "./dist/link/socks.js"
+    },
+    "./link/wireguard": {
+      "types": "./dist/link/wireguard.d.ts",
+      "default": "./dist/link/wireguard.js"
+    },
+    "./link/hysteria2": {
+      "types": "./dist/link/hysteria2.d.ts",
+      "default": "./dist/link/hysteria2.js"
+    },
     "./schema.json": {
       "default": "./dist/schema.json"
     },
