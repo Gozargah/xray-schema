@@ -185,7 +185,7 @@ const Tabs = () => {
                 if (e.button === 0) storage.openFile(file.id, undefined, true);
               }}
             >
-              <div className="flex gap-2 text-[#ccc] text-sm items-center">
+              <div className="flex gap-2 text-[#ccc] text-sm items-center truncate">
                 <TextAlignStartIcon size="14" className="text-[#75767c]" />
                 <span>{file.name}</span>
               </div>
