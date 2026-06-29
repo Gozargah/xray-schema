@@ -51,7 +51,7 @@ const realitySettingsServer = z.object({
   target: z.string().min(1).optional().meta({
     markdownDescription: targetDescription,
   }),
-  dest: z.string().min(1).optional().meta({
+  dest: z.string().min(1).or(z.number()).optional().meta({
     markdownDescription: targetDescription,
   }),
   xver: z.number().default(0).optional().meta({
