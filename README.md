@@ -10,8 +10,8 @@ Ideas:
   - [ ] More elegant Monaco editor integration
     - [x] Improve JSON schema to provider better auto complete for discriminated unions
     - [ ] Higher priority for required fields
-- [ ] Link generator -> inbound to link
-- [ ] Link parser -> link to outbound
+- [x] Link generator -> inbound to link (Logic ported from v2rayNG)
+- [x] Link parser -> link to outbound (Logic ported from v2rayNG)
 - [ ] Wasm of xray-core to validate config in browser
 
 ### Details
