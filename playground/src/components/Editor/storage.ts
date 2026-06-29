@@ -193,13 +193,16 @@ class Storage {
     }
   }
 
-  newFile(fileNameOrFile?: string | PersistedFile) {
+  newFile(fileNameOrFile?: string | PersistedFile, content?: string) {
     let file;
     if (typeof fileNameOrFile === "string") {
       file = getDefaultFile();
       file.name = fileNameOrFile;
     } else {
       file = fileNameOrFile;
+    }
+    if (content) {
+      file.content = content;
     }
     this._files[file.id] = file;
     this.openFile(file.id);

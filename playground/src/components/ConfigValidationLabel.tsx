@@ -106,7 +106,10 @@ export const ConfigValidationLabel = () => {
             </>
           )}
           {verification.status === "valid" && (
-            <span className="text-green-500 text-sm">No errors found</span>
+            <div className="text-green-500 text-sm flex gap-1 items-center">
+              <CheckIcon size={16} />
+              No errors found
+            </div>
           )}
         </div>
       </PopoverContent>

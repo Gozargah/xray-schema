@@ -30,7 +30,7 @@ import { Input } from "@/components/ui/input";
 import { getShareLink } from "@/components/Editor/share";
 import { Sidebar, SidebarProvider, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { ConfigValidationLabel } from "@/components/ConfigValidationLabel";
-import { GenerateLinkButton } from "@/components/GenerateLinkButton";
+import { GenerateLinkButton, ImportFromLinkButton } from "@/components/GenerateLinkButton";
 
 const Editor = lazy(() => import("./components/Editor/Editor"));
 
@@ -269,6 +269,7 @@ const FilesSidebar = () => {
         <div className=" flex flex-col border-b border-[#2B2B2D]">
           <div className="relative flex items-center justify-between pl-3 pr-2 h-[41px]">
             <span className="uppercase text-[10px] tracking-widest text-neutral-400">configs</span>
+            <ImportFromLinkButton />
             <Tooltip>
               <TooltipTrigger
                 render={
