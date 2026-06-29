@@ -9,7 +9,6 @@ import { storage } from "@/components/Editor/storage";
 
 export const ImportFromLinkButton = () => {
   const [error, setError] = useState<string | null>(null);
-
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -25,6 +24,7 @@ export const ImportFromLinkButton = () => {
       );
       storage.newFile((outbound.tag || "imported") + ".json", json);
       setError(null);
+      (document.querySelector("#import-link-popover-close-btn") as HTMLElement)?.click();
     } catch {
       setError("Invalid link");
     }
@@ -33,6 +33,7 @@ export const ImportFromLinkButton = () => {
     <Tooltip>
       <Popover>
         <PopoverTrigger
+          id="import-link-popover-close-btn"
           render={
             <TooltipTrigger
               render={
