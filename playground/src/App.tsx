@@ -29,6 +29,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Input } from "@/components/ui/input";
 import { getShareLink } from "@/components/Editor/share";
 import { Sidebar, SidebarProvider, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import { ConfigValidationLabel } from "@/components/ConfigValidationLabel";
+import { GenerateLinkButton } from "@/components/GenerateLinkButton";
 
 const Editor = lazy(() => import("./components/Editor/Editor"));
 
@@ -369,9 +371,8 @@ function App() {
               </Button>
             </div>
           </div>
-          <div className="flex h-full">
+          <div className="flex h-[calc(100%-50px)]">
             <FilesSidebar />
-
             {/* <div className="flex flex-col gap-0.5 py-1 pt-2 pb-2">
               <span className="px-3 pb-[3px] uppercase text-[10px] tracking-widest text-neutral-400">
                 tools
@@ -386,13 +387,11 @@ function App() {
             <div className="flex flex-col grow h-full w-fit overflow-hidden">
               <Tabs />
               <Editor />
+              <div className="px-1 py-1 bg-[#181818] border-t border-[#2B2B2D] flex justify-end w-full gap-1">
+                <GenerateLinkButton />
+                <ConfigValidationLabel />
+              </div>
             </div>
-          </div>
-          <div className="px-3 py-1 bg-[#181818] border-t border-[#2B2B2D] flex justify-end w-full">
-            <span className="flex items-center gap-1 text-green-500 text-xs font-light w-fit">
-              <CheckIcon size="12" />
-              valid
-            </span>
           </div>
         </div>
       </SidebarProvider>

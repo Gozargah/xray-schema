@@ -16,7 +16,6 @@ const initHighlighter = async () => {
 await initHighlighter();
 
 const schema = await import("@gozargah/xray-schema/full/schema.json").then((mod) => mod.default);
-console.log(JSON.stringify(schema));
 
 export default function Editor() {
   const monacoRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
@@ -115,7 +114,7 @@ export default function Editor() {
           <div className="text-muted-foreground text-xs mt-4">Snippets soon...</div>
         </div>
       )}
-      <div id="editor" className="h-full w-full grow bg-[#121212]" />
+      <div id="editor" className="h-full w-full grow bg-[#121212] relative z-30" />
     </div>
   );
 }
