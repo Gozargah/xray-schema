@@ -18,8 +18,10 @@ Ideas:
 
 - To include docs in JSON schema, the [official doc](https://xtls.github.io) is chunked and is imported to the schema. During build it generates 3 different bundles
   - `@gozargah/xray-schema` - the main package, which includes the zod schema without any docs or snippets
-  - `@gozargah/with-docs` - the documentation bundle, which includes markdown description for each field in the schema, extracted from the official docs
-  - `@gozargah/full` - the full bundle, which includes both the schema and the docs, and also includes default snippets for some protocols/transports. Its JSON schema is compatible with Monaco editor, which allows for autocompletion and validation in the editor.
+  - `@gozargah/xray-schema/with-docs` - the documentation bundle, which includes markdown description for each field in the schema, extracted from the official docs
+  - `@gozargah/xray-schema/full` - the full bundle, which includes both the schema and the docs, and also includes default snippets for some protocols/transports. Its JSON schema is compatible with Monaco editor, which allows for autocompletion and validation in the editor.
+
+- Link parser/generator is exported under `@gozargah/xray-schema/link`. to have per protocol import: `@gozargah/xray-schema/link/[protocol]`.
 
 ## Usage
 
