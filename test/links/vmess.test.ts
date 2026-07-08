@@ -48,7 +48,7 @@ const legacyLinks = [
   // No security
   legacyLink({
     v: "2", ps: "NoTLS", add: "10.0.0.1", port: "8080",
-    id: "simple-id", scy: "none", aid: "0", net: "tcp", type: "none",
+    id: "simple-id", scy: "auto", aid: "0", net: "tcp", type: "none",
   }),
   // XHTTP + TLS
   legacyLink({

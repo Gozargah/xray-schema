@@ -15,8 +15,8 @@ const sip002Links = [
   "ss://aes-128-gcm:pass@1.2.3.4:8388#Plain",
   // SIP002 with chacha20 method
   `ss://${b64("chacha20-poly1305:mypassword")}@server.example.com:443#ChaCha`,
-  // SIP002 with none method
-  `ss://${b64("none:")}@example.com:8080#None`,
+  // SIP002 with none method (no longer valid)
+  // `ss://${b64("none:")}@example.com:8080#None`,
   // SIP002 with 2022 method
   `ss://${b64("2022-blake3-aes-256-gcm:base64key==")}@example.com:443#2022`,
   // SIP002 with plugin obfs=http
@@ -47,8 +47,8 @@ const legacyLinks = [
   `ss://${b64("aes-256-gcm:password123@example.com:8388")}#LegacyBasic`,
   // Legacy with chacha20
   `ss://${b64("chacha20-ietf-poly1305:pass@1.2.3.4:8388")}#LegacyChaCha`,
-  // Legacy with none method
-  `ss://${b64("none:@example.com:8080")}#LegacyNone`,
+  // Legacy with none method (no longer valid)
+  // `ss://${b64("none:@example.com:8080")}#LegacyNone`,
 ];
 
 describe("shadowsocks legacy parse + zod validation", () => {

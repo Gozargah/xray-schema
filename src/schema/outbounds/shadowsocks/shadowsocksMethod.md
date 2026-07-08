@@ -12,4 +12,3 @@ Other encryption methods:
 - aes-128-gcm
 - chacha20-poly1305 (or chacha20-ietf-poly1305)
 - xchacha20-poly1305 (or xchacha20-ietf-poly1305)
-- none (or plain)

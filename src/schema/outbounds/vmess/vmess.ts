@@ -24,12 +24,9 @@ export const vmess = outboundSchemaBase
         id: z.string().meta({
           markdownDescription: vmessIdDescription,
         }),
-        security: z
-          .enum(["aes-128-gcm", "chacha20-poly1305", "auto", "none", "zero"])
-          .optional()
-          .meta({
-            markdownDescription: vmessSecurityDescription,
-          }),
+        security: z.enum(["aes-128-gcm", "chacha20-poly1305", "auto"]).optional().meta({
+          markdownDescription: vmessSecurityDescription,
+        }),
         level: z.int().default(0).optional().meta({
           markdownDescription: vmessLevelDescription,
         }),
