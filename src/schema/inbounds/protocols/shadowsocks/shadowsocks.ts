@@ -40,11 +40,7 @@ export const ssMethods = z
           .or(
             z
               .literal("chacha20-ietf-poly1305")
-              .or(
-                z
-                  .literal("xchacha20-poly1305")
-                  .or(z.literal("xchacha20-ietf-poly1305").or(z.literal("none").or(z.literal("")))),
-              ),
+              .or(z.literal("xchacha20-poly1305").or(z.literal("xchacha20-ietf-poly1305"))),
           ),
       ),
   );
