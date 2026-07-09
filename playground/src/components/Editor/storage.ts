@@ -187,8 +187,13 @@ class Storage {
       if (prevOpenFileId) {
         this.openFile(prevOpenFileId);
       } else {
-        window.monaco.setModel(null);
-        this.storageHooks.callHook("files:list", this.getFiles());
+        const openFiles = this.getOpenFiles();
+        if (openFiles?.length) {
+          this.openFile(openFiles[0].id);
+        } else {
+          window.monaco.setModel(null);
+          this.storageHooks.callHook("files:list", this.getFiles());
+        }
       }
     }
   }

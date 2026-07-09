@@ -163,7 +163,7 @@ const Tabs = () => {
   return (
     <div
       id="tabs-container"
-      className="bg-[#181818] border-b border-[#2B2B2D] h-[42px] flex justify-between overflow-y-hidden overflow-x-auto no-scrollbar"
+      className="bg-[#181818] border-b border-[#2B2B2D] h-[42px] min-h-[42px] flex justify-between overflow-y-hidden overflow-x-auto no-scrollbar"
     >
       <div className="flex grow h-[42px]">
         {files.map((file) => {

@@ -20,6 +20,7 @@ const schema = await import("@gozargah/xray-schema/full/schema.json").then((mod)
 export default function Editor() {
   const monacoRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const [isAnyFileOpen, setIsAnyFileOpen] = useState(!!storage.getOpenFiles().length);
+
   useEffect(() => {
     return storage.on("files:list:opens", (files) => {
       setIsAnyFileOpen(!!files.length);
@@ -99,7 +100,7 @@ export default function Editor() {
   return (
     <div className="w-full h-full relative">
       {!isAnyFileOpen && (
-        <div className="z-10 absolute top-0 left-0 h-full w-full grow bg-[#121212] flex justify-center items-center flex-col gap-1">
+        <div className="z-40 absolute top-0 left-0 h-full w-full grow bg-[#121212] flex justify-center items-center flex-col gap-1">
           <span className="font-medium">Xray config editor</span>
           <p className="text-sm text-muted-foreground">
             Create a new config or start from a snippet below
