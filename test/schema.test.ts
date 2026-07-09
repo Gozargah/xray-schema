@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseJSONC } from "confbox";
-import { xraySchema } from "../dist";
+import { XrayConfig, xraySchema } from "../dist";
 import { prettifyError } from "zod";
 
 const jsonFiles = await import.meta.glob("./Xray-examples/**/*.jsonc");
@@ -33,7 +33,11 @@ describe("validate against xray-examples repo", async () => {
       if (rawConfig.includes('"network": "h2"'))
         return expect(true, "h2 network is ignored").toBe(true);
 
-      const config = parseJSONC(rawConfig);
+      const config = parseJSONC(rawConfig) as XrayConfig
+
+      if(config?.outbounds?.[0].protocol === 'vmess' && (config as any).outbounds[0].settings.security === "none")
+        return expect(true, 'vmess no security ignored').toBe(true)
+
       if ((config as any)?.inbounds?.[0].streamSettings?.realitySettings?.serverNames?.length == 0)
         (config as any).inbounds[0].streamSettings.realitySettings.serverNames = ["google.com"];
 

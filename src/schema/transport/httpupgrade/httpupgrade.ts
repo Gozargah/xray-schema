@@ -13,7 +13,7 @@ export const httpUpgradeStream = transportBase
     network: z.literal("httpupgrade").meta({
       markdownDescription: networkDescription,
     }),
-    httpupgradeSettings: z
+    httpSettings: z
       .object({
         acceptProxyProtocol: z.boolean().default(false).optional().meta({
           markdownDescription: acceptProxyProtocolDescription,
