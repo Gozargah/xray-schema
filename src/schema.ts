@@ -4,6 +4,7 @@ import { logSchema } from "./schema/log/log.ts";
 import { apiSchema } from "./schema/api/api.ts";
 import { dnsSchema } from "./schema/dns/dns.ts";
 import { routingSchema } from "./schema/routing/routing.ts";
+import { envSchema } from "./schema/env/env.ts";
 import { policySchema } from "./schema/policy/policy.ts";
 import { inbound } from "./schema/inbounds/inbounds.ts";
 import { stats } from "./schema/stats/stats.ts";
@@ -17,6 +18,7 @@ import { fakedns } from "./schema/fakedns/fakedns.ts";
 
 export const xraySchema = z
   .object({
+    env: envSchema.optional(),
     version: versionSchema.optional(),
     log: logSchema.optional(),
     api: apiSchema.optional(),
