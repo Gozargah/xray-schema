@@ -16,7 +16,7 @@ This feature only simulates the `TLS Client Hello` fingerprint. Behavior and oth
 ### TIP
 
 When this feature is enabled, some TLS options that affect TLS fingerprints are overridden by the uTLS library and stop taking effect.
-The parameters still passed through are: `"serverName" "disableSystemRoot" "pinnedPeerCertSha256" "masterKeyLog"`.
+The parameters still passed through are: `"serverName" "disableSystemRoot" "pinnedPeerCertSha256" "masterKeyLog" "echConfigList" "echSockopt"`.
 
 ALPN has special behavior.
 

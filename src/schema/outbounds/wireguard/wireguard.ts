@@ -58,6 +58,7 @@ export const wireguard = outboundSchemaBase
           markdownDescription: wireguardReservedDescription,
         }),
         workers: z.int().optional().meta({
+          deprecated: true,
           markdownDescription: wireguardWorkersDescription,
         }),
         domainStrategy: z

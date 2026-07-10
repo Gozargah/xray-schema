@@ -4,4 +4,5 @@ When the target is a domain name, it races the resolved addresses and chooses th
 
 ### WARNING
 
-Do not use this together with the `domainStrategy` on a `Freedom` outbound, because then `Sockopt` only sees the final IP after replacement.
+Do not use this feature together with this outbound's `targetStrategy`, because then `Sockopt` only sees the final IP after replacement.<br>
+Do not use it together with `dialerProxy` either, because that prevents `happyEyeballs` from taking effect.
