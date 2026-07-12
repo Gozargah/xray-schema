@@ -13,6 +13,7 @@ import pathDescription from "./path.md?raw";
 import headersDescription from "./headers.md?raw";
 import statusDescription from "./status.md?raw";
 import reasonDescription from "./reason.md?raw";
+import transportMethodDescription from "../methodField.md?raw";
 import networkDescription from "../networkField.md?raw";
 import rawSettingsFieldDescription from "../rawSettingsField.md?raw";
 import tcpSettingsFieldDescription from "../tcpSettingsField.md?raw";
@@ -100,8 +101,13 @@ const rawSettings = z
 
 export const rawStream = transportBase
   .extend({
-    network: z.literal("raw").meta({
+    network: z.literal("raw").optional().meta({
       markdownDescription: networkDescription,
+      deprecated: true,
+      deprecationMessage: "Use 'method' instead of 'network'.",
+    }),
+    method: z.literal("raw").meta({
+      markdownDescription: transportMethodDescription,
     }),
     rawSettings: rawSettings.meta({
       markdownDescription: rawSettingsFieldDescription,
@@ -115,6 +121,11 @@ export const tcpStream = transportBase
   .extend({
     network: z.literal("tcp").optional().meta({
       markdownDescription: networkDescription,
+      deprecated: true,
+      deprecationMessage: "Use 'method' instead of 'network'.",
+    }),
+    method: z.literal("tcp").optional().meta({
+      markdownDescription: transportMethodDescription,
     }),
     tcpSettings: rawSettings.meta({
       markdownDescription: tcpSettingsFieldDescription,

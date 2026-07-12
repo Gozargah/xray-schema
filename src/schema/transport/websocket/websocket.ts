@@ -5,14 +5,20 @@ import pathDescription from "./path.md?raw";
 import hostDescription from "./host.md?raw";
 import headersDescription from "./headers.md?raw";
 import heartbeatPeriodDescription from "./heartbeatPeriod.md?raw";
+import methodDescription from "../methodField.md?raw";
 import networkDescription from "../networkField.md?raw";
 import wsSettingsFieldDescription from "../wsSettingsField.md?raw";
 import { transportBase } from "../base";
 
 export const websocketStream = transportBase
   .extend({
-    network: z.literal("websocket").or(z.literal("ws")).meta({
+    network: z.literal("websocket").or(z.literal("ws")).optional().meta({
       markdownDescription: networkDescription,
+      deprecated: true,
+      deprecationMessage: "Use 'method' instead of 'network'.",
+    }),
+    method: z.literal("websocket").or(z.literal("ws")).meta({
+      markdownDescription: methodDescription,
     }),
     wsSettings: z
       .object({

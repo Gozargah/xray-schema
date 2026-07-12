@@ -4,14 +4,20 @@ import acceptProxyProtocolDescription from "./acceptProxyProtocol.md?raw";
 import pathDescription from "./path.md?raw";
 import hostDescription from "./host.md?raw";
 import headersDescription from "./headers.md?raw";
+import methodDescription from "../methodField.md?raw";
 import networkDescription from "../networkField.md?raw";
 import httpupgradeSettingsFieldDescription from "../httpupgradeSettingsField.md?raw";
 import { transportBase } from "../base";
 
 export const httpUpgradeStream = transportBase
   .extend({
-    network: z.literal("httpupgrade").meta({
+    network: z.literal("httpupgrade").optional().meta({
       markdownDescription: networkDescription,
+      deprecated: true,
+      deprecationMessage: "Use 'method' instead of 'network'.",
+    }),
+    method: z.literal("httpupgrade").meta({
+      markdownDescription: methodDescription,
     }),
     httpSettings: z
       .object({
