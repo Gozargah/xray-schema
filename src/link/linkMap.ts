@@ -82,7 +82,7 @@ export interface FieldNode {
 
 /** A branch with declarative field mappings. */
 export interface FieldsNode {
-  /** The network literal to set on streamSettings. */
+  /** The method literal to set on streamSettings. */
   network?: string;
   /** The settings object key, e.g. "wsSettings" or "tlsSettings". */
   settingsKey?: string;
@@ -442,7 +442,7 @@ export interface ProtocolNode {
   extra?: Record<string, { to: string; default?: string }>;
   /** Force a default security value when absent. */
   defaultSecurity?: string;
-  /** Forced streamSettings values (hysteria2: network, security, alpn). */
+  /** Forced streamSettings values (hysteria2: method, security, alpn). */
   forced?: Record<string, string>;
   /** VMess legacy JSON format: field aliases + per-network remapping. */
   legacy?: {

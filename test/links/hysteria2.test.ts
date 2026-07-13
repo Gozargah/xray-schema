@@ -44,7 +44,7 @@ describe("hysteria2 field extraction", () => {
 
   it("forces network=hysteria, security=tls, alpn=h3", () => {
     const ob: any = parseHysteria2("hysteria2://pass@example.com:443#Test");
-    expect(ob.streamSettings.network).toBe("hysteria");
+    expect(ob.streamSettings.method).toBe("hysteria");
     expect(ob.streamSettings.security).toBe("tls");
     // alpn is set as forced query param, handled by buildStreamSettings
   });

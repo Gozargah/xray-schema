@@ -1,1 +1,1 @@
-TCP configuration for the data stream. Only valid when `network` is `tcp` or `raw`.
+TCP configuration for the data stream. Only valid when `method` is `tcp` or `raw`.

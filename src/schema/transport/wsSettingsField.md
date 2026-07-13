@@ -1,4 +1,4 @@
-WebSocket configuration for the data stream. Only valid when `network` is `websocket`.
+WebSocket configuration for the data stream. Only valid when `method` is `websocket`.
 
 ### TIP
 

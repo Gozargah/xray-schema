@@ -1,1 +1,1 @@
-Hysteria configuration for the data stream. Only valid when `network` is `hysteria`.
+Hysteria configuration for the data stream. Only valid when `method` is `hysteria`.

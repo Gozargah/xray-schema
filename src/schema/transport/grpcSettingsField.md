@@ -1,1 +1,1 @@
-gRPC configuration for the data stream. Only valid when `network` is `grpc`.
+gRPC configuration for the data stream. Only valid when `method` is `grpc`.

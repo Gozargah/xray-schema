@@ -109,7 +109,7 @@ describe("shadowsocks plugin obfs", () => {
     const ob: any = parseShadowsocks(
       `ss://${b64("aes-256-gcm:pass")}@example.com:443?plugin=obfs-local%3Bobfs%3Dhttp%3Bobfs-host%3Dwww.example.com%3Bpath%3D%2Fapi#Obfs`,
     );
-    expect(ob.streamSettings?.network).toBe("tcp");
+    expect(ob.streamSettings?.method).toBe("tcp");
     expect(ob.streamSettings?.tcpSettings?.header?.type).toBe("http");
     expect(ob.streamSettings?.tcpSettings?.header?.request?.headers?.Host).toEqual(["www.example.com"]);
     expect(ob.streamSettings?.tcpSettings?.header?.request?.path).toEqual(["/api"]);

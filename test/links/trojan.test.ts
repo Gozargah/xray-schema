@@ -39,14 +39,14 @@ describe("trojan default TLS", () => {
   it("defaults to tls+tcp when no query params", () => {
     const ob: any = parseTrojan("trojan://pass@example.com:443#Basic");
     expect(ob.streamSettings?.security).toBe("tls");
-    expect(ob.streamSettings?.network).toBe("tcp");
+    expect(ob.streamSettings?.method).toBe("tcp");
     expect(ob.streamSettings?.tlsSettings).toBeDefined();
   });
 
   it("defaults to tls when query exists but security absent", () => {
     const ob: any = parseTrojan("trojan://pass@example.com:443?type=ws&host=cdn.example.com&path=%2Fws#WS");
     expect(ob.streamSettings?.security).toBe("tls");
-    expect(ob.streamSettings?.network).toBe("ws");
+    expect(ob.streamSettings?.method).toBe("ws");
   });
 });
 
@@ -73,7 +73,7 @@ describe("trojan round-trip", () => {
     expect(ob2.settings.address).toBe(ob.settings.address);
     expect(ob2.settings.port).toBe(ob.settings.port);
     expect(ob2.settings.password).toBe(ob.settings.password);
-    expect(ob2.streamSettings?.network).toBe(ob.streamSettings?.network);
+    expect(ob2.streamSettings?.method).toBe(ob.streamSettings?.method);
     expect(ob2.streamSettings?.security).toBe(ob.streamSettings?.security);
     expect(ob2.streamSettings?.wsSettings?.host).toBe(ob.streamSettings?.wsSettings?.host);
     expect(ob2.streamSettings?.wsSettings?.path).toBe(ob.streamSettings?.wsSettings?.path);
