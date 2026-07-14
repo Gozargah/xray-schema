@@ -8,13 +8,13 @@ import downlinkCapacityDescription from "./downlinkCapacity.md?raw";
 import congestionDescription from "./congestion.md?raw";
 import readBufferSizeDescription from "./readBufferSize.md?raw";
 import writeBufferSizeDescription from "./writeBufferSize.md?raw";
-import networkDescription from "../networkField.md?raw";
+import methodDescription from "../methodField.md?raw";
 import { transportBase } from "../base";
 
 export const mkcpStream = transportBase
   .extend({
-    network: z.literal("kcp").or(z.literal("mkcp")).meta({
-      markdownDescription: networkDescription,
+    method: z.literal("kcp").or(z.literal("mkcp")).meta({
+      markdownDescription: methodDescription,
     }),
     kcpSettings: z
       .object({

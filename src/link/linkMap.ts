@@ -82,8 +82,8 @@ export interface FieldNode {
 
 /** A branch with declarative field mappings. */
 export interface FieldsNode {
-  /** The network literal to set on streamSettings. */
-  network?: string;
+  /** The method literal to set on streamSettings. */
+  method?: string;
   /** The settings object key, e.g. "wsSettings" or "tlsSettings". */
   settingsKey?: string;
   /** SNI hint: which field's value to use as transport-derived SNI. */
@@ -160,7 +160,7 @@ export const securityMap = {
 export const transportMap: Record<string, FieldsNode> = {
   /* Simple transports — pure declarative */
   ws: {
-    network: "ws",
+    method: "ws",
     settingsKey: "wsSettings",
     sniHint: "host",
     fields: {
@@ -169,7 +169,7 @@ export const transportMap: Record<string, FieldsNode> = {
     },
   },
   websocket: {
-    network: "ws",
+    method: "ws",
     settingsKey: "wsSettings",
     sniHint: "host",
     fields: {
@@ -178,7 +178,7 @@ export const transportMap: Record<string, FieldsNode> = {
     },
   },
   httpupgrade: {
-    network: "httpupgrade",
+    method: "httpupgrade",
     settingsKey: "httpupgradeSettings",
     sniHint: "host",
     fields: {
@@ -187,7 +187,7 @@ export const transportMap: Record<string, FieldsNode> = {
     },
   },
   xhttp: {
-    network: "xhttp",
+    method: "xhttp",
     settingsKey: "xhttpSettings",
     sniHint: "host",
     fields: {
@@ -198,7 +198,7 @@ export const transportMap: Record<string, FieldsNode> = {
     },
   },
   grpc: {
-    network: "grpc",
+    method: "grpc",
     settingsKey: "grpcSettings",
     sniHint: "authority",
     fields: {
@@ -210,7 +210,7 @@ export const transportMap: Record<string, FieldsNode> = {
 
   /* Complex: tcp — header.request nesting */
   tcp: {
-    network: "tcp",
+    method: "tcp",
     settingsKey: "tcpSettings",
     transform: {
       parse: (q) => {
@@ -260,7 +260,7 @@ export const transportMap: Record<string, FieldsNode> = {
 
   /* Complex: raw — same as tcp but with rawSettings */
   raw: {
-    network: "raw",
+    method: "raw",
     settingsKey: "rawSettings",
     transform: {
       parse: (q) => {
@@ -310,7 +310,7 @@ export const transportMap: Record<string, FieldsNode> = {
 
   /* Complex: kcp — fields + extraTransform for finalmask */
   kcp: {
-    network: "kcp",
+    method: "kcp",
     settingsKey: "kcpSettings",
     fields: {
       mtu: { path: "mtu", parse: toInt },
@@ -364,7 +364,7 @@ export const transportMap: Record<string, FieldsNode> = {
 
   /* Complex: hysteria — auth + finalmask (salamander / quicParams) */
   hysteria: {
-    network: "hysteria",
+    method: "hysteria",
     settingsKey: "hysteriaSettings",
     transform: {
       parse: (q, ctx) => {

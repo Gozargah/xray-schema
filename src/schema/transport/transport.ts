@@ -39,7 +39,7 @@ const _streamSettings = z
   ])
   .meta({
     ifThenLogic: true,
-    discriminator: "network",
+    discriminator: "method",
     secondaryDiscriminator: "security",
     markdownDescription: transportDescription,
   });

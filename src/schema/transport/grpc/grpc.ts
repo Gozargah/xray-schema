@@ -8,14 +8,14 @@ import idleTimeoutDescription from "./idle_timeout.md?raw";
 import healthCheckTimeoutDescription from "./health_check_timeout.md?raw";
 import permitWithoutStreamDescription from "./permit_without_stream.md?raw";
 import initialWindowsSizeDescription from "./initial_windows_size.md?raw";
-import networkDescription from "../networkField.md?raw";
+import methodDescription from "../methodField.md?raw";
 import grpcSettingsFieldDescription from "../grpcSettingsField.md?raw";
 import { transportBase } from "../base";
 
 export const grpcStream = transportBase
   .extend({
-    network: z.literal("grpc").meta({
-      markdownDescription: networkDescription,
+    method: z.literal("grpc").meta({
+      markdownDescription: methodDescription,
     }),
     grpcSettings: z
       .object({

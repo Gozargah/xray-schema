@@ -1,4 +1,4 @@
-HTTPUpgrade configuration for the data stream. Only valid when `network` is `httpupgrade`.
+HTTPUpgrade configuration for the data stream. Only valid when `method` is `httpupgrade`.
 
 ### TIP
 
