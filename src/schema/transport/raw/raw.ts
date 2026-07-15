@@ -13,7 +13,7 @@ import pathDescription from "./path.md?raw";
 import headersDescription from "./headers.md?raw";
 import statusDescription from "./status.md?raw";
 import reasonDescription from "./reason.md?raw";
-import networkDescription from "../networkField.md?raw";
+import networkDescription from "../methodField.md?raw";
 import rawSettingsFieldDescription from "../rawSettingsField.md?raw";
 import tcpSettingsFieldDescription from "../tcpSettingsField.md?raw";
 import { transportBase } from "../base";
@@ -100,7 +100,7 @@ const rawSettings = z
 
 export const rawStream = transportBase
   .extend({
-    network: z.literal("raw").meta({
+    method: z.literal("raw").meta({
       markdownDescription: networkDescription,
     }),
     rawSettings: rawSettings.meta({
@@ -113,7 +113,7 @@ export const rawStream = transportBase
 
 export const tcpStream = transportBase
   .extend({
-    network: z.literal("tcp").optional().meta({
+    method: z.literal("tcp").optional().meta({
       markdownDescription: networkDescription,
     }),
     tcpSettings: rawSettings.meta({
