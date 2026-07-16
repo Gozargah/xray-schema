@@ -48,7 +48,7 @@ export function parseTrojan(link: string): Outbound {
   // Stream settings — trojan defaults to TLS + TCP when no query
   if (!rawQuery) {
     (outbound as any).streamSettings = {
-      network: "tcp",
+      method: "tcp",
       tcpSettings: { header: { type: "none" } },
       security: "tls",
       tlsSettings: {},

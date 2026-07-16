@@ -120,7 +120,7 @@ describe("vmess legacy per-network remapping", () => {
       v: "2", ps: "K", add: "1.2.3.4", port: "18390",
       id: "u", scy: "auto", aid: "0", net: "kcp", path: "mySeed",
     }));
-    expect(ob.streamSettings?.network).toBe("kcp");
+    expect(ob.streamSettings?.method).toBe("kcp");
     expect(ob.streamSettings?.finalmask?.udp?.[0]?.settings?.value).toBe("mySeed");
   });
 
@@ -206,7 +206,7 @@ describe("vmess round-trip", () => {
     expect(ob2.settings.port).toBe(ob.settings.port);
     expect(ob2.settings.id).toBe(ob.settings.id);
     expect(ob2.settings.security).toBe(ob.settings.security);
-    expect(ob2.streamSettings?.network).toBe(ob.streamSettings?.network);
+    expect(ob2.streamSettings?.method).toBe(ob.streamSettings?.method);
     expect(ob2.streamSettings?.security).toBe(ob.streamSettings?.security);
     expect(ob2.streamSettings?.wsSettings?.host).toBe(ob.streamSettings?.wsSettings?.host);
     expect(ob2.streamSettings?.wsSettings?.path).toBe(ob.streamSettings?.wsSettings?.path);

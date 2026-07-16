@@ -71,7 +71,7 @@ function applyTransport(
   ctx: ParseCtx,
 ): string | undefined {
   const node = transportMap[network] ?? transportMap["tcp"]!;
-  ss.network = node.network || network;
+  ss.method = node.network || network;
 
   // If the node has a transform, use it (tcp, raw, hysteria)
   if (node.transform) {
@@ -183,7 +183,7 @@ export function flattenStreamSettings(ss: StreamSettings | undefined): QueryPara
   const q: QueryParams = {};
 
   // 1. Transport -------------------------------------------------------
-  const network = (ss.network || "tcp").toLowerCase();
+  const network = (ss.method || "tcp").toLowerCase();
   const node = transportMap[network] ?? transportMap["tcp"]!;
 
   if (node.transform) {

@@ -12,7 +12,7 @@ import insecureDescription from "./insecure.md?raw";
 import contentDescription from "./content.md?raw";
 import headersDescription from "./headers.md?raw";
 import statusCodeDescription from "./statusCode.md?raw";
-import networkDescription from "../networkField.md?raw";
+import networkDescription from "../methodField.md?raw";
 import hysteriaSettingsFieldDescription from "../hysteriaSettingsField.md?raw";
 import { transportBase } from "../base";
 
@@ -49,7 +49,7 @@ const masquerade = z
 
 export const hysteriaStream = transportBase
   .extend({
-    network: z.literal("hysteria").meta({
+    method: z.literal("hysteria").meta({
       markdownDescription: networkDescription,
     }),
     hysteriaSettings: z
