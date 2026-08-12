@@ -5,13 +5,13 @@ import pathDescription from "./path.md?raw";
 import hostDescription from "./host.md?raw";
 import headersDescription from "./headers.md?raw";
 import heartbeatPeriodDescription from "./heartbeatPeriod.md?raw";
-import networkDescription from "../networkField.md?raw";
+import networkDescription from "../methodField.md?raw";
 import wsSettingsFieldDescription from "../wsSettingsField.md?raw";
 import { transportBase } from "../base";
 
 export const websocketStream = transportBase
   .extend({
-    network: z.literal("websocket").or(z.literal("ws")).meta({
+    method: z.literal("websocket").or(z.literal("ws")).meta({
       markdownDescription: networkDescription,
     }),
     wsSettings: z

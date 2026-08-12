@@ -39,6 +39,7 @@ describe("trojan default TLS", () => {
   it("defaults to tls+tcp when no query params", () => {
     const ob: any = parseTrojan("trojan://pass@example.com:443#Basic");
     expect(ob.streamSettings?.security).toBe("tls");
+    console.log(ob.streamSettings)
     expect(ob.streamSettings?.network).toBe("tcp");
     expect(ob.streamSettings?.tlsSettings).toBeDefined();
   });

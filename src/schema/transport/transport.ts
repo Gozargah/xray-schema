@@ -39,10 +39,22 @@ const _streamSettings = z
   ])
   .meta({
     ifThenLogic: true,
-    discriminator: "network",
+    discriminator: "method",
+    discriminatorAliases: ["network"],
     secondaryDiscriminator: "security",
     markdownDescription: transportDescription,
   });
 
 export type StreamSettings = any;
-export const streamSettings: z.ZodType<StreamSettings> = _streamSettings as any;
+export const streamSettings: z.ZodType<StreamSettings> = z.preprocess((val) => {
+  if (val && typeof val === "object" && !Array.isArray(val)) {
+    const obj = val as Record<string, any>;
+    if ("network" in obj && !("method" in obj)) {
+      const clone = { ...obj };
+      clone.method = clone.network;
+      delete clone.network;
+      return clone;
+    }
+  }
+  return val;
+}, _streamSettings as any) as any;

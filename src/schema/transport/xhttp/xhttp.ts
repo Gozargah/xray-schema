@@ -32,7 +32,7 @@ import downloadPortDescription from "./downloadPort.md?raw";
 import downloadNetworkDescription from "./downloadNetwork.md?raw";
 import downloadXhttpSettingsDescription from "./downloadXhttpSettings.md?raw";
 import downloadSockoptDescription from "./downloadSockopt.md?raw";
-import networkDescription from "../networkField.md?raw";
+import networkDescription from "../methodField.md?raw";
 import xhttpSettingsFieldDescription from "../xhttpSettingsField.md?raw";
 import { transportBase } from "../base.ts";
 
@@ -86,7 +86,7 @@ const xhttpSettingsCommonFields = z.object({
   port: z.number().int().nonnegative().meta({
     markdownDescription: downloadPortDescription,
   }),
-  network: z.literal("xhttp").meta({
+  method: z.literal("xhttp").meta({
     markdownDescription: downloadNetworkDescription,
   }),
   xhttpSettings: downloadXhttpSettings.optional().meta({
@@ -163,7 +163,7 @@ const xhttpSettings = z
 // TODO: distinguish server client settings
 export const xhttpStream = transportBase
   .extend({
-    network: z.literal("xhttp").meta({
+    method: z.literal("xhttp").meta({
       markdownDescription: networkDescription,
     }),
     xhttpSettings: xhttpSettings.optional().meta({
@@ -176,7 +176,7 @@ export const xhttpStream = transportBase
 
 export const splithttpStream = transportBase
   .extend({
-    network: z.literal("splithttp").meta({
+    method: z.literal("splithttp").meta({
       markdownDescription: networkDescription,
     }),
     xhttpSettings: xhttpSettings.optional().meta({
