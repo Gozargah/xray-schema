@@ -49,6 +49,7 @@ export function parseTrojan(link: string): Outbound {
   if (!rawQuery) {
     (outbound as any).streamSettings = {
       method: "tcp",
+      network: "tcp",
       tcpSettings: { header: { type: "none" } },
       security: "tls",
       tlsSettings: {},

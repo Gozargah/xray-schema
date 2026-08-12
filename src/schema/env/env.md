@@ -2,8 +2,6 @@ Environment variables are used to adjust some underlying Xray settings.
 
 Environment variables can either be written to the current Xray process by the configuration file's `env` item after the configuration is read, or supplied through a shell or service manager before Xray starts.
 
-> `environment variable name`: string
-
 Both the environment variable name and its value must be strings. After Xray reads and merges all configuration files, it writes the entries in `env` to the current process environment before building its modules.
 
 ### TIP

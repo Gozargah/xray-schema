@@ -93,6 +93,9 @@ const generateFile = async (module: string, output: string) => {
 
       if (isDual) {
         ctx.jsonSchema.primaryDiscriminator = primaryDisc;
+        ctx.jsonSchema._discriminatorAliases =
+          (ctx.jsonSchema.discriminatorAliases as string[]) ?? [];
+        delete ctx.jsonSchema.discriminatorAliases;
         ctx.jsonSchema._dualVariantMeta = zodOptions.map((opt) => {
           const shape: Record<string, any> = opt.def?.shape ?? {};
           return {
@@ -240,9 +243,15 @@ const generateFile = async (module: string, output: string) => {
       });
     }
 
+    const aliases: string[] = (node._discriminatorAliases as string[]) ?? [];
+    const aliasConditions = aliases.flatMap((alias) =>
+      buildConditions(alias, primaryGroups, primaryFieldToGroup, allPrimaryFields),
+    );
+
     const allOf = [
       ...buildConditions(primaryDisc, primaryGroups, primaryFieldToGroup, allPrimaryFields),
       ...buildConditions(secondaryDisc, secondaryGroups, secondaryFieldToGroup, allSecondaryFields),
+      ...aliasConditions,
     ];
 
     const allFields = new Set(infos.flatMap((v) => v.ownFields));
@@ -273,6 +282,13 @@ const generateFile = async (module: string, output: string) => {
       [secondaryDisc]: { enum: [...new Set(infos.flatMap((v) => v.secondaryVals))] },
     };
     for (const f of commonFields) baseProps[f] = richestInfo.properties[f] ?? {};
+    for (const alias of aliases) {
+      baseProps[alias] = {
+        enum: [...new Set(infos.flatMap((v) => v.primaryVals))],
+        deprecated: true,
+        description: `Deprecated. Use \`${primaryDisc}\` instead.`,
+      };
+    }
 
     delete node.oneOf;
     delete node.anyOf;
@@ -280,6 +296,7 @@ const generateFile = async (module: string, output: string) => {
     delete node.primaryDiscriminator;
     delete node.secondaryDiscriminator;
     delete node._dualVariantMeta;
+    delete node._discriminatorAliases;
     node.type = "object";
     node.properties = baseProps;
     node.unevaluatedProperties = false;
@@ -298,6 +315,7 @@ const generateFile = async (module: string, output: string) => {
     const discriminatedFields: string[] = Array.isArray(ctx.jsonSchema.discriminatedFields)
       ? ctx.jsonSchema.discriminatedFields
       : [];
+    const aliases: string[] = (ctx.jsonSchema.discriminatorAliases as string[]) ?? [];
 
     const allOf = variants.map((variant: any, i: number) => {
       const shape = zodOptions[i]?.def?.shape ?? {};
@@ -316,21 +334,49 @@ const generateFile = async (module: string, output: string) => {
       return conditional;
     });
 
+    for (const alias of aliases) {
+      allOf.push(
+        ...variants.map((variant: any, i: number) => {
+          const shape = zodOptions[i]?.def?.shape ?? {};
+          const values = getZodLiteralValues(shape[discriminator]);
+          const conditional: any = {
+            if: {
+              properties: {
+                [alias]: values.length === 1 ? { const: values[0] } : { enum: values },
+              },
+              required: [alias],
+            },
+          };
+          Reflect.set(conditional, "then", variant);
+          return conditional;
+        }),
+      );
+    }
+
     const {
       ifThenLogic: _,
       oneOf: __,
       anyOf: ___,
       secondaryDiscriminator: ____,
+      discriminatorAliases: _____,
       ...rest
     } = ctx.jsonSchema;
     delete ctx.jsonSchema.oneOf;
     delete ctx.jsonSchema.anyOf;
     delete ctx.jsonSchema.ifThenLogic;
     delete ctx.jsonSchema.secondaryDiscriminator;
+    delete ctx.jsonSchema.discriminatorAliases;
     ctx.jsonSchema.properties = {
       ...rest.properties,
       [discriminator]: { enum: [...new Set(allValues)] },
     };
+    for (const alias of aliases) {
+      ctx.jsonSchema.properties[alias] = {
+        enum: [...new Set(allValues)],
+        deprecated: true,
+        description: `Deprecated. Use \`${discriminator}\` instead.`,
+      };
+    }
     ctx.jsonSchema.allOf = allOf;
   }
 };

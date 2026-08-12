@@ -72,6 +72,7 @@ function applyTransport(
 ): string | undefined {
   const node = transportMap[network] ?? transportMap["tcp"]!;
   ss.method = node.network || network;
+  ss.network = node.network || network;
 
   // If the node has a transform, use it (tcp, raw, hysteria)
   if (node.transform) {
