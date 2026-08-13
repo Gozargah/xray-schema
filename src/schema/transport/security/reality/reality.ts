@@ -63,7 +63,7 @@ const realitySettingsServer = z.object({
   privateKey: z.string().min(1).meta({
     markdownDescription: privateKeyDescription,
   }),
-  minClientVer: z.string().optional().meta({
+  minClientVer: z.string().default("26.3.27").optional().meta({
     markdownDescription: minClientVerDescription,
   }),
   maxClientVer: z.string().optional().meta({

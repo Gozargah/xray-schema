@@ -4,6 +4,7 @@ import vlessDescription from "./vless.md?raw";
 import vlessSettingsDescription from "./vlessSettings.md?raw";
 import vlessUsersDescription from "./vlessUsers.md?raw";
 import vlessDecryptionDescription from "./vlessDecryption.md?raw";
+import vlessFlowDescription from "./vlessFlow.md?raw";
 import vlessFallbacksDescription from "./vlessFallbacks.md?raw";
 import vlessUserIdDescription from "./vlessUserId.md?raw";
 import vlessUserLevelDescription from "./vlessUserLevel.md?raw";
@@ -47,6 +48,9 @@ const vlessFallbackSchema = z.object({
 });
 
 const baseVlessSettings = z.object({
+  flow: z.string().default("").optional().meta({
+    markdownDescription: vlessFlowDescription,
+  }),
   decryption: z.literal("none").or(z.string()).meta({
     markdownDescription: vlessDecryptionDescription,
   }),
