@@ -8,6 +8,7 @@
     "tag": "VLESS-GRPC-TLS",
     "settings": {
       "clients": [],
+      "flow": "",
       "decryption": "none"
     },
     "streamSettings": {

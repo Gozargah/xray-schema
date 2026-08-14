@@ -8,6 +8,7 @@
     "tag": "VLESS-TCP-TLS",
     "settings": {
       "clients": [],
+      "flow": "",
       "decryption": "none"
     },
     "streamSettings": {

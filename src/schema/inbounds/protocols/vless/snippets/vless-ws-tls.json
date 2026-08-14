@@ -8,6 +8,7 @@
     "tag": "VLESS-WS-TLS",
     "settings": {
       "clients": [],
+      "flow": "",
       "decryption": "none"
     },
     "streamSettings": {
