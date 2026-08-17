@@ -2,6 +2,7 @@ import z from "zod";
 import { generalInboundSchema } from "../../baseInbound/baseInbound.ts";
 import vlessDescription from "./vless.md?raw";
 import vlessSettingsDescription from "./vlessSettings.md?raw";
+import vlessFlowDescription from "./vlessFlow.md?raw";
 import vlessUsersDescription from "./vlessUsers.md?raw";
 import vlessDecryptionDescription from "./vlessDecryption.md?raw";
 import vlessFallbacksDescription from "./vlessFallbacks.md?raw";
@@ -47,6 +48,9 @@ const vlessFallbackSchema = z.object({
 });
 
 const baseVlessSettings = z.object({
+  flow: z.string().default("").optional().meta({
+    markdownDescription: vlessFlowDescription,
+  }),
   decryption: z.literal("none").or(z.string()).meta({
     markdownDescription: vlessDecryptionDescription,
   }),
