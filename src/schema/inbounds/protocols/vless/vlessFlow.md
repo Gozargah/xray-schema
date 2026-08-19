@@ -1,0 +1,1 @@
+When `users.flow` is an empty string or does not exist, `flow` will be used as its default value. When this value is non-empty, it makes it impossible to set `users.flow` to empty to disable flow control (because an empty string will fall back to the value here).

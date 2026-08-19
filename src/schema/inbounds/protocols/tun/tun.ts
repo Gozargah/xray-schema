@@ -3,6 +3,7 @@ import { generalInboundSchema } from "../../baseInbound/baseInbound.ts";
 import tunDescription from "./tun.md?raw";
 import tunSettingsDescription from "./tunSettings.md?raw";
 import tunNameDescription from "./tunName.md?raw";
+import tunDescDescription from "./tunDesc.md?raw";
 import tunMtuDescription from "./tunMtu.md?raw";
 import tunGatewayDescription from "./tunGateway.md?raw";
 import tunDnsDescription from "./tunDns.md?raw";
@@ -16,8 +17,11 @@ export const tunInboundSchema = generalInboundSchema
     protocol: z.literal("tun"),
     settings: z
       .object({
-        name: z.string().default("xray0").optional().meta({
+        name: z.string().optional().meta({
           markdownDescription: tunNameDescription,
+        }),
+        desc: z.string().default("Wintun").optional().meta({
+          markdownDescription: tunDescDescription,
         }),
         mtu: z.number().int().default(1500).optional().meta({
           markdownDescription: tunMtuDescription,
