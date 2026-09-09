@@ -7,21 +7,21 @@ export const policySchema = z
       .record(
         z.string(),
         z.object({
-          handshake: z.number().default(4).optional().meta({
-            markdownDescription: `Handshake time limit when establishing a connection. Unit is seconds. Default value is \`4\`. When an inbound proxy processes a new connection, if the time used during the handshake phase exceeds this time, the connection is interrupted.`,
+          handshake: z.number().default(60).optional().meta({
+            markdownDescription: `Handshake time limit when establishing a connection. Unit is seconds. Default value is \`60\`. When an inbound proxy processes a new connection, if the time used during the handshake phase exceeds this time, the connection is interrupted.`,
           }),
           connIdle: z.number().default(300).optional().meta({
             markdownDescription: `Connection idle time limit. Unit is seconds. Default value is \`300\`. When an inbound/outbound processes a connection, if no data is transferred (including uplink and downlink data) within the \`connIdle\` time, the connection is interrupted.`,
           }),
-          uplinkOnly: z.number().default(2).optional().meta({
-            markdownDescription: `Time limit after the downlink connection is closed. Unit is seconds. Default value is \`2\`. When the server (such as a remote website) closes the downlink connection, the outbound proxy will interrupt the connection after waiting for the \`uplinkOnly\` time.`,
+          uplinkOnly: z.number().default(1).optional().meta({
+            markdownDescription: `Time limit after the downlink connection is closed. Unit is seconds. Default value is \`1\`. When the server (such as a remote website) closes the downlink connection, the outbound proxy will interrupt the connection after waiting for the \`uplinkOnly\` time.`,
           }),
           downlinkOnly: z
             .number()
-            .default(5)
+            .default(1)
             .optional()
             .meta({
-              markdownDescription: `Time limit after the uplink connection is closed. Unit is seconds. Default value is \`5\`. When the client (such as a browser) closes the uplink connection, the inbound proxy will interrupt the connection after waiting for the \`downlinkOnly\` time.
+              markdownDescription: `Time limit after the uplink connection is closed. Unit is seconds. Default value is \`1\`. When the client (such as a browser) closes the uplink connection, the inbound proxy will interrupt the connection after waiting for the \`downlinkOnly\` time.
 ---
 In HTTP browsing scenarios, \`uplinkOnly\` and \`downlinkOnly\` can be set to 0 to improve connection closing efficiency.`,
             }),
