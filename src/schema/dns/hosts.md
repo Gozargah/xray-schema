@@ -3,9 +3,10 @@
 ## The mapping target may be a domain name. When the core finishes matching and the mapping contains domain name(s), the behavior is slightly different:
 
 - If the mapping contains both IP addresses and domain names, the domain names are removed and only the IP addresses are returned.
-- If the mapping contains several domain names, the result is ambiguous: the match fails, is treated as a miss, and the DNS query phase is entered.
+- If the mapping contains several domain names, the result is ambiguous: the query fails.
 - If the mapping contains exactly one domain name, that domain will be fed back into the Hosts module for recursive resolution, repeating the above steps with a maximum recursion depth of 5.
 - If the above recursive resolution yields no IPs, and the final resolution result contains exactly one domain name, that domain replaces the original requested domain and is sent to the DNS query phase.
+- In particular, if the "domain" is in the form of a hash followed by a number (such as `#3`), any request matched by this entry will fail immediately. If the request comes from the DNS outbound, the core will return an empty response with the rcode corresponding to that number to reject the request.
 
 ---
 
