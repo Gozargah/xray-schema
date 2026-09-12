@@ -58,6 +58,8 @@ export const outboundSchemaBase = z.object({
     .optional()
     .meta({
       markdownDescription: proxySettingsDescription,
+      deprecated: true,
+      deprecationMessage: `This option has been removed from the documentation. Use \`sockopt.dialerProxy\` instead.`,
     }),
   mux: z
     .object({

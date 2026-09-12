@@ -2,23 +2,23 @@ Built-in DNS server. If this item is not configured, the system DNS settings are
 
 The built-in DNS module in Xray has three main purposes:
 
-- **Routing Phase:** Resolves domain names to IPs and matches rules based on the resolved IPs for traffic splitting. Whether to resolve the domain and split traffic depends on the `domainStrategy` setting in the routing configuration module. The built-in DNS server is used for DNS queries only when the following two values are set:
-  - `"IPIfNonMatch"`: When a domain is requested, Xray attempts to match it against the `domain` rules in the routing configuration. If no match is found, the built-in DNS server is used to resolve the domain, and the returned IP address is used to match against IP routing rules.
-  - `"IPOnDemand"`: When any IP-based rule is encountered during matching, the domain is immediately resolved to an IP for matching.
+- **Routing Phase:** Resolves domain names to IPs and matches rules based on the resolved IPs for traffic splitting.
+  Whether a domain name is resolved for IP-based routing depends on `routing.domainStrategy`. The built-in DNS server may be used for DNS queries only with the following values:
+  - `"IPIfNonMatch"`: If no rule matches during the first routing pass, resolution occurs whenever the target includes a domain name and at least one rule contains an `ip` condition.
+  - `"IPOnDemand"`: Resolution occurs when the target includes a domain name and a rule containing an `ip` condition is encountered.
 
-- **Resolving Target Addresses for Connections:**
-  - For example, in a `freedom` outbound, if `domainStrategy` is set to `UseIP`, requests sent from this outbound will first resolve the domain to an IP using the built-in server before connecting.
-  - For example, in `sockopt`, if `domainStrategy` is set to `UseIP`, system connections initiated by this outbound will first resolve to an IP using the built-in server before connecting.
+- **Outbound Phase:** Resolves target domain names for connections or for sending to a remote proxy server.
+  - For example, setting `targetStrategy` to `UseIP` in a VLESS outbound resolves the target domain of the proxied request through the local built-in DNS module, then sends the resolved IP to the remote proxy server.
+  - Setting `sockopt.domainStrategy` to `UseIP` in a VLESS outbound resolves the VLESS server's domain through the built-in DNS module, then connects to the resolved IP.
+  - Setting `sockopt.domainStrategy` to `UseIP` in a Freedom outbound resolves the request's target domain through the built-in DNS module, then connects to the resolved IP.
+  - WireGuard does not allow domain names as destinations, so its outbound can use the built-in DNS module to resolve them to IPs.
 
-- **TUN/Transparent Proxy DNS Traffic Hijacking:** Combines routing with the DNS outbound to hijack DNS traffic into this module; or directly exposes port 53 to act as a recursive DNS server.
+- **TUN/Transparent Proxy DNS Traffic Hijacking:** Combines routing with the DNS outbound to hijack DNS traffic into this module; or uses [Tunnel](https://xtls.github.io/en/config/inbounds/tunnel.html) to expose port 53 and act as a recursive DNS server.
+  - Only basic IP queries (A and AAAA records) are supported. CNAME records will be queried repeatedly until an A/AAAA record is returned. Other queries will not enter the built-in DNS server; instead, they may be discarded or transparently forwarded to other servers depending on your outbound configuration.
 
-#### TIP 1
+#### TIP
 
 The DNS server enters the routing system for matching by default unless it contains `+local`. When using domain names within it, be aware of potential routing loops; `hosts` may help.
-
-#### TIP 2
-
-Only basic IP queries (A and AAAA records) are supported. CNAME records will be queried repeatedly until an A/AAAA record is returned. Other queries will not enter the built-in DNS server; instead, they may be discarded or transparently forwarded to other servers depending on your outbound configuration.
 
 ## DNS Processing Flow
 
