@@ -11,16 +11,15 @@ export const routingSchema = z
     domainStrategy: z
       .union([
         z.literal("AsIs").meta({
-          markdownDescription:
-            "No extra operation. Uses the domain in the destination address or the sniffed domain. Default value.",
+          markdownDescription: "Does not perform DNS resolution. Default value.",
         }),
         z.literal("IPIfNonMatch").meta({
           markdownDescription:
-            "When no rule is matched after a full round of matching, resolve the domain to an IP and perform a second round of matching.",
+            "Domain names are not resolved initially. If no rule matches after the full pass and the target includes a domain name, Xray starts a second pass. During that pass, when it encounters a rule containing an `ip` condition, it uses the built-in DNS server to resolve the domain name to IPs for matching.",
         }),
         z.literal("IPOnDemand").meta({
           markdownDescription:
-            "Before starting matching, resolve the domain to an IP immediately for matching.",
+            "If the target includes a domain name, Xray uses the built-in DNS server to resolve it to IPs for matching when it encounters a rule containing an `ip` condition. If resolution fails, the original destination IP is used for matching.",
         }),
       ])
       .optional()
