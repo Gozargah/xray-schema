@@ -1,7 +1,6 @@
-Controls the domain resolution strategy when the Wireguard server address is a domain name or the target address of the proxied traffic is a domain name.
+Controls the domain resolution strategy when the WireGuard server address or the target address of the proxied traffic is a domain name.
 
-Unlike most proxy protocols, Wireguard does not allow passing domain names as targets. Therefore, if the incoming target is a domain, it needs to be resolved to an IP address before transmission. This is handled by Xray's built-in DNS. The meaning of this field is the same as `domainStrategy` in `Freedom` outbound. The default value is `ForceIP`.
+Unlike most proxy protocols, WireGuard does not allow domain names to be passed as targets. If the incoming target is a domain name, it must therefore be resolved to an IP address before transmission. The meanings of this field match the corresponding `Force` strategies in [sockopt.domainStrategy](https://xtls.github.io/en/config/transports/sockopt.html#sockoptobject). The default is `ForceIP`.
 
-The `domainStrategy` of `Freedom` outbound includes options like `UseIP`, which are not provided here because Wireguard must obtain a usable IP and cannot perform the behavior of falling back to a domain name after `UseIP` resolution fails.
-
-Note: When applied to proxied traffic, this option is also constrained by the `address` option. For example, if you set `ForceIPv6v4` but no IPv6 address is set in `address`, even if the target domain has AAAA records, they will not be resolved/used.
+`sockopt.domainStrategy` includes options such as `UseIP`, which are not available here because WireGuard must obtain a usable IP address and cannot fall back to a domain name when `UseIP` resolution fails.<br>
+Note: When applied to proxied traffic, this option is also constrained by `address`. For example, if you set `ForceIPv6v4` but do not configure an IPv6 address in `address`, AAAA records will not be resolved even if the target domain has them.

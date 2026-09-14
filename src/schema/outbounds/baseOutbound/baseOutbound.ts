@@ -57,6 +57,7 @@ export const outboundSchemaBase = z.object({
     })
     .optional()
     .meta({
+      deprecated: true,
       markdownDescription: proxySettingsDescription,
     }),
   mux: z

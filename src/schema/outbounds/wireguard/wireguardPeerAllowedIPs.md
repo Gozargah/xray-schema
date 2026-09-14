@@ -1,1 +1,1 @@
-Wireguard only allows traffic from specific source IPs.
+Specifies the destination IP networks forwarded by this server, with each item expressed in CIDR notation. This field can be omitted when only one server is configured because the default is `["0.0.0.0/0", "::/0"]`, meaning that the server forwards all IPv4 and IPv6 destination traffic. When multiple servers are configured, explicitly set `allowedIPs` for each server to assign different destination networks to the appropriate server; Xray selects the server by prefix-matching the destination IP address.
