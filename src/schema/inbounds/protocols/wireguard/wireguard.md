@@ -1,4 +1,4 @@
-User-space WireGuard protocol implementation.
+User-space WireGuard protocol implementation for establishing a WireGuard tunnel with a peer and receiving traffic through the tunnel.
 
 ### DANGER
 

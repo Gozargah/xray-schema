@@ -42,19 +42,24 @@ export const wireguard = outboundSchemaBase
         secretKey: z.string().meta({
           markdownDescription: wireguardSecretKeyDescription,
         }),
-        address: z.array(z.string()).min(1).meta({
-          markdownDescription: wireguardAddressDescription,
-        }),
+        address: z
+          .array(z.string())
+          .min(1)
+          .default(["10.0.0.1", "fd59:7153:2388:b5fd:0000:0000:0000:0001"])
+          .optional()
+          .meta({
+            markdownDescription: wireguardAddressDescription,
+          }),
         peers: z.array(peer).min(1).meta({
           markdownDescription: wireguardPeersDescription,
         }),
         noKernelTun: z.boolean().default(false).optional().meta({
           markdownDescription: wireguardNoKernelTunDescription,
         }),
-        mtu: z.int().default(1420).meta({
+        mtu: z.int().default(1420).optional().meta({
           markdownDescription: wireguardMtuDescription,
         }),
-        reserved: z.array(z.int()).default([]).optional().meta({
+        reserved: z.array(z.int()).default([0, 0, 0]).optional().meta({
           markdownDescription: wireguardReservedDescription,
         }),
         workers: z.int().optional().meta({
