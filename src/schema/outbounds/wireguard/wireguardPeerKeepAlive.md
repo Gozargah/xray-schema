@@ -1,1 +1,1 @@
-Heartbeat interval in seconds. Default is 0, meaning no heartbeat.
+Interval, in seconds, at which the client sends persistent keepalive packets to this server. This maintains any NAT mappings or firewall state during idle periods. Enable it only in special situations and only on the client. The default is `0`, which disables keepalive packets.

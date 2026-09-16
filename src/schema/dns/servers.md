@@ -29,3 +29,7 @@ The DNS clients initialized by different rules will be shown in the Xray startup
 ### TIP 3
 
 (v1.4.0+) You can enable DNS query logging in [Log](./log.md).
+
+### TIP 4
+
+The DNS server enters the routing system for matching by default unless it contains `+local`. When using domain names within it, be aware of potential routing loops; `hosts` may help.
