@@ -20,7 +20,7 @@
 
 ## **Local Mode** connections are made directly outwards by the core. In this case, if the address is a domain name, it will be resolved by the system itself. The logic is relatively simple.
 
-## **Non-Local** modes will essentially be treated as requests coming from an inbound with the tag `dns.tag` (Don't know where it is? Ctrl+F in your browser to search for `inboundTag`). They will go through the normal core processing flow and may be assigned by the routing module to a local freedom or other remote outbounds. They will be resolved by the freedom's `domainStrategy` (beware of potential loops) or sent directly as domains to the remote end to be resolved according to the server's own resolution method.
+## **Non-Local Mode:** DNS queries enter the routing system as internal requests, with their `inboundTag` specified by `tag` in the DNS configuration. If a request is routed to a local Freedom outbound, the DNS server's own domain name is resolved according to that outbound's `sockopt.domainStrategy` (beware of potential loops). If it is routed to a remote proxy outbound, the domain name can be passed to the remote end for resolution.
 
 ## Since it might be difficult for average users to clarify the logic involved, it is recommended (especially in a transparent proxy environment) to **directly set the corresponding IPs for servers with domain names in the host option of the DNS module** to prevent loops.
 

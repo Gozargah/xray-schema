@@ -15,6 +15,7 @@ import wireguardPeerPublicKeyDescription from "./wireguardPeerPublicKey.md?raw";
 import wireguardPeerPreSharedKeyDescription from "./wireguardPeerPreSharedKey.md?raw";
 import wireguardPeerKeepAliveDescription from "./wireguardPeerKeepAlive.md?raw";
 import wireguardPeerAllowedIPsDescription from "./wireguardPeerAllowedIPs.md?raw";
+import wireguardRemoteDNSDescription from "./wireguardRemoteDNS.md?raw";
 
 const peer = z.object({
   endpoint: z.string().meta({
@@ -42,9 +43,14 @@ export const wireguard = outboundSchemaBase
         secretKey: z.string().meta({
           markdownDescription: wireguardSecretKeyDescription,
         }),
-        address: z.array(z.string()).min(1).meta({
-          markdownDescription: wireguardAddressDescription,
-        }),
+        address: z
+          .array(z.string())
+          .min(1)
+          .default(["10.0.0.1", "fd59:7153:2388:b5fd:0000:0000:0000:0001"])
+          .optional()
+          .meta({
+            markdownDescription: wireguardAddressDescription,
+          }),
         peers: z.array(peer).min(1).meta({
           markdownDescription: wireguardPeersDescription,
         }),
@@ -66,7 +72,15 @@ export const wireguard = outboundSchemaBase
           .default("ForceIP")
           .optional()
           .meta({
+            deprecated: true,
             markdownDescription: wireguardDomainStrategyDescription,
+          }),
+        remoteDNS: z
+          .array(z.string())
+          .default(["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"])
+          .optional()
+          .meta({
+            markdownDescription: wireguardRemoteDNSDescription,
           }),
       })
       .meta({

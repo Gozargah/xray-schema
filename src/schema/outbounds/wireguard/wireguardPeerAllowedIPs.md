@@ -1,1 +1,1 @@
-Wireguard only allows traffic from specific source IPs.
+Requests that should be forwarded using this peer, represented in CIDR notation. The default value is `["0.0.0.0/0", "::/0"]`, meaning all IPv4 and IPv6 destination traffic is forwarded by this server. When multiple peers match, the longest prefix match rule is used.

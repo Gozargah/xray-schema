@@ -6,6 +6,8 @@ import ttiDescription from "./tti.md?raw";
 import uplinkCapacityDescription from "./uplinkCapacity.md?raw";
 import downlinkCapacityDescription from "./downlinkCapacity.md?raw";
 import congestionDescription from "./congestion.md?raw";
+import cwndMultiplierDescription from "./cwndMultiplier.md?raw";
+import maxSendingWindowDescription from "./maxSendingWindow.md?raw";
 import readBufferSizeDescription from "./readBufferSize.md?raw";
 import writeBufferSizeDescription from "./writeBufferSize.md?raw";
 import networkDescription from "../methodField.md?raw";
@@ -50,21 +52,35 @@ export const mkcpStream = transportBase
           .boolean()
           .default(false)
           .optional()
-          .meta({ markdownDescription: congestionDescription }),
+          .meta({ deprecated: true, markdownDescription: congestionDescription }),
         readBufferSize: z
           .number()
           .int()
           .nonnegative()
           .default(2)
           .optional()
-          .meta({ markdownDescription: readBufferSizeDescription }),
+          .meta({ deprecated: true, markdownDescription: readBufferSizeDescription }),
         writeBufferSize: z
           .number()
           .int()
           .nonnegative()
           .default(2)
           .optional()
-          .meta({ markdownDescription: writeBufferSizeDescription }),
+          .meta({ deprecated: true, markdownDescription: writeBufferSizeDescription }),
+        cwndMultiplier: z
+          .number()
+          .int()
+          .min(1)
+          .default(1)
+          .optional()
+          .meta({ markdownDescription: cwndMultiplierDescription }),
+        maxSendingWindow: z
+          .number()
+          .int()
+          .positive()
+          .default(2097152)
+          .optional()
+          .meta({ markdownDescription: maxSendingWindowDescription }),
       })
       .optional()
       .meta({ markdownDescription: kcpSettingsDescription }),
