@@ -17,24 +17,27 @@ import freedomFinalRulePortDescription from "./freedomFinalRulePort.md?raw";
 import freedomFinalRuleIpDescription from "./freedomFinalRuleIp.md?raw";
 import freedomFinalRuleBlockDelayDescription from "./freedomFinalRuleBlockDelay.md?raw";
 import freedomNoisePacketDescription from "./freedomNoisePacket.md?raw";
+import freedomNoiseTypeDescription from "./freedomNoiseType.md?raw";
+import freedomNoiseDelayDescription from "./freedomNoiseDelay.md?raw";
+import freedomFragmentPacketsDescription from "./freedomFragmentPackets.md?raw";
+import freedomFragmentLengthDescription from "./freedomFragmentLength.md?raw";
+import freedomFragmentIntervalDescription from "./freedomFragmentInterval.md?raw";
 
 const fragment = z
   .object({
-    length: z.number().or(z.string()).meta({
-      markdownDescription: "Fragment packet length (byte).",
-    }),
-    interval: z.number().or(z.string()).meta({
-      markdownDescription:
-        'Fragment interval (ms). \nWhen `interval` is 0 and `"packets": "tlshello"` is set, the fragmented Client Hello will be sent in one TCP packet (provided its original size does not exceed MSS or MTU causing automatic system fragmentation).',
-    }),
     packets: z
       .string()
       .or(z.enum(["1-3", "tlshello"]))
       .or(z.string())
       .meta({
-        markdownDescription:
-          'Supports two fragmentation modes. `"1-3"` is TCP stream slicing, applied to the 1st through 3rd data writes by the client. `"tlshello"` is TLS handshake packet slicing.',
+        markdownDescription: freedomFragmentPacketsDescription,
       }),
+    length: z.number().or(z.string()).meta({
+      markdownDescription: freedomFragmentLengthDescription,
+    }),
+    interval: z.number().or(z.string()).meta({
+      markdownDescription: freedomFragmentIntervalDescription,
+    }),
   })
   .meta({
     markdownDescription: freedomFragmentDescription,
@@ -42,15 +45,13 @@ const fragment = z
 
 const noise = z.object({
   type: z.enum(["rand", "str", "base64"]).meta({
-    markdownDescription:
-      'Noise packet type. Currently supports `"rand"` (random data), `"str"` (user-defined string), `"base64"` (base64 encoded custom binary data).',
+    markdownDescription: freedomNoiseTypeDescription,
   }),
   packet: z.string().meta({
     markdownDescription: freedomNoisePacketDescription,
   }),
   delay: z.int().or(z.string()).optional().meta({
-    markdownDescription:
-      "Delay in milliseconds. After sending this noise packet, the core will wait for this time before sending the next noise packet or real data. Defaults to no wait. It is an [Int32Range](https://xtls.github.io/en/development/intro/guide.html#int32range) type.",
+    markdownDescription: freedomNoiseDelayDescription,
   }),
 });
 
@@ -98,6 +99,7 @@ export const freedom = outboundSchemaBase
           .default("AsIs")
           .optional()
           .meta({
+            deprecated: true,
             markdownDescription: freedomDomainStrategyDescription,
           }),
         redirect: z.string().optional().meta({

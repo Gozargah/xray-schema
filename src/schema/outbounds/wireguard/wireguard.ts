@@ -15,6 +15,7 @@ import wireguardPeerPublicKeyDescription from "./wireguardPeerPublicKey.md?raw";
 import wireguardPeerPreSharedKeyDescription from "./wireguardPeerPreSharedKey.md?raw";
 import wireguardPeerKeepAliveDescription from "./wireguardPeerKeepAlive.md?raw";
 import wireguardPeerAllowedIPsDescription from "./wireguardPeerAllowedIPs.md?raw";
+import wireguardRemoteDNSDescription from "./wireguardRemoteDNS.md?raw";
 
 const peer = z.object({
   endpoint: z.string().meta({
@@ -66,7 +67,15 @@ export const wireguard = outboundSchemaBase
           .default("ForceIP")
           .optional()
           .meta({
+            deprecated: true,
             markdownDescription: wireguardDomainStrategyDescription,
+          }),
+        remoteDNS: z
+          .array(z.string())
+          .default(["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"])
+          .optional()
+          .meta({
+            markdownDescription: wireguardRemoteDNSDescription,
           }),
       })
       .meta({
