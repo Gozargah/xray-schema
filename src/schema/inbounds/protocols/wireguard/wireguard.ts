@@ -6,14 +6,30 @@ import wireguardSecretKeyDescription from "./wireguardSecretKey.md?raw";
 import wireguardPeersDescription from "./wireguardPeers.md?raw";
 import wireguardPeerPublicKeyDescription from "./wireguardPeerPublicKey.md?raw";
 import wireguardPeerAllowedIPsDescription from "./wireguardPeerAllowedIPs.md?raw";
+import wireguardPeerPreSharedKeyDescription from "./wireguardPeerPreSharedKey.md?raw";
+import wireguardPeerKeepAliveDescription from "./wireguardPeerKeepAlive.md?raw";
+import wireguardPeerEmailDescription from "./wireguardPeerEmail.md?raw";
+import wireguardPeerLevelDescription from "./wireguardPeerLevel.md?raw";
 import wireguardMtuDescription from "./wireguardMtu.md?raw";
 
 const wireguardPeerSchema = z.object({
   publicKey: z.string().min(1).meta({
     markdownDescription: wireguardPeerPublicKeyDescription,
   }),
-  allowedIPs: z.array(z.string().min(1)).meta({
+  preSharedKey: z.string().optional().meta({
+    markdownDescription: wireguardPeerPreSharedKeyDescription,
+  }),
+  keepAlive: z.int().default(0).optional().meta({
+    markdownDescription: wireguardPeerKeepAliveDescription,
+  }),
+  allowedIPs: z.array(z.string().min(1)).default(["0.0.0.0/0", "::/0"]).optional().meta({
     markdownDescription: wireguardPeerAllowedIPsDescription,
+  }),
+  email: z.string().optional().meta({
+    markdownDescription: wireguardPeerEmailDescription,
+  }),
+  level: z.number().default(0).optional().meta({
+    markdownDescription: wireguardPeerLevelDescription,
   }),
 });
 

@@ -1,0 +1,1 @@
+Delay in milliseconds. After sending this noise packet, the core waits for this duration before sending the next noise packet or real data. Defaults to no wait. It is an [Int32Range](https://xtls.github.io/en/development/intro/guide.html#int32range) type.
