@@ -1,4 +1,4 @@
-Freedom is an outbound protocol used to send (normal) TCP or UDP data to any network.
+Freedom is a direct outbound protocol and usually the final endpoint for traffic: it receives TCP or UDP traffic from upstream, connects directly to the final destination, and sends and receives data.
 
 ### WARNING
 

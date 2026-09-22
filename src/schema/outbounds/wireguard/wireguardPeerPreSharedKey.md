@@ -1,1 +1,1 @@
-Additional symmetric encryption key.
+Optional additional symmetric encryption key. It must match the server configuration.
