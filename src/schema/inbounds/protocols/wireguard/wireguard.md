@@ -1,4 +1,4 @@
-User-space WireGuard protocol implementation.
+User-space WireGuard protocol implementation for establishing a WireGuard tunnel with a peer, converting received TCP and UDP packets into internal Xray proxy requests for processing and response.
 
 ### DANGER
 

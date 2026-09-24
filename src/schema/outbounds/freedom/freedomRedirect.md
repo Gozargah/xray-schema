@@ -1,4 +1,4 @@
-Freedom will forcibly send all data to the specified address (instead of the address specified by the inbound).
+Freedom rewrites the connection's current destination address and port to those specified in `redirect`.
 
 The value is a string, e.g., `"127.0.0.1:80"`, `":1234"`.
 
