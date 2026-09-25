@@ -1,0 +1,1 @@
+Optional additional symmetric encryption key. It must match the client configuration.

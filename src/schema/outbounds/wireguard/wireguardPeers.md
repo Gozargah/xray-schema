@@ -1,1 +1,1 @@
-List of Wireguard servers, where each item is a server configuration.
+List of remote WireGuard peers to connect to.

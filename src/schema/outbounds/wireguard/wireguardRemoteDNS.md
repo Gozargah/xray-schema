@@ -1,0 +1,3 @@
+Used to resolve proxied target domain names. Each item must be an IP address. The default is `["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]`.
+
+Unlike other outbounds, targets inside a WireGuard tunnel must be IP addresses. When a proxied target is a domain name, a DNS server is required to convert the domain name into an IP address. These DNS servers are configured here and **send DNS requests directly through this WireGuard tunnel**. If you wish to integrate this with Xray's built-in DNS system, consider resolving in advance via the outbound's [`targetStrategy`](https://xtls.github.io/en/config/outbound.html#outboundobject).

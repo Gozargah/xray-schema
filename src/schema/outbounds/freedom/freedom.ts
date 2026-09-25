@@ -21,7 +21,7 @@ import freedomNoisePacketDescription from "./freedomNoisePacket.md?raw";
 const fragment = z
   .object({
     length: z.number().or(z.string()).meta({
-      markdownDescription: "Fragment packet length (byte).",
+      markdownDescription: "Fragment packet length (bytes).",
     }),
     interval: z.number().or(z.string()).meta({
       markdownDescription:
@@ -43,14 +43,14 @@ const fragment = z
 const noise = z.object({
   type: z.enum(["rand", "str", "base64"]).meta({
     markdownDescription:
-      'Noise packet type. Currently supports `"rand"` (random data), `"str"` (user-defined string), `"base64"` (base64 encoded custom binary data).',
+      'Noise packet type. Currently supports `"rand"` (random data), `"str"` (user-defined string), and `"base64"` (base64-encoded custom binary data).',
   }),
   packet: z.string().meta({
     markdownDescription: freedomNoisePacketDescription,
   }),
   delay: z.int().or(z.string()).optional().meta({
     markdownDescription:
-      "Delay in milliseconds. After sending this noise packet, the core will wait for this time before sending the next noise packet or real data. Defaults to no wait. It is an [Int32Range](https://xtls.github.io/en/development/intro/guide.html#int32range) type.",
+      "Delay in milliseconds. After sending this noise packet, the core waits for this duration before sending the next noise packet or real data. Defaults to no wait. It is an [Int32Range](https://xtls.github.io/en/development/intro/guide.html#int32range) type.",
   }),
 });
 
@@ -98,6 +98,7 @@ export const freedom = outboundSchemaBase
           .default("AsIs")
           .optional()
           .meta({
+            deprecated: true,
             markdownDescription: freedomDomainStrategyDescription,
           }),
         redirect: z.string().optional().meta({
