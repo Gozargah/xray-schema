@@ -9,6 +9,7 @@ import wireguardMtuDescription from "./wireguardMtu.md?raw";
 import wireguardReservedDescription from "./wireguardReserved.md?raw";
 import wireguardWorkersDescription from "./wireguardWorkers.md?raw";
 import wireguardPeersDescription from "./wireguardPeers.md?raw";
+import wireguardRemoteDNSDescription from "./wireguardRemoteDNS.md?raw";
 import wireguardDomainStrategyDescription from "./wireguardDomainStrategy.md?raw";
 import wireguardPeerEndpointDescription from "./wireguardPeerEndpoint.md?raw";
 import wireguardPeerPublicKeyDescription from "./wireguardPeerPublicKey.md?raw";
@@ -66,7 +67,15 @@ export const wireguard = outboundSchemaBase
           .default("ForceIP")
           .optional()
           .meta({
+            deprecated: true,
             markdownDescription: wireguardDomainStrategyDescription,
+          }),
+        remoteDNS: z
+          .array(z.string())
+          .default(["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"])
+          .optional()
+          .meta({
+            markdownDescription: wireguardRemoteDNSDescription,
           }),
       })
       .meta({

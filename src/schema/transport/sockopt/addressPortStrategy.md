@@ -5,3 +5,7 @@ These lookups go through system DNS rather than Xray's built-in DNS. The queried
 `Srv*` means querying SRV records in their standard format. `Txt*` means querying TXT records in a format such as `127.0.0.1:80`.
 
 `PortOnly` resets only the port. `AddressOnly` resets only the address. `PortAndAddress` resets both.
+
+This option takes effect before `sockopt.domainStrategy` resolves the address. After the address is rewritten, it is still resolved according to `domainStrategy`.
+
+Freedom outbounds do not support this option.
