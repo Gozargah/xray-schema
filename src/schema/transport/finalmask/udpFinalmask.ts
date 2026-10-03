@@ -18,9 +18,27 @@ import realmDescription from "./realm.md?raw";
 import realmUrlDescription from "./realmUrl.md?raw";
 import realmStunServersDescription from "./realmStunServers.md?raw";
 import realmTlsConfigDescription from "./realmTlsConfig.md?raw";
+import realmIpModeDescription from "./realmIpMode.md?raw";
+import realmPortMappingDescription from "./realmPortMapping.md?raw";
+import realmPortMappingEnabledDescription from "./realmPortMappingEnabled.md?raw";
+import realmPortMappingTimeoutDescription from "./realmPortMappingTimeout.md?raw";
+import realmPortMappingLifetimeDescription from "./realmPortMappingLifetime.md?raw";
+import udphopDescription from "./udphop.md?raw";
+import udphopModeDescription from "./udphopMode.md?raw";
+import udphopIntervalDescription from "./udphopInterval.md?raw";
+import udphopRemoteIPsDescription from "./udphopRemoteIPs.md?raw";
+import udphopRemotePortsDescription from "./udphopRemotePorts.md?raw";
 import domainDescription from "./domain.md?raw";
 import xdnsDomainsDescription from "./xdnsDomains.md?raw";
+import xdnsDomainNameDescription from "./xdnsDomainName.md?raw";
+import xdnsLenLimitDescription from "./xdnsLenLimit.md?raw";
+import xdnsLabelLimitDescription from "./xdnsLabelLimit.md?raw";
+import xdnsTypesDescription from "./xdnsTypes.md?raw";
+import xdnsEdns0Description from "./xdnsEdns0.md?raw";
 import resolversDescription from "./resolvers.md?raw";
+import xdnsResolverTypeDescription from "./xdnsResolverType.md?raw";
+import xdnsResolverSettingsDescription from "./xdnsResolverSettings.md?raw";
+import xdnsResolverAddrDescription from "./xdnsResolverAddr.md?raw";
 import passwordDescription from "./password.md?raw";
 import resetDescription from "./reset.md?raw";
 import randDescription from "./rand.md?raw";
@@ -165,7 +183,7 @@ const noise = z
                 type: z.string().optional().meta({
                   markdownDescription: typeDescription,
                 }),
-                packet: z.array(z.any()).optional().meta({
+                packet: z.array(z.any()).or(z.string()).optional().meta({
                   markdownDescription: packetDescription,
                 }),
                 delay: z.string().meta({
@@ -223,6 +241,47 @@ const salamander = z
     markdownDescription: salamanderDescription,
   });
 
+const xdnsDomainObject = z
+  .object({
+    name: z.string().meta({
+      markdownDescription: xdnsDomainNameDescription,
+    }),
+    lenLimit: z.int().min(0).max(255).optional().meta({
+      markdownDescription: xdnsLenLimitDescription,
+    }),
+    labelLimit: z.int().min(0).max(63).optional().meta({
+      markdownDescription: xdnsLabelLimitDescription,
+    }),
+    types: z.array(z.int()).optional().meta({
+      markdownDescription: xdnsTypesDescription,
+    }),
+    edns0: z.int().min(0).max(4096).optional().meta({
+      markdownDescription: xdnsEdns0Description,
+    }),
+  })
+  .meta({
+    markdownDescription: xdnsDomainsDescription,
+  });
+
+const xdnsResolverObject = z
+  .object({
+    type: z.string().meta({
+      markdownDescription: xdnsResolverTypeDescription,
+    }),
+    settings: z
+      .object({
+        addr: z.string().meta({
+          markdownDescription: xdnsResolverAddrDescription,
+        }),
+      })
+      .meta({
+        markdownDescription: xdnsResolverSettingsDescription,
+      }),
+  })
+  .meta({
+    markdownDescription: resolversDescription,
+  });
+
 const xdns = z
   .object({
     type: z.literal("xdns").meta({
@@ -231,18 +290,14 @@ const xdns = z
     settings: z
       .object({
         // server only
-        domains: z.array(z.string()).min(1).meta({
+        domains: z.array(z.string().or(xdnsDomainObject)).min(1).optional().meta({
           markdownDescription: xdnsDomainsDescription,
         }),
-      })
-      .or(
-        z.object({
-          // client only
-          resolvers: z.array(z.string()).min(1).meta({
-            markdownDescription: resolversDescription,
-          }),
+        // client only
+        resolvers: z.array(z.string().or(xdnsResolverObject)).min(1).optional().meta({
+          markdownDescription: resolversDescription,
         }),
-      )
+      })
       .meta({
         markdownDescription: xdnsDescription,
       }),
@@ -286,9 +341,28 @@ const realm = z
         stunServers: z.array(z.string()).min(1).meta({
           markdownDescription: realmStunServersDescription,
         }),
-        tlsConfig: z.object({}).loose().meta({
+        tlsConfig: z.object({}).loose().optional().meta({
           markdownDescription: realmTlsConfigDescription,
         }),
+        ipMode: z.string().optional().meta({
+          markdownDescription: realmIpModeDescription,
+        }),
+        portMapping: z
+          .object({
+            enabled: z.boolean().optional().meta({
+              markdownDescription: realmPortMappingEnabledDescription,
+            }),
+            timeout: z.number().optional().meta({
+              markdownDescription: realmPortMappingTimeoutDescription,
+            }),
+            lifetime: z.number().optional().meta({
+              markdownDescription: realmPortMappingLifetimeDescription,
+            }),
+          })
+          .optional()
+          .meta({
+            markdownDescription: realmPortMappingDescription,
+          }),
       })
       .meta({
         markdownDescription: realmDescription,
@@ -296,6 +370,34 @@ const realm = z
   })
   .meta({
     markdownDescription: realmDescription,
+  });
+
+const udphop = z
+  .object({
+    type: z.literal("udphop").meta({
+      markdownDescription: udpTypeDescription,
+    }),
+    settings: z
+      .object({
+        mode: z.string().meta({
+          markdownDescription: udphopModeDescription,
+        }),
+        interval: z.string().or(z.number()).optional().meta({
+          markdownDescription: udphopIntervalDescription,
+        }),
+        remoteIPs: z.array(z.string()).optional().meta({
+          markdownDescription: udphopRemoteIPsDescription,
+        }),
+        remotePorts: z.string().optional().meta({
+          markdownDescription: udphopRemotePortsDescription,
+        }),
+      })
+      .meta({
+        markdownDescription: udphopDescription,
+      }),
+  })
+  .meta({
+    markdownDescription: udphopDescription,
   });
 
 export const udpFinalmask = z
@@ -310,6 +412,7 @@ export const udpFinalmask = z
       xdns,
       xicmp,
       realm,
+      udphop,
     ]),
   )
   .meta({
