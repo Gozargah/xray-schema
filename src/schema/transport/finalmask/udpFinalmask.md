@@ -19,3 +19,4 @@ Supported UDP layer types:
 - `xdns`
 - `xicmp`
 - `realm`
+- `udphop`

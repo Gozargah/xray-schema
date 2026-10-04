@@ -1,1 +1,1 @@
-A list of IP addresses.
+CIDR is not currently supported.
