@@ -92,7 +92,7 @@ const mkcpLegacy = z
     settings: z
       .discriminatedUnion("header", [
         z.object({
-          header: z.literal("").meta({
+          header: z.literal("").optional().meta({
             markdownDescription:
               "applies AES-128-GCM encryption with `value` as the password. If `value` is empty, it falls back to the default simple XOR obfuscation.",
           }),
