@@ -1,1 +1,1 @@
-`domains`: used on the server side. A list of domains. It supports specifying a query type as `domain:method`, where method can be `txt`, `a`, or `aaaa`. If omitted, the query type is unrestricted.
+`domains`: used on the server side. Each entry configures a DNS name used for the tunnel with `name`, `lenLimit` (0-255), `labelLimit` (0-63), `types` (1:A, 5:CNAME, 16:TXT, 28:AAAA), and `edns0` (0, 512-4096).

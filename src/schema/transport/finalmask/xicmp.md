@@ -10,4 +10,4 @@ ICMP camouflage layer.
 ```
 
 - `dgram`: Lower permissions, client-side only (Linux, Mac, iOS).
-- `ips`: A list of IP addresses.
+- `ips`: CIDR is not currently supported.
