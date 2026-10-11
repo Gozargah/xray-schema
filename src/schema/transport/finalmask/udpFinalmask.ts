@@ -31,6 +31,7 @@ import udphopRemotePortsDescription from "./udphopRemotePorts.md?raw";
 import domainDescription from "./domain.md?raw";
 import xdnsDomainsDescription from "./xdnsDomains.md?raw";
 import xdnsDomainNameDescription from "./xdnsDomainName.md?raw";
+import xdnsNamesDescription from "./xdnsNames.md?raw";
 import xdnsLenLimitDescription from "./xdnsLenLimit.md?raw";
 import xdnsLabelLimitDescription from "./xdnsLabelLimit.md?raw";
 import xdnsTypesDescription from "./xdnsTypes.md?raw";
@@ -39,6 +40,7 @@ import resolversDescription from "./resolvers.md?raw";
 import xdnsResolverTypeDescription from "./xdnsResolverType.md?raw";
 import xdnsResolverSettingsDescription from "./xdnsResolverSettings.md?raw";
 import xdnsResolverAddrDescription from "./xdnsResolverAddr.md?raw";
+import xdnsResolverAddrsDescription from "./xdnsResolverAddrs.md?raw";
 import passwordDescription from "./password.md?raw";
 import resetDescription from "./reset.md?raw";
 import randDescription from "./rand.md?raw";
@@ -243,8 +245,12 @@ const salamander = z
 
 const xdnsDomainObject = z
   .object({
-    name: z.string().meta({
+    name: z.string().optional().meta({
+      deprecated: true,
       markdownDescription: xdnsDomainNameDescription,
+    }),
+    names: z.array(z.string()).min(1).optional().meta({
+      markdownDescription: xdnsNamesDescription,
     }),
     lenLimit: z.int().min(0).max(255).optional().meta({
       markdownDescription: xdnsLenLimitDescription,
@@ -265,7 +271,11 @@ const xdnsDomainObject = z
 
 const xdnsResolverObject = z
   .object({
-    type: z.string().meta({
+    addrs: z.array(z.string()).min(1).optional().meta({
+      markdownDescription: xdnsResolverAddrsDescription,
+    }),
+    type: z.string().optional().meta({
+      deprecated: true,
       markdownDescription: xdnsResolverTypeDescription,
     }),
     settings: z
@@ -274,6 +284,7 @@ const xdnsResolverObject = z
           markdownDescription: xdnsResolverAddrDescription,
         }),
       })
+      .optional()
       .meta({
         markdownDescription: xdnsResolverSettingsDescription,
       }),
