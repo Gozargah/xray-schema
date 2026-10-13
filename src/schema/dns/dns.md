@@ -30,6 +30,8 @@ Detailed explanation
 
 The domain first undergoes a Hosts mapping check (see the `hosts` field). If the required IP is not found, the DNS server is used for the query.
 
+If `script` is configured, subsequent DNS queries are handled by a [Lua script](https://xtls.github.io/en/development/lua/guide/dns.html), and the built-in processing flow below is skipped.
+
 The core then begins to build a list of servers, sorting them according to the requested domain based on the following rules.
 
 - Build List 1: Contains servers where the `domains` field successfully matches the requested domain, in the order they appear in the configuration file.
