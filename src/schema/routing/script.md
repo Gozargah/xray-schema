@@ -1,0 +1,1 @@
+Path to a Lua script file; defaults to an empty string. When set, the Lua script takes over outbound selection. See the [Routing Scripts guide](https://xtls.github.io/en/development/lua/guide/routing.html) for usage.
