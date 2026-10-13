@@ -8,8 +8,10 @@ import skipFallbackDescription from "./skipFallback.md?raw";
 import finalQueryDescription from "./finalQuery.md?raw";
 import queryStrategyDescription from "./queryStrategy.md?raw";
 import timeoutMsDescription from "./timeoutMs.md?raw";
+import idDescription from "./id.md?raw";
 
 export const dnsObject = z.object({
+  id: z.string().optional().meta({ markdownDescription: idDescription }),
   address: z.string().meta({ markdownDescription: addressDescription }),
   port: z.number().optional().meta({ markdownDescription: portDescription }),
   domains: z.array(z.string()).optional().meta({ markdownDescription: domainsDescription }),
