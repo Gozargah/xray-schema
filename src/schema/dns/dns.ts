@@ -9,6 +9,7 @@ import disableCacheDescritpion from "./disableCache.md?raw";
 import disableFallbackDescription from "./disableFallback.md?raw";
 import disableFallbackIfMatchDescription from "./disableFallbackIfMatch.md?raw";
 import useSystemHostsDescription from "./useSystemHosts.md?raw";
+import scriptDescription from "./script.md?raw";
 import enableParallelQueryDescription from "./enableParallelQuery.md?raw";
 import serveStaleDescription from "./serveStale.md?raw";
 import serveExpiredTTLDescription from "./serveExpiredTTL.md?raw";
@@ -30,6 +31,9 @@ export const dnsSchema = z
       }),
     tag: z.string().optional().meta({
       markdownDescription: tagDescription,
+    }),
+    script: z.string().optional().meta({
+      markdownDescription: scriptDescription,
     }),
     clientIP: z.string().optional().meta({
       markdownDescription: clientIpDescription,

@@ -1,0 +1,1 @@
+Path to a Lua script file; defaults to an empty string. When set, the Lua script takes over the built-in DNS processing flow. See the [DNS Scripts guide](https://xtls.github.io/en/development/lua/guide/dns.html) for usage.

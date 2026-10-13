@@ -23,14 +23,15 @@ import realmPortMappingDescription from "./realmPortMapping.md?raw";
 import realmPortMappingEnabledDescription from "./realmPortMappingEnabled.md?raw";
 import realmPortMappingTimeoutDescription from "./realmPortMappingTimeout.md?raw";
 import realmPortMappingLifetimeDescription from "./realmPortMappingLifetime.md?raw";
-import udphopDescription from "./udphop.md?raw";
+import udphopDescription from "./udpHop.md?raw";
 import udphopModeDescription from "./udphopMode.md?raw";
-import udphopIntervalDescription from "./udphopInterval.md?raw";
+import udphopIntervalDescription from "./udpHopInterval.md?raw";
 import udphopRemoteIPsDescription from "./udphopRemoteIPs.md?raw";
 import udphopRemotePortsDescription from "./udphopRemotePorts.md?raw";
 import domainDescription from "./domain.md?raw";
 import xdnsDomainsDescription from "./xdnsDomains.md?raw";
 import xdnsDomainNameDescription from "./xdnsDomainName.md?raw";
+import xdnsDomainNamesDescription from "./xdnsDomainNames.md?raw";
 import xdnsLenLimitDescription from "./xdnsLenLimit.md?raw";
 import xdnsLabelLimitDescription from "./xdnsLabelLimit.md?raw";
 import xdnsTypesDescription from "./xdnsTypes.md?raw";
@@ -39,6 +40,7 @@ import resolversDescription from "./resolvers.md?raw";
 import xdnsResolverTypeDescription from "./xdnsResolverType.md?raw";
 import xdnsResolverSettingsDescription from "./xdnsResolverSettings.md?raw";
 import xdnsResolverAddrDescription from "./xdnsResolverAddr.md?raw";
+import xdnsResolverAddrsDescription from "./xdnsResolverAddrs.md?raw";
 import passwordDescription from "./password.md?raw";
 import resetDescription from "./reset.md?raw";
 import randDescription from "./rand.md?raw";
@@ -243,8 +245,13 @@ const salamander = z
 
 const xdnsDomainObject = z
   .object({
-    name: z.string().meta({
+    name: z.string().optional().meta({
+      deprecated: true,
+      deprecationMessage: "use `names` instead",
       markdownDescription: xdnsDomainNameDescription,
+    }),
+    names: z.array(z.string()).optional().meta({
+      markdownDescription: xdnsDomainNamesDescription,
     }),
     lenLimit: z.int().min(0).max(255).optional().meta({
       markdownDescription: xdnsLenLimitDescription,
@@ -265,7 +272,9 @@ const xdnsDomainObject = z
 
 const xdnsResolverObject = z
   .object({
-    type: z.string().meta({
+    type: z.string().optional().meta({
+      deprecated: true,
+      deprecationMessage: "use `addrs` instead",
       markdownDescription: xdnsResolverTypeDescription,
     }),
     settings: z
@@ -274,9 +283,15 @@ const xdnsResolverObject = z
           markdownDescription: xdnsResolverAddrDescription,
         }),
       })
+      .optional()
       .meta({
+        deprecated: true,
+        deprecationMessage: "use `addrs` instead",
         markdownDescription: xdnsResolverSettingsDescription,
       }),
+    addrs: z.array(z.string()).optional().meta({
+      markdownDescription: xdnsResolverAddrsDescription,
+    }),
   })
   .meta({
     markdownDescription: resolversDescription,
