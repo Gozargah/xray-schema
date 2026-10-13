@@ -18,13 +18,13 @@ const dnsRule = z
     action: z.enum(["direct", "hijack", "drop", "return"]).meta({
       markdownDescription: dnsRuleActionDescription,
     }),
-    qtype: z.number().or(z.string()).optional().meta({
+    qType: z.number().or(z.string()).optional().meta({
       markdownDescription: dnsRuleQtypeDescription,
     }),
     rCode: z.number().optional().meta({
       markdownDescription: rCodeDescription,
     }),
-    domain: z.array(z.string()).meta({
+    domain: z.array(z.string()).optional().meta({
       markdownDescription: dnsRuleDomainDescription,
     }),
   })
