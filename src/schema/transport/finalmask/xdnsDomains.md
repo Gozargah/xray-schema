@@ -1,1 +1,1 @@
-`domains`: used on the server side. Each entry configures a DNS name used for the tunnel with `name`, `lenLimit` (0-255), `labelLimit` (0-63), `types` (1:A, 5:CNAME, 16:TXT, 28:AAAA), and `edns0` (0, 512-4096).
+`domains`: used on the server side. Each entry configures DNS names used for the tunnel with `names`, `lenLimit` (0-255, default 255), `labelLimit` (0-63, default 63), `types` (1:A, 5:CNAME, 16:TXT, 28:AAAA; client default 16, server default all), and `edns0` (0, 512-4096, default 0).
