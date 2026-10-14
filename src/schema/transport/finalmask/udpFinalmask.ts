@@ -31,6 +31,7 @@ import udphopRemotePortsDescription from "./udphopRemotePorts.md?raw";
 import domainDescription from "./domain.md?raw";
 import xdnsDomainsDescription from "./xdnsDomains.md?raw";
 import xdnsDomainNameDescription from "./xdnsDomainName.md?raw";
+import xdnsDomainNamesDescription from "./xdnsDomainNames.md?raw";
 import xdnsLenLimitDescription from "./xdnsLenLimit.md?raw";
 import xdnsLabelLimitDescription from "./xdnsLabelLimit.md?raw";
 import xdnsTypesDescription from "./xdnsTypes.md?raw";
@@ -39,6 +40,7 @@ import resolversDescription from "./resolvers.md?raw";
 import xdnsResolverTypeDescription from "./xdnsResolverType.md?raw";
 import xdnsResolverSettingsDescription from "./xdnsResolverSettings.md?raw";
 import xdnsResolverAddrDescription from "./xdnsResolverAddr.md?raw";
+import xdnsResolverAddrsDescription from "./xdnsResolverAddrs.md?raw";
 import passwordDescription from "./password.md?raw";
 import resetDescription from "./reset.md?raw";
 import randDescription from "./rand.md?raw";
@@ -243,19 +245,24 @@ const salamander = z
 
 const xdnsDomainObject = z
   .object({
-    name: z.string().meta({
+    name: z.string().optional().meta({
       markdownDescription: xdnsDomainNameDescription,
+      deprecated: true,
+      deprecationMessage: "use `names` instead",
     }),
-    lenLimit: z.int().min(0).max(255).optional().meta({
+    names: z.array(z.string()).optional().meta({
+      markdownDescription: xdnsDomainNamesDescription,
+    }),
+    lenLimit: z.int().min(0).max(255).default(255).optional().meta({
       markdownDescription: xdnsLenLimitDescription,
     }),
-    labelLimit: z.int().min(0).max(63).optional().meta({
+    labelLimit: z.int().min(0).max(63).default(63).optional().meta({
       markdownDescription: xdnsLabelLimitDescription,
     }),
     types: z.array(z.int()).optional().meta({
       markdownDescription: xdnsTypesDescription,
     }),
-    edns0: z.int().min(0).max(4096).optional().meta({
+    edns0: z.int().min(0).max(4096).default(0).optional().meta({
       markdownDescription: xdnsEdns0Description,
     }),
   })
@@ -265,18 +272,28 @@ const xdnsDomainObject = z
 
 const xdnsResolverObject = z
   .object({
-    type: z.string().meta({
+    type: z.string().optional().meta({
       markdownDescription: xdnsResolverTypeDescription,
+      deprecated: true,
+      deprecationMessage: "use `addrs` instead",
     }),
     settings: z
       .object({
-        addr: z.string().meta({
+        addr: z.string().optional().meta({
           markdownDescription: xdnsResolverAddrDescription,
+          deprecated: true,
+          deprecationMessage: "use `addrs` instead",
         }),
       })
+      .optional()
       .meta({
         markdownDescription: xdnsResolverSettingsDescription,
+        deprecated: true,
+        deprecationMessage: "use `addrs` instead",
       }),
+    addrs: z.array(z.string()).optional().meta({
+      markdownDescription: xdnsResolverAddrsDescription,
+    }),
   })
   .meta({
     markdownDescription: resolversDescription,
