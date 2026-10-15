@@ -2,6 +2,7 @@ import z from "zod";
 import routingDescription from "./routing.md?raw";
 import domainStrategyDescription from "./domainStrategy.md?raw";
 import rulesDescription from "./rules.md?raw";
+import scriptDescription from "./script.md?raw";
 import balancersDescription from "./balancers.md?raw";
 import { routingRule } from "./ruleObject/ruleObject.ts";
 import { balancerObject } from "./balancerObject/balancerObject.ts";
@@ -29,6 +30,9 @@ export const routingSchema = z
       }),
     rules: z.array(routingRule).optional().meta({
       markdownDescription: rulesDescription,
+    }),
+    script: z.string().optional().meta({
+      markdownDescription: scriptDescription,
     }),
     balancers: z.array(balancerObject).optional().meta({
       markdownDescription: balancersDescription,

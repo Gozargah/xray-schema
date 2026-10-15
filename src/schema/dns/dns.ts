@@ -1,6 +1,7 @@
 import z from "zod";
 import dnsDescription from "./dns.md?raw";
 import hostsDescription from "./hosts.md?raw";
+import scriptDescription from "./script.md?raw";
 import serversDescription from "./servers.md?raw";
 import clientIpDescription from "./clientIp.md?raw";
 import queryStrategyDescription from "./queryStrategy.md?raw";
@@ -22,6 +23,9 @@ export const dnsSchema = z
       .meta({
         markdownDescription: hostsDescription,
       }),
+    script: z.string().optional().meta({
+      markdownDescription: scriptDescription,
+    }),
     servers: z
       .array(z.union([z.string(), dnsObject]))
       .optional()
