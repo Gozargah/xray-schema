@@ -12,6 +12,7 @@ import useSystemHostsDescription from "./useSystemHosts.md?raw";
 import enableParallelQueryDescription from "./enableParallelQuery.md?raw";
 import serveStaleDescription from "./serveStale.md?raw";
 import serveExpiredTTLDescription from "./serveExpiredTTL.md?raw";
+import scriptDescription from "./script.md?raw";
 import { dnsObject } from "./dnsObject/dnsObject.ts";
 
 export const dnsSchema = z
@@ -28,6 +29,9 @@ export const dnsSchema = z
       .meta({
         markdownDescription: serversDescription,
       }),
+    script: z.string().optional().meta({
+      markdownDescription: scriptDescription,
+    }),
     tag: z.string().optional().meta({
       markdownDescription: tagDescription,
     }),
