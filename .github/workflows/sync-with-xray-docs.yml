@@ -89,7 +89,7 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           OPENCODE_PERMISSION: '{"external_directory":{"*":"allow"}}'
         with:
-          model: ${{ envs.OPENCODE_MODEL }}
+          model: ${{ vars.OPENCODE_MODEL }}
           variant: high
           share: true
           prompt: |
