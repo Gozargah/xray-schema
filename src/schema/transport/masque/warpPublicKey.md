@@ -1,0 +1,1 @@
+The P-256 public key (SubjectPublicKeyInfo) of the MASQUE endpoint certificate, in either PEM or base64. The server certificate is pinned to this public key, so `serverName` can be set to anything; if `pinnedPeerCertSha256` or `verifyPeerCertByName` is set in `tlsSettings`, `publicKey` is ignored and only those are used.

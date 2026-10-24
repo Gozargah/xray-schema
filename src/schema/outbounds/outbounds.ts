@@ -3,6 +3,7 @@ import { blackhole } from "./blackhole/blackhole";
 import { freedom } from "./freedom/freedom";
 import { dns } from "./dns/dns";
 import { hysteria } from "./hysteria/hysteria";
+import { masque } from "./masque/masque";
 import { loopback } from "./loopback/loopback";
 import { shadowsocks } from "./shadowsocks/shadowsocks";
 import { socks } from "./socks/socks";
@@ -24,6 +25,7 @@ export const outbound = z
     vless,
     vmess,
     wireguard,
+    masque,
   ])
   .meta({
     ifThenLogic: true,

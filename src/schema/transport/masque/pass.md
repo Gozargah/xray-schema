@@ -1,0 +1,1 @@
+Username and password for HTTP Basic authentication, corresponding to `email` and `pass` in the MASQUE inbound [UserObject](https://xtls.github.io/en/config/inbounds/masque.html#userobject). `user` cannot contain `:`.
