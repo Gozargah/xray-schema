@@ -4,6 +4,7 @@ import { mkcpStream } from "./mkcp/mkcp.ts";
 import { websocketStream } from "./websocket/websocket.ts";
 import { grpcStream } from "./grpc/grpc.ts";
 import { hysteriaStream } from "./hysteria/hysteria.ts";
+import { masqueStream } from "./masque/masque.ts";
 import { httpUpgradeStream } from "./httpupgrade/httpupgrade.ts";
 import { splithttpStream, xhttpStream } from "./xhttp/xhttp.ts";
 import { reality } from "./security/reality/reality.ts";
@@ -33,6 +34,7 @@ const _streamSettings = z
     ...mergeStreamWithOtherFields(websocketStream),
     ...mergeStreamWithOtherFields(grpcStream),
     ...mergeStreamWithOtherFields(hysteriaStream),
+    ...mergeStreamWithOtherFields(masqueStream),
     ...mergeStreamWithOtherFields(httpUpgradeStream),
     ...mergeStreamWithOtherFields(xhttpStream),
     ...mergeStreamWithOtherFields(splithttpStream),
