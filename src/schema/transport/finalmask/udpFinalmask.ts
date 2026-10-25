@@ -48,6 +48,9 @@ import randRangeDescription from "./randRange.md?raw";
 import typeDescription from "./type.md?raw";
 import packetDescription from "./packet.md?raw";
 import delayDescription from "./delay.md?raw";
+import udpFilterDescription from "./udpFilter.md?raw";
+import filterAllowedSourceIPsDescription from "./filterAllowedSourceIPs.md?raw";
+import filterBlockedSourceIPsDescription from "./filterBlockedSourceIPs.md?raw";
 
 const tcpHeaderCustom = z
   .object({
@@ -412,6 +415,28 @@ const udphop = z
     markdownDescription: udphopDescription,
   });
 
+const udpFilter = z
+  .object({
+    type: z.literal("filter").meta({
+      markdownDescription: udpTypeDescription,
+    }),
+    settings: z
+      .object({
+        allowedSourceIPs: z.array(z.string()).optional().meta({
+          markdownDescription: filterAllowedSourceIPsDescription,
+        }),
+        blockedSourceIPs: z.array(z.string()).optional().meta({
+          markdownDescription: filterBlockedSourceIPsDescription,
+        }),
+      })
+      .meta({
+        markdownDescription: udpFilterDescription,
+      }),
+  })
+  .meta({
+    markdownDescription: udpFilterDescription,
+  });
+
 export const udpFinalmask = z
   .array(
     z.discriminatedUnion("type", [
@@ -425,6 +450,7 @@ export const udpFinalmask = z
       xicmp,
       realm,
       udphop,
+      udpFilter,
     ]),
   )
   .meta({

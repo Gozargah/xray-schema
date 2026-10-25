@@ -22,7 +22,7 @@
 
 ---
 
-- **Predefined domain list**: Starts with `"geosite:"`, the rest is a name, such as `geosite:google` or `geosite:cn`. Refer to Predefined Domain List for names and domain lists.
+- **Predefined domain list**: Starts with `"geosite:"`, the rest is a name, such as `geosite:google` or `geosite:cn`. Refer to [Predefined Domain List](https://xtls.github.io/en/config/routing.html#predefined-domain-list) for names and domain lists.
 
 ---
 
