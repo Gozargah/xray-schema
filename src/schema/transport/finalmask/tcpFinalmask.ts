@@ -10,6 +10,9 @@ import lengthsDescription from "./lengths.md?raw";
 import delaysDescription from "./delays.md?raw";
 import maxSplitDescription from "./maxSplit.md?raw";
 import delayDescription from "./delay.md?raw";
+import filterDescription from "./filter.md?raw";
+import filterAllowedSourceIPsDescription from "./filterAllowedSourceIPs.md?raw";
+import filterBlockedSourceIPsDescription from "./filterBlockedSourceIPs.md?raw";
 
 const tcpHeaderCustom = z
   .object({
@@ -83,8 +86,30 @@ const tcpFragment = z
     markdownDescription: fragmentDescription,
   });
 
+const filter = z
+  .object({
+    type: z.literal("filter").meta({
+      markdownDescription: tcpTypeDescription,
+    }),
+    settings: z
+      .object({
+        allowedSourceIPs: z.array(z.string()).optional().meta({
+          markdownDescription: filterAllowedSourceIPsDescription,
+        }),
+        blockedSourceIPs: z.array(z.string()).optional().meta({
+          markdownDescription: filterBlockedSourceIPsDescription,
+        }),
+      })
+      .meta({
+        markdownDescription: filterDescription,
+      }),
+  })
+  .meta({
+    markdownDescription: filterDescription,
+  });
+
 export const tcpFinalmask = z
-  .array(z.discriminatedUnion("type", [tcpHeaderCustom, tcpFragment, sudoku]))
+  .array(z.discriminatedUnion("type", [tcpHeaderCustom, tcpFragment, sudoku, filter]))
   .meta({
     markdownDescription: tcpFinalmaskDescription,
   });
