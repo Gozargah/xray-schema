@@ -1,6 +1,8 @@
 import z from "zod";
 import { headerCustomSettingsObject } from "./customSettingsObject.ts";
 import { sudoku } from "./sudoku.ts";
+import { createFilterSettings } from "./filter.ts";
+import filterDescription from "./filter.md?raw";
 import tcpFinalmaskDescription from "./tcpFinalmask.md?raw";
 import tcpTypeDescription from "./tcpType.md?raw";
 import headerCustomTcpDescription from "./headerCustomTcp.md?raw";
@@ -83,8 +85,19 @@ const tcpFragment = z
     markdownDescription: fragmentDescription,
   });
 
+const filter = z
+  .object({
+    type: z.literal("filter").meta({
+      markdownDescription: tcpTypeDescription,
+    }),
+    settings: createFilterSettings(filterDescription),
+  })
+  .meta({
+    markdownDescription: filterDescription,
+  });
+
 export const tcpFinalmask = z
-  .array(z.discriminatedUnion("type", [tcpHeaderCustom, tcpFragment, sudoku]))
+  .array(z.discriminatedUnion("type", [tcpHeaderCustom, tcpFragment, sudoku, filter]))
   .meta({
     markdownDescription: tcpFinalmaskDescription,
   });

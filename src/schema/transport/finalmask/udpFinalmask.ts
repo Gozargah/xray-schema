@@ -1,6 +1,8 @@
 import z from "zod";
 import { headerCustomSettingsObject } from "./customSettingsObject.ts";
 import { sudoku } from "./sudoku.ts";
+import { createFilterSettings } from "./filter.ts";
+import udpFilterDescription from "./udpFilter.md?raw";
 import udpFinalmaskDescription from "./udpFinalmask.md?raw";
 import udpTypeDescription from "./udpType.md?raw";
 import headerCustomUdpDescription from "./headerCustomUdp.md?raw";
@@ -412,6 +414,17 @@ const udphop = z
     markdownDescription: udphopDescription,
   });
 
+const filter = z
+  .object({
+    type: z.literal("filter").meta({
+      markdownDescription: udpTypeDescription,
+    }),
+    settings: createFilterSettings(udpFilterDescription),
+  })
+  .meta({
+    markdownDescription: udpFilterDescription,
+  });
+
 export const udpFinalmask = z
   .array(
     z.discriminatedUnion("type", [
@@ -425,6 +438,7 @@ export const udpFinalmask = z
       xicmp,
       realm,
       udphop,
+      filter,
     ]),
   )
   .meta({

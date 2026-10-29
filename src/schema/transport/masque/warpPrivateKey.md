@@ -1,0 +1,1 @@
+The device's P-256 (secp256r1) private key, in either PEM or base64; both PKCS#8 and SEC 1 formats are supported. From it, the core generates a self-signed client certificate on the fly for mTLS. Cloudflare only checks whether its public key is the one registered for this device at registration time, and no password of any kind is transmitted.
