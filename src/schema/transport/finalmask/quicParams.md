@@ -1,4 +1,4 @@
-Used for QUIC parameter tuning in XHTTP H3 and Hysteria.
+Used for QUIC parameter tuning in XHTTP H3, Hysteria, and MASQUE H3.
 
 Fields:
 
