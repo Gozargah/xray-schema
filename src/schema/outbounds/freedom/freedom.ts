@@ -107,8 +107,14 @@ export const freedom = outboundSchemaBase
         userLevel: z.int().default(0).optional().meta({
           markdownDescription: freedomUserLevelDescription,
         }),
-        fragment: fragment.optional(),
+        fragment: fragment.optional().meta({
+          deprecated: true,
+          deprecationMessage: "The `fragment` field is deprecated. Use `finalmask.tcp` instead.",
+          markdownDescription: freedomFragmentDescription,
+        }),
         noises: z.array(noise).optional().meta({
+          deprecated: true,
+          deprecationMessage: "The `noises` field is deprecated. Use `finalmask.udp` instead.",
           markdownDescription: freedomNoisesDescription,
         }),
         proxyProtocol: z.literal(0).or(z.literal(1)).or(z.literal(2)).default(0).optional().meta({
