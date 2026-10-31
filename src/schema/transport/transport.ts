@@ -5,6 +5,7 @@ import { websocketStream } from "./websocket/websocket.ts";
 import { grpcStream } from "./grpc/grpc.ts";
 import { hysteriaStream } from "./hysteria/hysteria.ts";
 import { httpUpgradeStream } from "./httpupgrade/httpupgrade.ts";
+import { masqueStream } from "./masque/masque.ts";
 import { splithttpStream, xhttpStream } from "./xhttp/xhttp.ts";
 import { reality } from "./security/reality/reality.ts";
 import { tls } from "./security/tls/tls.ts";
@@ -36,6 +37,7 @@ const _streamSettings = z
     ...mergeStreamWithOtherFields(httpUpgradeStream),
     ...mergeStreamWithOtherFields(xhttpStream),
     ...mergeStreamWithOtherFields(splithttpStream),
+    z.object({ ...masqueStream.shape, ...tls.shape }),
   ])
   .meta({
     ifThenLogic: true,
