@@ -1,8 +1,8 @@
-Used for QUIC parameter tuning in XHTTP H3 and Hysteria.
+Used for QUIC parameter tuning in XHTTP H3, Hysteria, and MASQUE H3.
 
 Fields:
 
-- `congestion`: congestion-control algorithm. Supported values are `reno`, `bbr`, `brutal`, and `force-brutal`.
+- `congestion`: congestion-control algorithm. Supported values are `reno`, `bbr`, `brutal`, and `force-brutal`. Hysteria defaults to `brutal`, while XHTTP H3 and MASQUE default to `bbr`; for MASQUE, `brutal` also runs as `bbr`.
 - `debug`: enable logging for the `bbr` and `brutal` congestion-control implementations.
 - `brutalUp`: upload rate limit. The default is `0`.
 - `brutalDown`: download rate limit. The default is `0`.
