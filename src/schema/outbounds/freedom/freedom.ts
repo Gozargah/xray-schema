@@ -107,9 +107,13 @@ export const freedom = outboundSchemaBase
         userLevel: z.int().default(0).optional().meta({
           markdownDescription: freedomUserLevelDescription,
         }),
-        fragment: fragment.optional(),
+        fragment: fragment.optional().meta({
+          markdownDescription: freedomFragmentDescription,
+          deprecated: true,
+        }),
         noises: z.array(noise).optional().meta({
           markdownDescription: freedomNoisesDescription,
+          deprecated: true,
         }),
         proxyProtocol: z.literal(0).or(z.literal(1)).or(z.literal(2)).default(0).optional().meta({
           markdownDescription: freedomProxyProtocolDescription,
