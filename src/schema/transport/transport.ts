@@ -6,6 +6,7 @@ import { grpcStream } from "./grpc/grpc.ts";
 import { hysteriaStream } from "./hysteria/hysteria.ts";
 import { httpUpgradeStream } from "./httpupgrade/httpupgrade.ts";
 import { splithttpStream, xhttpStream } from "./xhttp/xhttp.ts";
+import { masqueStream } from "./masque/masque.ts";
 import { reality } from "./security/reality/reality.ts";
 import { tls } from "./security/tls/tls.ts";
 import securityDescription from "./securityField.md?raw";
@@ -36,6 +37,7 @@ const _streamSettings = z
     ...mergeStreamWithOtherFields(httpUpgradeStream),
     ...mergeStreamWithOtherFields(xhttpStream),
     ...mergeStreamWithOtherFields(splithttpStream),
+    ...mergeStreamWithOtherFields(masqueStream),
   ])
   .meta({
     ifThenLogic: true,
