@@ -1,6 +1,7 @@
 import z from "zod";
 import { headerCustomSettingsObject } from "./customSettingsObject.ts";
 import { sudoku } from "./sudoku.ts";
+import { filterSettings } from "./filterSettings.ts";
 import udpFinalmaskDescription from "./udpFinalmask.md?raw";
 import udpTypeDescription from "./udpType.md?raw";
 import headerCustomUdpDescription from "./headerCustomUdp.md?raw";
@@ -48,6 +49,7 @@ import randRangeDescription from "./randRange.md?raw";
 import typeDescription from "./type.md?raw";
 import packetDescription from "./packet.md?raw";
 import delayDescription from "./delay.md?raw";
+import filterUdpDescription from "./filterUdp.md?raw";
 
 const tcpHeaderCustom = z
   .object({
@@ -412,6 +414,19 @@ const udphop = z
     markdownDescription: udphopDescription,
   });
 
+const udpFilter = z
+  .object({
+    type: z.literal("filter").meta({
+      markdownDescription: udpTypeDescription,
+    }),
+    settings: filterSettings.meta({
+      markdownDescription: filterUdpDescription,
+    }),
+  })
+  .meta({
+    markdownDescription: filterUdpDescription,
+  });
+
 export const udpFinalmask = z
   .array(
     z.discriminatedUnion("type", [
@@ -419,6 +434,7 @@ export const udpFinalmask = z
       headerDns,
       mkcpLegacy,
       noise,
+      udpFilter,
       salamander,
       sudoku,
       xdns,

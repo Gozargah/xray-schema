@@ -6,4 +6,5 @@ Supported TCP layer types:
 
 - `header-custom`
 - `fragment`
+- `filter`
 - `sudoku`

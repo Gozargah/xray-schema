@@ -14,6 +14,7 @@ Supported UDP layer types:
 - `mkcp-original`
 - `mkcp-aes128gcm`
 - `noise`
+- `filter`
 - `salamander`
 - `sudoku`
 - `xdns`
