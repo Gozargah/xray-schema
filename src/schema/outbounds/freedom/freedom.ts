@@ -37,6 +37,7 @@ const fragment = z
       }),
   })
   .meta({
+    deprecated: true,
     markdownDescription: freedomFragmentDescription,
   });
 
@@ -109,6 +110,7 @@ export const freedom = outboundSchemaBase
         }),
         fragment: fragment.optional(),
         noises: z.array(noise).optional().meta({
+          deprecated: true,
           markdownDescription: freedomNoisesDescription,
         }),
         proxyProtocol: z.literal(0).or(z.literal(1)).or(z.literal(2)).default(0).optional().meta({
