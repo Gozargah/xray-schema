@@ -21,6 +21,7 @@ import minVersionDescription from "./minVersion.md?raw";
 import maxVersionDescription from "./maxVersion.md?raw";
 import cipherSuitesDescription from "./cipherSuites.md?raw";
 import certificatesDescription from "./certificates.md?raw";
+import useSystemCADescription from "./useSystemCA.md?raw";
 import disableSystemRootDescription from "./disableSystemRoot.md?raw";
 import enableSessionResumptionDescription from "./enableSessionResumption.md?raw";
 import fingerprintDescription from "./fingerprint.md?raw";
@@ -100,6 +101,9 @@ export const tls = z
         }),
         certificates: z.array(certificateObject).optional().meta({
           markdownDescription: certificatesDescription,
+        }),
+        useSystemCA: z.boolean().default(false).optional().meta({
+          markdownDescription: useSystemCADescription,
         }),
         disableSystemRoot: z.boolean().default(false).optional().meta({
           markdownDescription: disableSystemRootDescription,
