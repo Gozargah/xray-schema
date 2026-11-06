@@ -20,3 +20,4 @@ Supported UDP layer types:
 - `xicmp`
 - `realm`
 - `udphop`
+- `filter`

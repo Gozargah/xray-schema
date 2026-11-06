@@ -4,6 +4,7 @@ import { freedom } from "./freedom/freedom";
 import { dns } from "./dns/dns";
 import { hysteria } from "./hysteria/hysteria";
 import { loopback } from "./loopback/loopback";
+import { masque } from "./masque/masque";
 import { shadowsocks } from "./shadowsocks/shadowsocks";
 import { socks } from "./socks/socks";
 import { trojan } from "./trojan/trojan";
@@ -18,6 +19,7 @@ export const outbound = z
     dns,
     hysteria,
     loopback,
+    masque,
     shadowsocks,
     socks,
     trojan,

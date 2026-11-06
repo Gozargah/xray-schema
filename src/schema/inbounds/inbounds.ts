@@ -10,6 +10,7 @@ import { wireguardInboundSchema } from "./protocols/wireguard/wireguard.ts";
 import { trojanInboundSchema } from "./protocols/trojan/trojan.ts";
 import { tunInboundSchema } from "./protocols/tun/tun.ts";
 import { hysteriaInboundSchema } from "./protocols/hysteria/hysteria.ts";
+import { masqueInboundSchema } from "./protocols/masque/masque.ts";
 
 export const inbound = z
   .discriminatedUnion("protocol", [
@@ -23,6 +24,7 @@ export const inbound = z
     trojanInboundSchema,
     tunInboundSchema,
     hysteriaInboundSchema,
+    masqueInboundSchema,
   ])
   .meta({
     ifThenLogic: true,
