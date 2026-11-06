@@ -14,7 +14,7 @@ When a new client request arrives, suppose the specified `serverName` is `"xray.
 
 ### TIP
 
-You can generate a self-signed CA certificate with `xray tls cert`.
+You can generate a self-signed CA certificate with `xray tls cert -ca`.
 
 ### TIP
 
