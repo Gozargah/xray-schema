@@ -23,13 +23,18 @@ export const logSchema = z
       .meta({
         markdownDescription: logError,
       }),
-    loglevel: z
+    logLevel: z
       .enum(["debug", "info", "warning", "error", "none"])
       .default("warning")
       .optional()
       .meta({
         markdownDescription: logLogLevel,
       }),
+    loglevel: z.enum(["debug", "info", "warning", "error", "none"]).optional().meta({
+      deprecated: true,
+      deprecationMessage: "use `logLevel` instead",
+      markdownDescription: logLogLevel,
+    }),
     dnsLog: z
       .boolean()
       .optional()
