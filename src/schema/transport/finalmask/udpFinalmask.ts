@@ -1,6 +1,7 @@
 import z from "zod";
 import { headerCustomSettingsObject } from "./customSettingsObject.ts";
 import { sudoku } from "./sudoku.ts";
+import { udpFilter } from "./filter.ts";
 import udpFinalmaskDescription from "./udpFinalmask.md?raw";
 import udpTypeDescription from "./udpType.md?raw";
 import headerCustomUdpDescription from "./headerCustomUdp.md?raw";
@@ -425,6 +426,7 @@ export const udpFinalmask = z
       xicmp,
       realm,
       udphop,
+      udpFilter,
     ]),
   )
   .meta({
