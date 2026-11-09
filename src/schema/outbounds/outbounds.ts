@@ -10,6 +10,7 @@ import { trojan } from "./trojan/trojan";
 import { vless } from "./vless/vless";
 import { vmess } from "./vmess/vmess";
 import { wireguard } from "./wireguard/wireguard";
+import { masque } from "./masque/masque";
 
 export const outbound = z
   .discriminatedUnion("protocol", [
@@ -24,6 +25,7 @@ export const outbound = z
     vless,
     vmess,
     wireguard,
+    masque,
   ])
   .meta({
     ifThenLogic: true,

@@ -28,6 +28,9 @@ import udphopModeDescription from "./udphopMode.md?raw";
 import udphopIntervalDescription from "./udphopInterval.md?raw";
 import udphopRemoteIPsDescription from "./udphopRemoteIPs.md?raw";
 import udphopRemotePortsDescription from "./udphopRemotePorts.md?raw";
+import udpFilterDescription from "./udpFilter.md?raw";
+import allowedSourceIPsDescription from "./allowedSourceIPs.md?raw";
+import blockedSourceIPsDescription from "./blockedSourceIPs.md?raw";
 import domainDescription from "./domain.md?raw";
 import xdnsDomainsDescription from "./xdnsDomains.md?raw";
 import xdnsDomainNameDescription from "./xdnsDomainName.md?raw";
@@ -412,6 +415,28 @@ const udphop = z
     markdownDescription: udphopDescription,
   });
 
+const udpFilter = z
+  .object({
+    type: z.literal("filter").meta({
+      markdownDescription: udpTypeDescription,
+    }),
+    settings: z
+      .object({
+        allowedSourceIPs: z.array(z.string()).optional().meta({
+          markdownDescription: allowedSourceIPsDescription,
+        }),
+        blockedSourceIPs: z.array(z.string()).optional().meta({
+          markdownDescription: blockedSourceIPsDescription,
+        }),
+      })
+      .meta({
+        markdownDescription: udpFilterDescription,
+      }),
+  })
+  .meta({
+    markdownDescription: udpFilterDescription,
+  });
+
 export const udpFinalmask = z
   .array(
     z.discriminatedUnion("type", [
@@ -425,6 +450,7 @@ export const udpFinalmask = z
       xicmp,
       realm,
       udphop,
+      udpFilter,
     ]),
   )
   .meta({

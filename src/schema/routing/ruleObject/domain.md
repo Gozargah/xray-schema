@@ -22,11 +22,13 @@
 
 ---
 
-- **Predefined domain list**: Starts with `"geosite:"`, the rest is a name, such as `geosite:google` or `geosite:cn`. Refer to Predefined Domain List for names and domain lists.
+- **Predefined domain list**: This list is bundled with every Xray release package as `geosite.dat`. Usage is like `"geosite:google"` or `"geosite:cn"`. Must start with `geosite:` (lowercase), followed by a category name.
+  - The [Standard edition](https://xtls.github.io/en/tools/geofileviewer.html?file=geosite.dat) is bundled by default. Switch to the [Expanded edition](https://xtls.github.io/en/tools/geofileviewer.html?file=geosite-expand.dat) for broader domain coverage.
+  - Use `@attribute` to filter domains in a category. For example, `geosite:google@cn` matches domains in the `google` category with the `cn` attribute.
 
 ---
 
-- **Load domains from file**: In the form of `"ext:file:tag"`. Must start with `ext:` (lowercase), followed by filename and tag. The file is stored in the [Resource Directory](https://xtls.github.io/en/config/features/env.html#resource-file-path). The file format is the same as `geosite.dat`, and the tag must exist in the file.
+- **Load domains from file**: In the form of `"ext:file:tag"`. Must start with `ext:` (lowercase), followed by filename and tag. The file is stored in the [Resource Directory](https://xtls.github.io/en/config/env.html#resource-file-path). The file format is the same as `geosite.dat`, and the tag must exist in the file.
 
 ---
 

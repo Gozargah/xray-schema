@@ -4,7 +4,7 @@ It covers the part below the proxy protocol itself, including transport methods,
 
 These three categories belong to different layers and can usually be combined:
 
-- Transport methods specify how the data stream is carried, such as RAW, WebSocket, gRPC, Hysteria, and others.
+- Transport methods specify how the data stream is carried, such as RAW, WebSocket, gRPC, Hysteria, MASQUE, and others.
 - Transport security specifies the protection mechanism used during transport, such as TLS or REALITY.
 - Additional configuration supplements low-level network behavior and final traffic obfuscation.
 
