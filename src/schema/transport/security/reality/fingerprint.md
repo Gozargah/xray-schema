@@ -1,7 +1,3 @@
-Required outbound client-side fingerprint.
+Required. Same as [TLSObject](https://xtls.github.io/en/config/transports/tls.html#tlsobject).
 
-Same as `TLSObject`. Note that `unsafe`, which disables uTLS for TLS, is not supported here because REALITY relies on that library to manipulate lower-level TLS parameters.
-
-### TIP
-
-When enabled, some TLS options that affect TLS fingerprints are overridden by the underlying uTLS behavior.
+The fingerprint must support MLKEM; availability is guaranteed only for `chrome`, `firefox`, and `safari` fingerprints.
