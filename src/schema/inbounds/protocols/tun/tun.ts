@@ -10,6 +10,8 @@ import tunDnsDescription from "./tunDns.md?raw";
 import tunUserLevelDescription from "./tunUserLevel.md?raw";
 import tunAutoSystemRoutingTableDescription from "./tunAutoSystemRoutingTable.md?raw";
 import tunAutoOutboundsInterfaceDescription from "./tunAutoOutboundsInterface.md?raw";
+import tunAutoSystemDnsToGatewayDescription from "./tunAutoSystemDnsToGateway.md?raw";
+import tunAutoSystemWfpBlockLeakDescription from "./tunAutoSystemWfpBlockLeak.md?raw";
 import tunUsageTipsDescription from "./tunUsageTips.md?raw";
 
 export const tunInboundSchema = generalInboundSchema
@@ -47,6 +49,12 @@ export const tunInboundSchema = generalInboundSchema
           .meta({
             markdownDescription: tunAutoOutboundsInterfaceDescription,
           }),
+        autoSystemDnsToGateway: z.boolean().default(false).optional().meta({
+          markdownDescription: tunAutoSystemDnsToGatewayDescription,
+        }),
+        autoSystemWfpBlockLeak: z.array(z.string()).default([]).optional().meta({
+          markdownDescription: tunAutoSystemWfpBlockLeakDescription,
+        }),
       })
       .meta({
         markdownDescription: tunSettingsDescription,
