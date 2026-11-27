@@ -1,1 +1,1 @@
-`resolvers`: used on the client side. Each entry configures a DNS resolver with `addrs` ([protocol://]host[:port], no defaults).
+`resolvers`: used on the client side. Each entry configures a DNS resolver with `addrs` ([protocol://]host[:port], no defaults), `worker` (tcp, https; default: 32), `tlsConfig` (required for https), and `quicConfig` (https with `alpn`: `["h3"]`).

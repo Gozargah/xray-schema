@@ -1,0 +1,1 @@
+Replaces base32 (`a`-`z`, `2`-`7`) in query names with 32 characters from `a`-`z` and `0`-`9`, each once, in any letter case; it has to be the same on the client and the server. Where names that look like base32 are blocked, use one with all of `0`, `1`, `8` and `9`, which base32 lacks, so that few names still look like base32. Default is base32.

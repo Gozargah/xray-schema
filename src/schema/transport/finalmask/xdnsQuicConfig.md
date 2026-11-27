@@ -1,0 +1,1 @@
+A [quicParams](https://xtls.github.io/en/config/transports/finalmask.html#quicparams) used for DoH over HTTP/3, when `alpn` in `tlsConfig` is set to `["h3"]` alone. It mimics Chrome by default; otherwise DoH uses HTTP/2 over TLS.

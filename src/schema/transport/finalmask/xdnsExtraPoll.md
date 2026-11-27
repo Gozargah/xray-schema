@@ -1,0 +1,1 @@
+The server can only send data in answers, so the client sends this many extra empty queries after each one, which can speed up the download at the cost of more queries. The range is 0-3. Defaults to 0.
