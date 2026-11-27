@@ -4,6 +4,7 @@ import tunDescription from "./tun.md?raw";
 import tunSettingsDescription from "./tunSettings.md?raw";
 import tunNameDescription from "./tunName.md?raw";
 import tunDescDescription from "./tunDesc.md?raw";
+import tunGuidDescription from "./tunGuid.md?raw";
 import tunMtuDescription from "./tunMtu.md?raw";
 import tunGatewayDescription from "./tunGateway.md?raw";
 import tunDnsDescription from "./tunDns.md?raw";
@@ -24,6 +25,9 @@ export const tunInboundSchema = generalInboundSchema
         }),
         desc: z.string().default("Wintun").optional().meta({
           markdownDescription: tunDescDescription,
+        }),
+        guid: z.string().optional().meta({
+          markdownDescription: tunGuidDescription,
         }),
         mtu: z.number().int().default(1500).optional().meta({
           markdownDescription: tunMtuDescription,

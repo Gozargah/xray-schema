@@ -1,6 +1,7 @@
 import z from "zod";
 import { headerCustomSettingsObject } from "./customSettingsObject.ts";
 import { sudoku } from "./sudoku.ts";
+import { quicParams } from "./quicParams.ts";
 import udpFinalmaskDescription from "./udpFinalmask.md?raw";
 import udpTypeDescription from "./udpType.md?raw";
 import headerCustomUdpDescription from "./headerCustomUdp.md?raw";
@@ -39,8 +40,13 @@ import xdnsLenLimitDescription from "./xdnsLenLimit.md?raw";
 import xdnsLabelLimitDescription from "./xdnsLabelLimit.md?raw";
 import xdnsTypesDescription from "./xdnsTypes.md?raw";
 import xdnsEdns0Description from "./xdnsEdns0.md?raw";
+import xdnsAlphabetDescription from "./xdnsAlphabet.md?raw";
+import xdnsExtraPollDescription from "./xdnsExtraPoll.md?raw";
 import resolversDescription from "./resolvers.md?raw";
 import xdnsAddrsDescription from "./xdnsAddrs.md?raw";
+import xdnsWorkerDescription from "./xdnsWorker.md?raw";
+import xdnsTlsConfigDescription from "./xdnsTlsConfig.md?raw";
+import xdnsQuicConfigDescription from "./xdnsQuicConfig.md?raw";
 import xdnsResolverTypeDescription from "./xdnsResolverType.md?raw";
 import xdnsResolverSettingsDescription from "./xdnsResolverSettings.md?raw";
 import xdnsResolverAddrDescription from "./xdnsResolverAddr.md?raw";
@@ -267,6 +273,9 @@ const xdnsDomainObject = z
     edns0: z.int().min(0).max(4096).default(0).optional().meta({
       markdownDescription: xdnsEdns0Description,
     }),
+    alphabet: z.string().optional().meta({
+      markdownDescription: xdnsAlphabetDescription,
+    }),
   })
   .meta({
     markdownDescription: xdnsDomainsDescription,
@@ -276,6 +285,15 @@ const xdnsResolverObject = z
   .object({
     addrs: z.array(z.string()).optional().meta({
       markdownDescription: xdnsAddrsDescription,
+    }),
+    worker: z.int().default(32).optional().meta({
+      markdownDescription: xdnsWorkerDescription,
+    }),
+    tlsConfig: z.object({}).loose().optional().meta({
+      markdownDescription: xdnsTlsConfigDescription,
+    }),
+    quicConfig: quicParams.optional().meta({
+      markdownDescription: xdnsQuicConfigDescription,
     }),
     type: z.string().optional().meta({
       deprecated: true,
@@ -311,6 +329,10 @@ const xdns = z
         // client only
         resolvers: z.array(z.string().or(xdnsResolverObject)).min(1).optional().meta({
           markdownDescription: resolversDescription,
+        }),
+        // client only
+        extraPoll: z.int().min(0).max(3).default(0).optional().meta({
+          markdownDescription: xdnsExtraPollDescription,
         }),
       })
       .meta({
